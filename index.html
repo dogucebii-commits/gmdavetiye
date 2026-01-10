@@ -9,6 +9,313 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gülçin & Mustafa • Düğün Davetiyesi</title>
+
+  <!-- Ücretsiz fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4efe3;         /* krem zemin */
+      --olive:#7b8068;      /* zeytin (countdown arka planı) */
+      --card:#fbfaf7;       /* kart */
+      --text:#2f3a2e;       /* koyu yazı */
+      --muted:#7b7b72;      /* gri yazı */
+      --line:rgba(47,58,46,.14);
+      --radius:18px;
+      --shadow: 0 18px 50px rgba(0,0,0,.08);
+      --max: 880px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .center{text-align:center}
+    .script{font-family:"Great Vibes", cursive;}
+    .serif{font-family:"Playfair Display", serif;}
+
+    /* HERO */
+    .hero{
+      min-height: 82vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      padding: 64px 0 36px;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.18) 55%, rgba(244,239,227,1)),
+        url("https://images.unsplash.com/photo-1523438097201-aadbbfe428b8?auto=format&fit=crop&w=1800&q=80");
+      background-size:cover;
+      background-position:center;
+    }
+    .hero-inner{width:100%}
+    .hero small{
+      display:block;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.85);
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .hero h1{
+      margin: 0;
+      color:#fff;
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 400;
+    }
+    .hero h1 .amp{
+      font-family:"Playfair Display", serif;
+      font-size:.55em;
+      opacity:.9;
+      display:inline-block;
+      margin:0 8px
+    }
+    .hero .date{
+      margin-top: 16px;
+      color: rgba(255,255,255,.9);
+      font-size: 18px;
+      letter-spacing:.08em;
+    }
+    .divider{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin: 22px 0 18px;
+      color: rgba(255,255,255,.9);
+    }
+    .divider:before,.divider:after{
+      content:"";
+      height:1px;
+      width:84px;
+      background: rgba(255,255,255,.55);
+    }
+    .hero .cta{
+      margin-top: 28px;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.92);
+      font-size: 12px;
+    }
+    .jump{
+      margin-top: 18px;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      backdrop-filter: blur(6px);
+    }
+    .jump:hover{background: rgba(255,255,255,.18)}
+
+    /* SECTION HEADINGS */
+    section{padding: 44px 0}
+    .section-title{
+      font-size: 44px;
+      margin: 0 0 10px;
+      font-weight: 400;
+      color: #3b4635;
+    }
+    .section-sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    /* COUNTDOWN */
+    .countdown-wrap{
+      background: var(--olive);
+      padding: 46px 0;
+      margin-top: -14px;
+    }
+    .countdown-wrap .section-title,
+    .countdown-wrap .section-sub{color: rgba(255,255,255,.92)}
+    .count-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:16px;
+      margin-top: 22px;
+    }
+    .time-card{
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 16px;
+      padding: 22px 16px;
+      text-align:center;
+      background: rgba(255,255,255,.06);
+    }
+    .time-card b{
+      display:block;
+      font-family:"Playfair Display", serif;
+      font-size: 54px;
+      color:#fff;
+      font-weight:500;
+      line-height:1;
+    }
+    .time-card span{
+      display:block;
+      margin-top: 10px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.85);
+      font-size: 12px;
+    }
+
+    /* CARD */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px 18px;
+    }
+
+    /* DAY DETAILS */
+    .big-icon{
+      width: 76px;
+      height: 76px;
+      border-radius: 999px;
+      background: rgba(123,128,104,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin: 6px auto 16px;
+      border: 1px solid rgba(123,128,104,.22);
+    }
+    .big-icon svg{opacity:.85}
+    .place{font-size: 38px; margin: 6px 0 8px; font-weight:500}
+    .meta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      color: var(--muted);
+      margin-bottom: 14px;
+      flex-wrap:wrap;
+    }
+    .meta .dot{opacity:.5}
+    .photo{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      margin: 14px 0;
+    }
+    .photo img{display:block; width:100%; height:auto}
+    .map{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      height: 220px;
+    }
+    .map iframe{width:100%; height:100%; border:0}
+
+    /* TIMELINE */
+    .timeline{
+      margin-top: 18px;
+      position:relative;
+      padding-left: 52px;
+      max-width: 720px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left: 28px;
+      top: 8px;
+      bottom: 8px;
+      width:2px;
+      background: rgba(123,128,104,.25);
+      border-radius:999px;
+    }
+    .t-item{
+      display:grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items:flex-start;
+      padding: 14px 0;
+    }
+    .t-ico{
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(123,128,104,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      z-index:2;
+      font-size: 18px;
+    }
+    .t-time{
+      display:inline-block;
+      background: #3b4635;
+      color:#fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      letter-spacing:.05em;
+      margin-right: 10px;
+      min-width: 62px;
+      text-align:center;
+    }
+    .t-title{
+      font-family:"Playfair Display", serif;
+      font-size: 26px;
+      margin: 0 0 4px;
+    }
+    .t-desc{margin:0; color: var(--muted); line-height:1.55}
+
+    /* ACCOMMODATION */
+    .list{display:grid; gap:16px; margin-top: 18px; max-width:720px; margin-left:auto; margin-right:auto;}
+    .acc-title{font-family:"Playfair Display", serif; font-size: 30px; margin:0 0 6px}
+    .acc-sub{margin:0 0 16px; color: var(--muted)}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(47,58,46,.25);
+      background: transparent;
+      cursor:pointer;
+      font-weight: 600;
+      text-decoration:none;
+    }
+    .btn:hover{background: rgba(123,128,104,.10)}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0 16px;
+    }
+
+    /* RSVP */
+    form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; marg
 
   <style>
     :root{
