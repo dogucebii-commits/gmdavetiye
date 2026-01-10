@@ -529,18 +529,115 @@
   </section>
 
   <!-- COUNTDOWNS -->
-  <section class="countdown-wrap" id="countdown-nisan" aria-label="Nişan Geri Sayım">
-    <div class="container center">
-      <h2 class="section-title script">Nişan Geri Sayım</h2>
-      <p class="section-sub serif">25 Mart 2026 • 19:00</p>
-      <div class="count-grid">
-        <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
-        <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
-        <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
-        <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
+  <!-- ✅ SIRA: Nişan Sayacı -> Nişan Konumu -> Düğün Sayacı -> Düğün Konumu -->
+
+<!-- NIŞAN SAYAÇ -->
+<section class="countdown-wrap" id="countdown-nisan" aria-label="Nişan Geri Sayım">
+  <div class="container center">
+    <h2 class="section-title script">Nişan Geri Sayım</h2>
+    <p class="section-sub serif">25 Mart 2026 • 19:00</p>
+    <div class="count-grid">
+      <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
+      <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
+      <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
+      <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NIŞAN KONUM -->
+<section id="nisan-konum">
+  <div class="container center">
+    <h2 class="section-title script">Nişan</h2>
+    <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
+
+    <div class="card" style="margin-top:22px;">
+      <div class="big-icon" aria-hidden="true">💍</div>
+
+      <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
+        KONUM
+      </div>
+
+      <div class="place serif">Sakarya / Hendek</div>
+
+      <div class="meta">
+        <span>🗓️</span>
+        <span class="serif">25 Mart 2026</span>
+        <span class="dot">•</span>
+        <span>🕒</span>
+        <span class="serif">19:00 – 23:00</span>
+      </div>
+
+      <div class="map" aria-label="Nişan haritası">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
+      </div>
+
+      <div style="margin-top:14px;">
+        <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">
+          Google Haritalar'da aç ↗
+        </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- DÜĞÜN SAYAÇ -->
+<section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
+  <div class="container center">
+    <h2 class="section-title script">Düğün Geri Sayım</h2>
+    <p class="section-sub serif">24 Haziran 2026 • 20:00</p>
+    <div class="count-grid">
+      <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
+      <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
+      <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
+      <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DÜĞÜN KONUM -->
+<section id="dugun-konum">
+  <div class="container center">
+    <h2 class="section-title script">Günün detayları</h2>
+    <p class="section-sub serif">Bilmeniz gereken her şey</p>
+
+    <div class="card" style="margin-top:22px;">
+      <div class="big-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
+          <circle cx="12" cy="10" r="2.5"></circle>
+        </svg>
+      </div>
+
+      <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
+        KONUM
+      </div>
+
+      <div class="place serif">Trabzon Yomra Flowers Düğün Salonu</div>
+
+      <div class="meta">
+        <span>🕒</span>
+        <span class="serif">20:00 – 23:00</span>
+        <span class="dot">•</span>
+        <span class="serif">Trabzon / Yomra</span>
+      </div>
+
+      <div class="photo">
+        <img alt="Mekan görseli" src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=1600&q=80">
+      </div>
+
+      <div class="map" aria-label="Harita">
+        <iframe
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
     <div class="container center">
