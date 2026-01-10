@@ -1,809 +1,197 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gülçin & Mustafa • Düğün Davetiyesi</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gülçin & Mustafa • Düğün Davetiyesi</title>
 
-  <!-- Ücretsiz fontlar -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#f4efe3;         /* krem zemin */
-      --olive:#7b8068;      /* zeytin (countdown arka planı) */
-      --card:#fbfaf7;       /* kart */
-      --text:#2f3a2e;       /* koyu yazı */
-      --muted:#7b7b72;      /* gri yazı */
-      --line:rgba(47,58,46,.14);
-      --radius:18px;
-      --shadow: 0 18px 50px rgba(0,0,0,.08);
-      --max: 880px;
-    }
+<style>
+:root{
+  --bg:#f4efe3;
+  --olive:#7b8068;
+  --card:#fbfaf7;
+  --text:#2f3a2e;
+  --muted:#7b7b72;
+  --line:rgba(47,58,46,.14);
+  --radius:18px;
+  --shadow:0 18px 50px rgba(0,0,0,.08);
+  --max:880px;
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    a{color:inherit}
-    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
-    .center{text-align:center}
-    .script{font-family:"Great Vibes", cursive;}
-    .serif{font-family:"Playfair Display", serif;}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(900px 500px at 80% 10%, rgba(255,255,255,.35), transparent 55%),
+    linear-gradient(180deg,#f6f1e6 0%,#f4efe3 40%,#f4efe3 100%);
+}
 
-    /* HERO */
-    .hero{
-      min-height: 82vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      position:relative;
-      padding: 64px 0 36px;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.18) 55%, rgba(244,239,227,1)),
-        url("https://images.unsplash.com/photo-1523438097201-aadbbfe428b8?auto=format&fit=crop&w=1800&q=80");
-      background-size:cover;
-      background-position:center;
-    }
-    .hero-inner{width:100%}
-    .hero small{
-      display:block;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.85);
-      margin-bottom: 10px;
-      font-size: 12px;
-    }
-    .hero h1{
-      margin: 0;
-      color:#fff;
-      font-size: 64px;
-      line-height: 1;
-      font-weight: 400;
-    }
-    .hero h1 .amp{
-      font-family:"Playfair Display", serif;
-      font-size:.55em;
-      opacity:.9;
-      display:inline-block;
-      margin:0 8px
-    }
-    .hero .date{
-      margin-top: 16px;
-      color: rgba(255,255,255,.9);
-      font-size: 18px;
-      letter-spacing:.08em;
-    }
-    .divider{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin: 22px 0 18px;
-      color: rgba(255,255,255,.9);
-    }
-    .divider:before,.divider:after{
-      content:"";
-      height:1px;
-      width:84px;
-      background: rgba(255,255,255,.55);
-    }
-    .hero .cta{
-      margin-top: 28px;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.92);
-      font-size: 12px;
-    }
-    .jump{
-      margin-top: 18px;
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.22);
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      backdrop-filter: blur(6px);
-    }
-    .jump:hover{background: rgba(255,255,255,.18)}
+a{color:inherit}
+.container{max-width:var(--max);margin:0 auto;padding:0 18px}
+.center{text-align:center}
+.script{font-family:"Great Vibes",cursive}
+.serif{font-family:"Playfair Display",serif}
 
-    /* SECTION HEADINGS */
-    section{padding: 44px 0}
-    .section-title{
-      font-size: 44px;
-      margin: 0 0 10px;
-      font-weight: 400;
-      color: #3b4635;
-    }
-    .section-sub{
-      margin:0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.6;
-    }
+/* ================= INTRO ================= */
+.intro{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:grid;
+  place-items:center;
+  background:#f4efe3;
+}
+.intro-card{text-align:center;animation:float 2.6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
 
-    /* COUNTDOWN */
-    .countdown-wrap{
-      background: var(--olive);
-      padding: 46px 0;
-      margin-top: -14px;
-    }
-    .countdown-wrap .section-title,
-    .countdown-wrap .section-sub{color: rgba(255,255,255,.92)}
-    .count-grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap:16px;
-      margin-top: 22px;
-    }
-    .time-card{
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 16px;
-      padding: 22px 16px;
-      text-align:center;
-      background: rgba(255,255,255,.06);
-    }
-    .time-card b{
-      display:block;
-      font-family:"Playfair Display", serif;
-      font-size: 54px;
-      color:#fff;
-      font-weight:500;
-      line-height:1;
-    }
-    .time-card span{
-      display:block;
-      margin-top: 10px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.85);
-      font-size: 12px;
-    }
+.seal{
+  width:160px;height:160px;border-radius:50%;
+  background:linear-gradient(145deg,#d9c6a2,#f2e7d2);
+  box-shadow:0 18px 50px rgba(0,0,0,.18),
+             inset 0 0 0 8px rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+}
+.seal span{
+  font-family:"Great Vibes",cursive;
+  font-size:54px;
+  color:rgba(47,58,46,.6);
+}
+.intro-hint{margin-top:14px;font-size:13px;letter-spacing:.08em;color:#6b6b60}
+.intro.hide{animation:fade .7s forwards}
+@keyframes fade{to{opacity:0;visibility:hidden}}
 
-    /* CARD */
-    .card{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 26px 18px;
-    }
+/* ================= HERO ================= */
+.hero{
+  min-height:82vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:
+    linear-gradient(to bottom,rgba(0,0,0,.45),rgba(0,0,0,.15) 55%,#f4efe3),
+    url("https://images.unsplash.com/photo-1523438097201-aadbbfe428b8?auto=format&fit=crop&w=1800&q=80");
+  background-size:cover;
+  background-position:center;
+}
+.hero h1{color:#fff;font-size:64px;font-weight:400;margin:0}
+.hero small{letter-spacing:.35em;color:rgba(255,255,255,.85)}
+.hero .date{color:rgba(255,255,255,.9);margin-top:16px}
+.jump{
+  margin-top:20px;
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+}
 
-    /* DAY DETAILS */
-    .big-icon{
-      width: 76px;
-      height: 76px;
-      border-radius: 999px;
-      background: rgba(123,128,104,.18);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin: 6px auto 16px;
-      border: 1px solid rgba(123,128,104,.22);
-    }
-    .big-icon svg{opacity:.85}
-    .place{font-size: 38px; margin: 6px 0 8px; font-weight:500}
-    .meta{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:center;
-      color: var(--muted);
-      margin-bottom: 14px;
-      flex-wrap:wrap;
-    }
-    .meta .dot{opacity:.5}
-    .photo{
-      border-radius: 16px;
-      overflow:hidden;
-      border: 1px solid var(--line);
-      margin: 14px 0;
-    }
-    .photo img{display:block; width:100%; height:auto}
-    .map{
-      border-radius: 16px;
-      overflow:hidden;
-      border: 1px solid var(--line);
-      height: 220px;
-    }
-    .map iframe{width:100%; height:100%; border:0}
+/* ================= SECTIONS ================= */
+section{padding:44px 0}
+.section-title{font-size:44px;font-weight:400;color:#3b4635;margin:0}
+.section-sub{color:var(--muted);margin:6px 0 0}
 
-    /* TIMELINE */
-    .timeline{
-      margin-top: 18px;
-      position:relative;
-      padding-left: 52px;
-      max-width: 720px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-    .timeline:before{
-      content:"";
-      position:absolute;
-      left: 28px;
-      top: 8px;
-      bottom: 8px;
-      width:2px;
-      background: rgba(123,128,104,.25);
-      border-radius:999px;
-    }
-    .t-item{
-      display:grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      align-items:flex-start;
-      padding: 14px 0;
-    }
-    .t-ico{
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid rgba(123,128,104,.25);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      z-index:2;
-      font-size: 18px;
-    }
-    .t-time{
-      display:inline-block;
-      background: #3b4635;
-      color:#fff;
-      padding: 6px 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      letter-spacing:.05em;
-      margin-right: 10px;
-      min-width: 62px;
-      text-align:center;
-    }
-    .t-title{
-      font-family:"Playfair Display", serif;
-      font-size: 26px;
-      margin: 0 0 4px;
-    }
-    .t-desc{margin:0; color: var(--muted); line-height:1.55}
+/* ================= CARD ================= */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:26px 18px;
+  border:1px solid var(--line);
+}
 
-    /* ACCOMMODATION */
-    .list{display:grid; gap:16px; margin-top: 18px; max-width:720px; margin-left:auto; margin-right:auto;}
-    .acc-title{font-family:"Playfair Display", serif; font-size: 30px; margin:0 0 6px}
-    .acc-sub{margin:0 0 16px; color: var(--muted)}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(47,58,46,.25);
-      background: transparent;
-      cursor:pointer;
-      font-weight: 600;
-      text-decoration:none;
-    }
-    .btn:hover{background: rgba(123,128,104,.10)}
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color: var(--muted);
-      font-size: 14px;
-      margin: 8px 0 16px;
-    }
+/* ================= RSVP ================= */
+form{max-width:720px;margin:0 auto;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select,textarea{
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.2);
+  font:inherit;
+}
+textarea{min-height:110px}
+.btn{
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.25);
+  background:transparent;
+  font-weight:600;
+  cursor:pointer;
+}
+.form-actions{display:flex;gap:12px;justify-content:center}
 
-    /* RSVP */
-    form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
-    .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
-    input, textarea, select{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(47,58,46,.20);
-      background: rgba(255,255,255,.78);
-      font: inherit;
-      outline:none;
-    }
-    input:focus, textarea:focus, select:focus{border-color: rgba(123,128,104,.55)}
-    textarea{min-height:110px; resize:vertical}
-    .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
-    .status{margin-top:8px; color: var(--muted); text-align:center}
-
-    /* MUSIC BUTTON */
-    .music{
-      position:fixed;
-      right: 16px;
-      bottom: 18px;
-      width: 58px;
-      height: 58px;
-      border-radius: 999px;
-      border: 1px solid rgba(47,58,46,.18);
-      background: #6f7a63;
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow: 0 18px 44px rgba(0,0,0,.18);
-      cursor:pointer;
-      z-index: 50;
-    }
-    .music:active{transform:scale(.98)}
-    .music svg{width:24px; height:24px}
-
-    /* WHATSAPP BUTTON (EMOJİSİZ) */
-    .whatsapp-float{
-      position: fixed;
-      right: 20px;
-      bottom: 90px; /* müzik butonuyla çakışmasın */
-      background: #25D366;
-      color: #fff;
-      padding: 14px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      z-index: 10000;
-    }
-    .whatsapp-float:hover{background:#1ebe5d}
-
-    footer{
-      padding: 28px 0 40px;
-      color: var(--muted);
-      text-align:center;
-    }
-
-    @media (min-width: 720px){
-      .count-grid{grid-template-columns: repeat(4, minmax(0,1fr))}
-      .hero h1{font-size: 76px}
-      .place{font-size: 44px}
-    }
-    @media (max-width: 520px){
-      .row{grid-template-columns:1fr}
-      .hero h1{font-size:56px}
-    }
-  </style>
+/* ================= FOOTER ================= */
+footer{text-align:center;color:var(--muted);padding:30px 0}
+</style>
 </head>
+
 <body>
 
-  <!-- HERO -->
-  <header class="hero" id="top">
-    <div class="container hero-inner">
-      <small class="serif">EVLENİYORUZ</small>
-      <h1 class="script">Gülçin <span class="amp">&</span> Mustafa </h1>
-      <div class="divider">✦</div>
-      <div class="date serif">24 Haziran 2026 Çarşamba</div>
- 
-     <a class="jump" href="#rsvp" aria-label="Katılım bölümüne git">
-  Katılım Durumunuzu Bildirin
-</a>
-    </div>
-  </header>
+<!-- INTRO -->
+<div id="intro" class="intro">
+  <div class="intro-card">
+    <div class="seal"><span>G &amp; M</span></div>
+    <div class="intro-hint serif">Dokun / Tıkla</div>
+  </div>
+</div>
 
-  <!-- PARENTS -->
-  <section id="aileler">
-    <div class="container center">
-      <h2 class="section-title script">Ailelerimiz</h2>
-      <p class="section-sub serif">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız</p>
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="container">
+    <small class="serif">EVLENİYORUZ</small>
+    <h1 class="script">Gülçin Arslanaydın & Mustafa Hasançebi</h1>
+    <div class="date serif">24 Haziran 2026</div>
+    <a class="jump" href="#rsvp">Katılım Durumunuzu Bildirin</a>
+  </div>
+</header>
 
-      <div style="display:grid; gap:18px; max-width:720px; margin:22px auto 0;">
-        <div class="card">
-          <div class="serif" style="font-size:28px; margin-bottom:6px;">Gülçin Arslanaydın</div>
-          <div class="meta" style="justify-content:center;">
-            <span><strong>Anne:</strong> Gülseren</span>
-            <span class="dot">•</span>
-            <span><strong>Baba:</strong> Halit</span>
-          </div>
-        </div>
+<!-- RSVP -->
+<section id="rsvp">
+  <div class="container center">
+    <h2 class="section-title script">Katılım</h2>
+    <p class="section-sub serif">Katılımınızı bizimle paylaşın</p>
 
-        <div class="card">
-          <div class="serif" style="font-size:28px; margin-bottom:6px;">Mustafa Hasançebi</div>
-          <div class="meta" style="justify-content:center;">
-            <span><strong>Anne:</strong> Özlem</span>
-            <span class="dot">•</span>
-            <span><strong>Baba:</strong> Erdal</span>
-          </div>
-        </div>
+    <form class="card" id="rsvpForm">
+      <div class="row">
+        <input name="name" required placeholder="Ad Soyad">
+        <input name="phone" placeholder="Telefon (opsiyonel)">
       </div>
-    </div>
-  </section>
-
-  <!-- COUNTDOWNS -->
-  <section class="countdown-wrap" id="countdown-nisan" aria-label="Nişan Geri Sayım">
-    <div class="container center">
-      <h2 class="section-title script">Nişan Geri Sayım</h2>
-      <p class="section-sub serif">25 Mart 2026 • 19:00</p>
-      <div class="count-grid">
-        <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
-        <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
-        <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
-        <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
+      <div class="row">
+        <select name="attendance" required>
+          <option value="" disabled selected>Katılım durumu</option>
+          <option>Evet</option>
+          <option>Hayır</option>
+        </select>
+        <input name="guests" type="number" placeholder="Kişi sayısı">
       </div>
-    </div>
-  </section>
-
-  <section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
-    <div class="container center">
-      <h2 class="section-title script">Düğün Geri Sayım</h2>
-      <p class="section-sub serif">24 Haziran 2026 • 20:00</p>
-      <div class="count-grid">
-        <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
-        <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
-        <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
-        <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
+      <textarea name="note" placeholder="Not"></textarea>
+      <div class="form-actions">
+        <button class="btn" type="submit">Gönder</button>
       </div>
-    </div>
-  </section>
+    </form>
+  </div>
+</section>
 
-  <!-- NIŞAN -->
-  <section id="nisan">
-    <div class="container center">
-      <h2 class="section-title script">Nişan</h2>
-      <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
+<footer>© 2026 • Davetiye</footer>
 
-      <div class="card" style="margin-top:22px;">
-        <div class="big-icon" aria-hidden="true">💍</div>
-
-        <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
-          KONUM
-        </div>
-
-        <div class="place serif">Sakarya / Hendek</div>
-
-        <div class="meta">
-          <span>🗓️</span>
-          <span class="serif">25 Mart 2026</span>
-          <span class="dot">•</span>
-          <span>🕒</span>
-          <span class="serif">19:00 – 23:00</span>
-        </div>
-
-        <div class="map" aria-label="Nişan haritası">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
-        </div>
-
-        <div style="margin-top:14px;">
-          <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">
-            Google Haritalar'da aç ↗
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="detaylar">
-    <div class="container center">
-      
-
-      <div class="card" style="margin-top:22px;">
-        <div class="big-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
-            <circle cx="12" cy="10" r="2.5"></circle>
-          </svg>
-        </div>
-
-        <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
-          KONUM
-        </div>
-
-        <div class="place serif">Trabzon Yomra Flowers Düğün Salonu</div>
-
-        <div class="meta">
-          <span>🕒</span>
-          <span class="serif">20:00 – 23:00</span>
-          <span class="dot">•</span>
-          <span class="serif">Trabzon / Yomra</span>
-        </div>
-
-        <div class="photo">
-          <img alt="Mekan görseli" src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=1600&q=80">
-        </div>
-
-        <div class="map" aria-label="Harita">
-          <iframe
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROGRAM -->
-  <section id="program">
-    <div class="container center">
-      <h2 class="section-title script">Günün programı</h2>
-      <p class="section-sub serif">Sizin için hazırladıklarımız</p>
-
-      <div class="timeline" aria-label="Program akışı">
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">♡</div>
-          <div>
-            <span class="t-time">17:00</span>
-            <span class="t-title">Misafirlerin gelişi</span>
-            <p class="t-desc">Çiftlikte karşılama ve hoş geldiniz</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🍸</div>
-          <div>
-            <span class="t-time">17:30</span>
-            <span class="t-title">Hoş geldiniz ikramı</span>
-            <p class="t-desc">Beklerken hoş geldiniz kokteyli</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">⛪</div>
-          <div>
-            <span class="t-time">18:00</span>
-            <span class="t-title">Tören</span>
-            <p class="t-desc">Günün en özel anı</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🍷</div>
-          <div>
-            <span class="t-time">19:00</span>
-            <span class="t-title">Kokteyl</span>
-            <p class="t-desc">Bahçede atıştırmalıklar ve içecekler</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🍽️</div>
-          <div>
-            <span class="t-time">21:00</span>
-            <span class="t-title">Ziyafet</span>
-            <p class="t-desc">Akşam yemeği ve kutlama</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🎵</div>
-          <div>
-            <span class="t-time">00:00</span>
-            <span class="t-title">Parti</span>
-            <p class="t-desc">Şafağa kadar dans!</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🎉</div>
-          <div>
-            <span class="t-time">03:00</span>
-            <span class="t-title">Partinin sonu</span>
-            <p class="t-desc">Vedalaşma ve güzel anılar</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ACCOMMODATION -->
-  <section id="konaklama">
-    <div class="container center">
-      <h2 class="section-title script">Konaklama</h2>
-      <p class="section-sub serif">Konaklamanız için öneriler</p>
-
-      <div class="list" aria-label="Konaklama önerileri">
-        <div class="card">
-          <div class="acc-title">Agroturismo Es Quatre Cantons</div>
-          <div class="tag">📍 Düğüne en yakın</div>
-          <a class="btn" href="https://www.google.com/search?q=Agroturismo+Es+Quatre+Cantons" target="_blank" rel="noreferrer">
-            Detayları gör
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-
-        <div class="card">
-          <div class="acc-title">La Pérgola</div>
-          <div class="tag">⭐ Önerilen konaklama</div>
-          <a class="btn" href="https://www.google.com/search?q=La+P%C3%A9rgola+Trabzon / Yomra" target="_blank" rel="noreferrer">
-            Detayları gör
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RSVP -->
-  <section id="rsvp">
-    <div class="container center">
-      <h2 class="section-title script">Katılım</h2>
-      <p class="section-sub serif">Katılımınızı onaylayın</p>
-
-      <form class="card" id="rsvpForm">
-        <div class="row">
-          <input name="name" required placeholder="Ad Soyad" />
-          <input name="phone" placeholder="Telefon (opsiyonel)" />
-        </div>
-        <div class="row">
-          <select name="attendance" required>
-            <option value="" disabled selected>Katılım durumu</option>
-            <option value="Evet">Evet, geliyorum</option>
-            <option value="Hayır">Maalesef gelemiyorum</option>
-          </select>
-          <input name="guests" type="number" min="0" max="10" placeholder="Kişi sayısı (opsiyonel)" />
-        </div>
-        <textarea name="note" placeholder="Not (alerji, özel durum vs.)"></textarea>
-
-        <div class="form-actions">
-          <button class="btn" type="submit">Gönder (demo)</button>
-          <button class="btn" type="button" id="copyMsg">Mesajı kopyala</button>
-        </div>
-
-        <div class="status" id="status"></div>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div>© <span id="year"></span> • Davetiye</div>
-      <div style="margin-top:10px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-        <a href="#top">Yukarı</a>
-        <a href="#detaylar">Detaylar</a>
-        <a href="#program">Program</a>
-        <a href="#konaklama">Konaklama</a>
-        <a href="#rsvp">RSVP</a>
-      </div>
-    </div>
-  </footer>
-
-  <noscript>
-    <div style="padding:12px;margin:16px auto;max-width:900px;text-align:center;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;">
-      Sayaçların çalışması için tarayıcıda JavaScript açık olmalı.
-    </div>
-  </noscript>
-
-  <!-- Müzik (opsiyonel) -->
-  <audio id="bgMusic" preload="none" loop>
-    <!-- <source src="music.mp3" type="audio/mpeg"> -->
-  </audio>
-
-  <button class="music" id="musicBtn" aria-label="Müziği aç/kapat" title="Müziği aç/kapat">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M9 18V5l12-2v13"></path>
-      <circle cx="7" cy="18" r="3"></circle>
-      <circle cx="19" cy="16" r="3"></circle>
-    </svg>
-  </button>
-
-  <!-- ✅ WHATSAPP BUTONU (EMOJİSİZ) -->
-  <a href="#" class="whatsapp-float" id="sendWhatsapp" aria-label="WhatsApp ile gönder">
-    WhatsApp
-  </a>
-
-  <script>
-  /* === COUNTDOWN (NIŞAN + DÜĞÜN) INLINE === */
-  (function(){
-    const pad = (n)=>String(n).padStart(2,"0");
-    const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
-    const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
-
-    function setText(id, val){
-      const el = document.getElementById(id);
-      if(el) el.textContent = val;
-    }
-
-    function calc(target){
-      const now = new Date();
-      let diff = target.getTime() - now.getTime();
-      if(diff < 0) diff = 0;
-
-      const t = Math.floor(diff/1000);
-      const d = Math.floor(t/86400);
-      const h = Math.floor((t%86400)/3600);
-      const m = Math.floor((t%3600)/60);
-      const s = t%60;
-      return {d,h,m,s};
-    }
-
-    function render(){
-      const e = calc(engagementDate);
-      setText("eDays", e.d); setText("eHours", pad(e.h)); setText("eMins", pad(e.m)); setText("eSecs", pad(e.s));
-
-      const w = calc(weddingDate);
-      setText("wDays", w.d); setText("wHours", pad(w.h)); setText("wMins", pad(w.m)); setText("wSecs", pad(w.s));
-    }
-
-    function start(){
-      render();
-      window.__inviteTimer && clearInterval(window.__inviteTimer);
-      window.__inviteTimer = setInterval(render, 1000);
-      setText("year", new Date().getFullYear());
-    }
-
-    if(document.readyState === "loading"){
-      document.addEventListener("DOMContentLoaded", start);
-    }else{
-      start();
-    }
-  })();
-
-  /* === RSVP -> WHATSAPP (905456265491) === */
-  (function(){
-    const whatsappBtn = document.getElementById("sendWhatsapp");
-    const form = document.getElementById("rsvpForm");
-
-    function buildMessage(){
-      const name = form.querySelector('[name="name"]').value.trim();
-      const phone = form.querySelector('[name="phone"]').value.trim();
-      const attendance = form.querySelector('[name="attendance"]').value;
-      const guests = form.querySelector('[name="guests"]').value;
-      const note = form.querySelector('[name="note"]').value.trim();
-
-      if(!name || !attendance){
-        alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
-        return null;
-      }
-
-      const msg =
-`DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
-
-Ad Soyad: ${name}
-Telefon: ${phone || "Belirtilmedi"}
-Katılım: ${attendance}
-Kişi Sayısı: ${guests || "Belirtilmedi"}
-Not: ${note || "Yok"}`;
-
-      return msg;
-    }
-
-    whatsappBtn.addEventListener("click", function(e){
-      e.preventDefault();
-      const msg = buildMessage();
-      if(!msg) return;
-
-      const url = "https://wa.me/905456265491?text=" + encodeURIComponent(msg);
-      window.open(url, "_blank");
-    });
-
-    /* İstersen formun "Gönder" butonuna basınca da WhatsApp açsın */
-    form.addEventListener("submit", function(e){
-      e.preventDefault();
-      const msg = buildMessage();
-      if(!msg) return;
-
-      const url = "https://wa.me/905456265491?text=" + encodeURIComponent(msg);
-      window.open(url, "_blank");
-    });
-
-    /* Mesajı kopyala butonu (opsiyonel) */
-    const copyBtn = document.getElementById("copyMsg");
-    if(copyBtn){
-      copyBtn.addEventListener("click", async function(){
-        const msg = buildMessage();
-        if(!msg) return;
-        try{
-          await navigator.clipboard.writeText(msg);
-          const st = document.getElementById("status");
-          if(st) st.textContent = "Mesaj kopyalandı. WhatsApp’tan yapıştırıp gönderebilirsiniz.";
-        }catch(err){
-          alert("Kopyalama başarısız. Tarayıcı izin vermedi.");
-        }
-      });
-    }
-  })();
-  </script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const intro=document.getElementById("intro");
+  if(intro){
+    const close=()=>{intro.classList.add("hide");setTimeout(()=>intro.remove(),800);}
+    setTimeout(close,2200);
+    intro.addEventListener("click",close);
+  }
+});
+</script>
 
 </body>
 </html>
