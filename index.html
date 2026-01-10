@@ -36,7 +36,7 @@
     .script{font-family:"Great Vibes", cursive;}
     .serif{font-family:"Playfair Display", serif;}
 
-    /* HERO */
+    /* HERO (Venüs arka plan görseli) */
     .hero{
       min-height: 82vh;
       display:flex;
@@ -45,13 +45,35 @@
       text-align:center;
       position:relative;
       padding: 64px 0 36px;
+      overflow:hidden;
+
       background:
-        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.18) 55%, rgba(244,239,227,1)),
-        url("https://images.unsplash.com/photo-1523438097201-aadbbfe428b8?auto=format&fit=crop&w=1800&q=80");
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,.45),
+          rgba(0,0,0,.20) 55%,
+          rgba(244,239,227,1)
+        ),
+        url("venus-bg.png");
+
       background-size:cover;
       background-position:center;
+      background-repeat:no-repeat;
     }
-    .hero-inner{width:100%}
+
+    /* Hafif sinematik parıltı (isteğe bağlı ama güzel) */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(1200px 600px at 30% 20%, rgba(255,255,255,.16), transparent 60%),
+        radial-gradient(900px 500px at 70% 30%, rgba(255,255,255,.10), transparent 65%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .hero-inner{width:100%; position:relative; z-index:2;}
     .hero small{
       display:block;
       letter-spacing:.35em;
@@ -66,6 +88,7 @@
       font-size: 64px;
       line-height: 1;
       font-weight: 400;
+      text-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
     .hero h1 .amp{
       font-family:"Playfair Display", serif;
@@ -79,6 +102,7 @@
       color: rgba(255,255,255,.9);
       font-size: 18px;
       letter-spacing:.08em;
+      text-shadow: 0 8px 22px rgba(0,0,0,.18);
     }
     .divider{
       display:flex;
@@ -94,13 +118,7 @@
       width:84px;
       background: rgba(255,255,255,.55);
     }
-    .hero .cta{
-      margin-top: 28px;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.92);
-      font-size: 12px;
-    }
+
     .jump{
       margin-top: 18px;
       display:inline-flex;
@@ -178,6 +196,80 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 26px 18px;
+    }
+
+    /* ✅ AİLELER - daha ciddi/şık */
+    .parents-grid{
+      display:grid;
+      gap:18px;
+      max-width:720px;
+      margin:22px auto 0;
+    }
+    .parents-card .person{
+      font-family:"Playfair Display", serif;
+      font-size:28px;
+      margin-bottom:14px;
+      text-align:center;
+      letter-spacing:.01em;
+    }
+    .parents-frame{
+      max-width: 520px;
+      margin: 0 auto;
+      border: 1px solid rgba(47,58,46,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.55);
+      overflow:hidden;
+    }
+    .parent-row{
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items:center;
+      padding: 14px 16px;
+    }
+    .parent-row + .parent-row{
+      border-top: 1px solid rgba(47,58,46,.10);
+    }
+    .parent-role{
+      font-family:"Playfair Display", serif;
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(47,58,46,.70);
+      position:relative;
+      padding-left: 12px;
+    }
+    .parent-role:before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:50%;
+      transform:translateY(-50%);
+      width:4px;
+      height:18px;
+      border-radius:999px;
+      background: rgba(123,128,104,.55);
+    }
+    .parent-name{
+      font-family:"Playfair Display", serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing:.01em;
+    }
+    .parents-mini-divider{
+      display:flex;
+      justify-content:center;
+      padding: 10px 0;
+      background: rgba(244,239,227,.35);
+      border-top: 1px solid rgba(47,58,46,.08);
+      border-bottom: 1px solid rgba(47,58,46,.08);
+    }
+    .parents-mini-divider span{
+      display:inline-block;
+      width: 120px;
+      height: 1px;
+      background: rgba(47,58,46,.18);
     }
 
     /* DAY DETAILS */
@@ -280,7 +372,6 @@
     /* ACCOMMODATION */
     .list{display:grid; gap:16px; margin-top: 18px; max-width:720px; margin-left:auto; margin-right:auto;}
     .acc-title{font-family:"Playfair Display", serif; font-size: 30px; margin:0 0 6px}
-    .acc-sub{margin:0 0 16px; color: var(--muted)}
     .btn{
       display:inline-flex;
       align-items:center;
@@ -320,7 +411,7 @@
     .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
     .status{margin-top:8px; color: var(--muted); text-align:center}
 
-    /* MUSIC BUTTON */
+    /* Music Button */
     .music{
       position:fixed;
       right: 16px;
@@ -341,7 +432,7 @@
     .music:active{transform:scale(.98)}
     .music svg{width:24px; height:24px}
 
-    /* WHATSAPP BUTTON (EMOJİSİZ) */
+    /* WhatsApp Butonu */
     .whatsapp-float{
       position: fixed;
       right: 20px;
@@ -373,88 +464,6 @@
       .row{grid-template-columns:1fr}
       .hero h1{font-size:56px}
     }
-
-    /* ======================================================
-       ✅ AİLELER - MODERN/LÜKS, RESMİ
-       ====================================================== */
-    .parents-grid{
-      display:grid;
-      gap:18px;
-      max-width:720px;
-      margin:22px auto 0;
-    }
-    .parents-card .person{
-      font-family:"Playfair Display", serif;
-      font-size:28px;
-      margin-bottom:14px;
-      text-align:center;
-      letter-spacing:.01em;
-    }
-
-    .parents-frame{
-      max-width: 520px;
-      margin: 0 auto;
-      border: 1px solid rgba(47,58,46,.12);
-      border-radius: 18px;
-      background: rgba(255,255,255,.55);
-      overflow:hidden;
-    }
-
-    .parent-row{
-      display:grid;
-      grid-template-columns: 140px 1fr;
-      gap: 16px;
-      align-items:center;
-      padding: 14px 16px;
-      position:relative;
-    }
-    .parent-row + .parent-row{
-      border-top: 1px solid rgba(47,58,46,.10);
-    }
-
-    .parent-role{
-      font-family:"Playfair Display", serif;
-      font-size: 14px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(47,58,46,.70);
-      position:relative;
-      padding-left: 12px;
-    }
-    .parent-role:before{
-      content:"";
-      position:absolute;
-      left:0;
-      top:50%;
-      transform:translateY(-50%);
-      width:4px;
-      height:18px;
-      border-radius:999px;
-      background: rgba(123,128,104,.55);
-    }
-
-    .parent-name{
-      font-family:"Playfair Display", serif;
-      font-size: 19px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing:.01em;
-    }
-
-    .parents-mini-divider{
-      display:flex;
-      justify-content:center;
-      padding: 10px 0;
-      background: rgba(244,239,227,.35);
-      border-top: 1px solid rgba(47,58,46,.08);
-      border-bottom: 1px solid rgba(47,58,46,.08);
-    }
-    .parents-mini-divider span{
-      display:inline-block;
-      width: 120px;
-      height: 1px;
-      background: rgba(47,58,46,.18);
-    }
   </style>
 </head>
 <body>
@@ -463,11 +472,12 @@
   <header class="hero" id="top">
     <div class="container hero-inner">
       <small class="serif">EVLENİYORUZ</small>
-      <h1 class="script">Gülçin  <span class="amp">&</span> Mustafa </h1>
+      <h1 class="script">Gülçin Arslanaydın <span class="amp">&</span> Mustafa Hasançebi</h1>
       <div class="divider">✦</div>
       <div class="date serif">24 Haziran 2026 Çarşamba</div>
-      
-      <a class="jump" href="#rsvp" aria-label="Katılımınızı Onaylayın">Katılımınızı Onaylayın →</a>
+
+      <!-- ✅ RSVP yazısı değişti -->
+      <a class="jump" href="#rsvp" aria-label="Katılım bölümüne git">Katılım Bilgisi →</a>
     </div>
   </header>
 
@@ -613,9 +623,7 @@
         </div>
 
         <div class="map" aria-label="Harita">
-          <iframe
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed">
           </iframe>
         </div>
@@ -696,39 +704,11 @@
     </div>
   </section>
 
-  <!-- ACCOMMODATION -->
-  <section id="konaklama">
-    <div class="container center">
-      <h2 class="section-title script">Konaklama</h2>
-      <p class="section-sub serif">Konaklamanız için öneriler</p>
-
-      <div class="list" aria-label="Konaklama önerileri">
-        <div class="card">
-          <div class="acc-title">Agroturismo Es Quatre Cantons</div>
-          <div class="tag">📍 Düğüne en yakın</div>
-          <a class="btn" href="https://www.google.com/search?q=Agroturismo+Es+Quatre+Cantons" target="_blank" rel="noreferrer">
-            Detayları gör
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-
-        <div class="card">
-          <div class="acc-title">La Pérgola</div>
-          <div class="tag">⭐ Önerilen konaklama</div>
-          <a class="btn" href="https://www.google.com/search?q=La+P%C3%A9rgola+Trabzon%20Yomra" target="_blank" rel="noreferrer">
-            Detayları gör
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- RSVP -->
   <section id="rsvp">
     <div class="container center">
       <h2 class="section-title script">Katılım</h2>
-      <p class="section-sub serif">Katılımınızı onaylayın</p>
+      <p class="section-sub serif">Katılımı bizimle paylaşın</p>
 
       <form class="card" id="rsvpForm">
         <div class="row">
@@ -746,7 +726,7 @@
         <textarea name="note" placeholder="Not (alerji, özel durum vs.)"></textarea>
 
         <div class="form-actions">
-          <button class="btn" type="submit">Gönder (demo)</button>
+          <button class="btn" type="submit">WhatsApp ile Gönder</button>
           <button class="btn" type="button" id="copyMsg">Mesajı kopyala</button>
         </div>
 
@@ -762,37 +742,19 @@
         <a href="#top">Yukarı</a>
         <a href="#detaylar">Detaylar</a>
         <a href="#program">Program</a>
-        <a href="#konaklama">Konaklama</a>
-        <a href="#rsvp">RSVP</a>
+        <a href="#rsvp">Katılım</a>
       </div>
     </div>
   </footer>
 
-  <noscript>
-    <div style="padding:12px;margin:16px auto;max-width:900px;text-align:center;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;">
-      Sayaçların çalışması için tarayıcıda JavaScript açık olmalı.
-    </div>
-  </noscript>
-
-  <audio id="bgMusic" preload="none" loop>
-    <!-- <source src="music.mp3" type="audio/mpeg"> -->
-  </audio>
-
-  <button class="music" id="musicBtn" aria-label="Müziği aç/kapat" title="Müziği aç/kapat">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M9 18V5l12-2v13"></path>
-      <circle cx="7" cy="18" r="3"></circle>
-      <circle cx="19" cy="16" r="3"></circle>
-    </svg>
-  </button>
-
+  <!-- WhatsApp butonu -->
   <a href="#" class="whatsapp-float" id="sendWhatsapp" aria-label="WhatsApp ile gönder">
     WhatsApp
   </a>
 
   <script>
-    /* === COUNTDOWN (NIŞAN + DÜĞÜN) INLINE === */
     document.addEventListener("DOMContentLoaded", () => {
+      /* COUNTDOWN */
       const pad = (n)=>String(n).padStart(2,"0");
       const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
       const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
@@ -828,27 +790,20 @@
       render();
       window.__inviteTimer && clearInterval(window.__inviteTimer);
       window.__inviteTimer = setInterval(render, 1000);
-    });
-  </script>
 
-  <script>
-    /* === RSVP -> WHATSAPP (905456265491) GÜVENLİ === */
-    document.addEventListener("DOMContentLoaded", () => {
-      const whatsappBtn = document.getElementById("sendWhatsapp");
+      /* RSVP -> WhatsApp */
+      const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
+      const whatsappBtn = document.getElementById("sendWhatsapp");
       const copyBtn = document.getElementById("copyMsg");
       const statusEl = document.getElementById("status");
 
-      if(!form) return;
-
-      const PHONE = "905456265491";
-
       function buildMessage(){
-        const name = form.querySelector('[name="name"]')?.value?.trim() || "";
-        const phone = form.querySelector('[name="phone"]')?.value?.trim() || "";
-        const attendance = form.querySelector('[name="attendance"]')?.value || "";
-        const guests = form.querySelector('[name="guests"]')?.value || "";
-        const note = form.querySelector('[name="note"]')?.value?.trim() || "";
+        const name = form.querySelector('[name="name"]').value.trim();
+        const phone = form.querySelector('[name="phone"]').value.trim();
+        const attendance = form.querySelector('[name="attendance"]').value;
+        const guests = form.querySelector('[name="guests"]').value;
+        const note = form.querySelector('[name="note"]').value.trim();
 
         if(!name || !attendance){
           alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
@@ -871,30 +826,26 @@ Not: ${note || "Yok"}`;
         window.open(url, "_blank");
       }
 
-      if(whatsappBtn){
-        whatsappBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openWhatsapp();
-        });
-      }
-
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         openWhatsapp();
       });
 
-      if(copyBtn){
-        copyBtn.addEventListener("click", async () => {
-          const msg = buildMessage();
-          if(!msg) return;
-          try{
-            await navigator.clipboard.writeText(msg);
-            if(statusEl) statusEl.textContent = "Mesaj kopyalandı. WhatsApp’tan yapıştırıp gönderebilirsiniz.";
-          }catch{
-            alert("Kopyalama başarısız. Tarayıcı izin vermedi.");
-          }
-        });
-      }
+      whatsappBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openWhatsapp();
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        const msg = buildMessage();
+        if(!msg) return;
+        try{
+          await navigator.clipboard.writeText(msg);
+          if(statusEl) statusEl.textContent = "Mesaj kopyalandı. WhatsApp’tan yapıştırıp gönderebilirsiniz.";
+        }catch{
+          alert("Kopyalama başarısız. Tarayıcı izin vermedi.");
+        }
+      });
     });
   </script>
 
