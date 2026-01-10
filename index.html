@@ -221,3 +221,652 @@
 
     /* TIMELINE */
     .timeline{
+      margin-top: 18px;
+      position:relative;
+      padding-left: 52px;
+      max-width: 720px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left: 28px;
+      top: 8px;
+      bottom: 8px;
+      width:2px;
+      background: rgba(123,128,104,.25);
+      border-radius:999px;
+    }
+    .t-item{
+      display:grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items:flex-start;
+      padding: 14px 0;
+    }
+    .t-ico{
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(123,128,104,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      z-index:2;
+      font-size: 18px;
+    }
+    .t-time{
+      display:inline-block;
+      background: #3b4635;
+      color:#fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      letter-spacing:.05em;
+      margin-right: 10px;
+      min-width: 62px;
+      text-align:center;
+    }
+    .t-title{
+      font-family:"Playfair Display", serif;
+      font-size: 26px;
+      margin: 0 0 4px;
+    }
+    .t-desc{margin:0; color: var(--muted); line-height:1.55}
+
+    /* ACCOMMODATION */
+    .list{display:grid; gap:16px; margin-top: 18px; max-width:720px; margin-left:auto; margin-right:auto;}
+    .acc-title{font-family:"Playfair Display", serif; font-size: 30px; margin:0 0 6px}
+    .acc-sub{margin:0 0 16px; color: var(--muted)}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(47,58,46,.25);
+      background: transparent;
+      cursor:pointer;
+      font-weight: 600;
+      text-decoration:none;
+    }
+    .btn:hover{background: rgba(123,128,104,.10)}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0 16px;
+    }
+
+    /* RSVP */
+    form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    input, textarea, select{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(47,58,46,.20);
+      background: rgba(255,255,255,.78);
+      font: inherit;
+      outline:none;
+    }
+    input:focus, textarea:focus, select:focus{border-color: rgba(123,128,104,.55)}
+    textarea{min-height:110px; resize:vertical}
+    .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
+    .status{margin-top:8px; color: var(--muted); text-align:center}
+
+    /* MUSIC BUTTON */
+    .music{
+      position:fixed;
+      right: 16px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      border: 1px solid rgba(47,58,46,.18);
+      background: #6f7a63;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 18px 44px rgba(0,0,0,.18);
+      cursor:pointer;
+      z-index: 50;
+    }
+    .music:active{transform:scale(.98)}
+    .music svg{width:24px; height:24px}
+
+    /* WHATSAPP BUTTON (EMOJİSİZ) */
+    .whatsapp-float{
+      position: fixed;
+      right: 20px;
+      bottom: 90px; /* müzik butonuyla çakışmasın */
+      background: #25D366;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      z-index: 10000;
+    }
+    .whatsapp-float:hover{background:#1ebe5d}
+
+    footer{
+      padding: 28px 0 40px;
+      color: var(--muted);
+      text-align:center;
+    }
+
+    @media (min-width: 720px){
+      .count-grid{grid-template-columns: repeat(4, minmax(0,1fr))}
+      .hero h1{font-size: 76px}
+      .place{font-size: 44px}
+    }
+    @media (max-width: 520px){
+      .row{grid-template-columns:1fr}
+      .hero h1{font-size:56px}
+    }
+
+    /* ✅ AİLELER - Anne/Baba daha güzel */
+    .parents-grid{
+      display:grid;
+      gap:18px;
+      max-width:720px;
+      margin:22px auto 0;
+    }
+    .parents-card .person{
+      font-family:"Playfair Display", serif;
+      font-size:28px;
+      margin-bottom:10px;
+      text-align:center;
+    }
+    .parents-lines{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+      text-align:left;
+      max-width:420px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .p-line{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;
+      border:1px solid rgba(47,58,46,.12);
+      border-radius:14px;
+      background: rgba(255,255,255,.55);
+    }
+    .p-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: var(--muted);
+      font-weight:600;
+    }
+    .p-ico{
+      width:30px;
+      height:30px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(123,128,104,.18);
+      border: 1px solid rgba(123,128,104,.20);
+      font-size:16px;
+    }
+    .p-name{
+      font-weight:700;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container hero-inner">
+      <small class="serif">EVLENİYORUZ</small>
+      <h1 class="script">Gülçin Arslanaydın <span class="amp">&</span> Mustafa Hasançebi</h1>
+      <div class="divider">✦</div>
+      <div class="date serif">24 Haziran 2026 Çarşamba</div>
+      <div class="cta">KATILIMINIZI ONAYLAYIN</div>
+      <a class="jump" href="#rsvp" aria-label="RSVP bölümüne git">RSVP’ye Git →</a>
+    </div>
+  </header>
+
+  <!-- PARENTS -->
+  <section id="aileler">
+    <div class="container center">
+      <h2 class="section-title script">Ailelerimiz</h2>
+      <p class="section-sub serif">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız</p>
+
+      <div class="parents-grid">
+        <div class="card parents-card">
+          <div class="person">Gülçin Arslanaydın</div>
+          <div class="parents-lines">
+            <div class="p-line">
+              <div class="p-left"><div class="p-ico">👩</div><span>Anne</span></div>
+              <div class="p-name">Gülseren</div>
+            </div>
+            <div class="p-line">
+              <div class="p-left"><div class="p-ico">👨</div><span>Baba</span></div>
+              <div class="p-name">Halit</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card parents-card">
+          <div class="person">Mustafa Hasançebi</div>
+          <div class="parents-lines">
+            <div class="p-line">
+              <div class="p-left"><div class="p-ico">👩</div><span>Anne</span></div>
+              <div class="p-name">Özlem</div>
+            </div>
+            <div class="p-line">
+              <div class="p-left"><div class="p-ico">👨</div><span>Baba</span></div>
+              <div class="p-name">Erdal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COUNTDOWNS -->
+  <section class="countdown-wrap" id="countdown-nisan" aria-label="Nişan Geri Sayım">
+    <div class="container center">
+      <h2 class="section-title script">Nişan Geri Sayım</h2>
+      <p class="section-sub serif">25 Mart 2026 • 19:00</p>
+      <div class="count-grid">
+        <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
+        <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
+        <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
+        <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
+    <div class="container center">
+      <h2 class="section-title script">Düğün Geri Sayım</h2>
+      <p class="section-sub serif">24 Haziran 2026 • 20:00</p>
+      <div class="count-grid">
+        <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
+        <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
+        <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
+        <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIŞAN -->
+  <section id="nisan">
+    <div class="container center">
+      <h2 class="section-title script">Nişan</h2>
+      <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
+
+      <div class="card" style="margin-top:22px;">
+        <div class="big-icon" aria-hidden="true">💍</div>
+
+        <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
+          KONUM
+        </div>
+
+        <div class="place serif">Sakarya / Hendek</div>
+
+        <div class="meta">
+          <span>🗓️</span>
+          <span class="serif">25 Mart 2026</span>
+          <span class="dot">•</span>
+          <span>🕒</span>
+          <span class="serif">19:00 – 23:00</span>
+        </div>
+
+        <div class="map" aria-label="Nişan haritası">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
+        </div>
+
+        <div style="margin-top:14px;">
+          <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">
+            Google Haritalar'da aç ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="detaylar">
+    <div class="container center">
+      <h2 class="section-title script">Günün detayları</h2>
+      <p class="section-sub serif">Bilmeniz gereken her şey</p>
+
+      <div class="card" style="margin-top:22px;">
+        <div class="big-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
+            <circle cx="12" cy="10" r="2.5"></circle>
+          </svg>
+        </div>
+
+        <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
+          KONUM
+        </div>
+
+        <div class="place serif">Trabzon Yomra Flowers Düğün Salonu</div>
+
+        <div class="meta">
+          <span>🕒</span>
+          <span class="serif">20:00 – 23:00</span>
+          <span class="dot">•</span>
+          <span class="serif">Trabzon / Yomra</span>
+        </div>
+
+        <div class="photo">
+          <img alt="Mekan görseli" src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=1600&q=80">
+        </div>
+
+        <div class="map" aria-label="Harita">
+          <iframe
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program">
+    <div class="container center">
+      <h2 class="section-title script">Günün programı</h2>
+      <p class="section-sub serif">Sizin için hazırladıklarımız</p>
+
+      <div class="timeline" aria-label="Program akışı">
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">♡</div>
+          <div>
+            <span class="t-time">17:00</span>
+            <span class="t-title">Misafirlerin gelişi</span>
+            <p class="t-desc">Çiftlikte karşılama ve hoş geldiniz</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">🍸</div>
+          <div>
+            <span class="t-time">17:30</span>
+            <span class="t-title">Hoş geldiniz ikramı</span>
+            <p class="t-desc">Beklerken hoş geldiniz kokteyli</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">⛪</div>
+          <div>
+            <span class="t-time">18:00</span>
+            <span class="t-title">Tören</span>
+            <p class="t-desc">Günün en özel anı</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">🍷</div>
+          <div>
+            <span class="t-time">19:00</span>
+            <span class="t-title">Kokteyl</span>
+            <p class="t-desc">Bahçede atıştırmalıklar ve içecekler</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">🍽️</div>
+          <div>
+            <span class="t-time">21:00</span>
+            <span class="t-title">Ziyafet</span>
+            <p class="t-desc">Akşam yemeği ve kutlama</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">🎵</div>
+          <div>
+            <span class="t-time">00:00</span>
+            <span class="t-title">Parti</span>
+            <p class="t-desc">Şafağa kadar dans!</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-ico" aria-hidden="true">🎉</div>
+          <div>
+            <span class="t-time">03:00</span>
+            <span class="t-title">Partinin sonu</span>
+            <p class="t-desc">Vedalaşma ve güzel anılar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOMMODATION -->
+  <section id="konaklama">
+    <div class="container center">
+      <h2 class="section-title script">Konaklama</h2>
+      <p class="section-sub serif">Konaklamanız için öneriler</p>
+
+      <div class="list" aria-label="Konaklama önerileri">
+        <div class="card">
+          <div class="acc-title">Agroturismo Es Quatre Cantons</div>
+          <div class="tag">📍 Düğüne en yakın</div>
+          <a class="btn" href="https://www.google.com/search?q=Agroturismo+Es+Quatre+Cantons" target="_blank" rel="noreferrer">
+            Detayları gör
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="acc-title">La Pérgola</div>
+          <div class="tag">⭐ Önerilen konaklama</div>
+          <a class="btn" href="https://www.google.com/search?q=La+P%C3%A9rgola+Trabzon%20Yomra" target="_blank" rel="noreferrer">
+            Detayları gör
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp">
+    <div class="container center">
+      <h2 class="section-title script">Katılım</h2>
+      <p class="section-sub serif">Katılımınızı onaylayın</p>
+
+      <form class="card" id="rsvpForm">
+        <div class="row">
+          <input name="name" required placeholder="Ad Soyad" />
+          <input name="phone" placeholder="Telefon (opsiyonel)" />
+        </div>
+        <div class="row">
+          <select name="attendance" required>
+            <option value="" disabled selected>Katılım durumu</option>
+            <option value="Evet">Evet, geliyorum</option>
+            <option value="Hayır">Maalesef gelemiyorum</option>
+          </select>
+          <input name="guests" type="number" min="0" max="10" placeholder="Kişi sayısı (opsiyonel)" />
+        </div>
+        <textarea name="note" placeholder="Not (alerji, özel durum vs.)"></textarea>
+
+        <div class="form-actions">
+          <button class="btn" type="submit">Gönder (demo)</button>
+          <button class="btn" type="button" id="copyMsg">Mesajı kopyala</button>
+        </div>
+
+        <div class="status" id="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div>© <span id="year"></span> • Davetiye</div>
+      <div style="margin-top:10px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        <a href="#top">Yukarı</a>
+        <a href="#detaylar">Detaylar</a>
+        <a href="#program">Program</a>
+        <a href="#konaklama">Konaklama</a>
+        <a href="#rsvp">RSVP</a>
+      </div>
+    </div>
+  </footer>
+
+  <noscript>
+    <div style="padding:12px;margin:16px auto;max-width:900px;text-align:center;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;">
+      Sayaçların çalışması için tarayıcıda JavaScript açık olmalı.
+    </div>
+  </noscript>
+
+  <!-- Müzik (opsiyonel) -->
+  <audio id="bgMusic" preload="none" loop>
+    <!-- <source src="music.mp3" type="audio/mpeg"> -->
+  </audio>
+
+  <button class="music" id="musicBtn" aria-label="Müziği aç/kapat" title="Müziği aç/kapat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="7" cy="18" r="3"></circle>
+      <circle cx="19" cy="16" r="3"></circle>
+    </svg>
+  </button>
+
+  <!-- WhatsApp butonu -->
+  <a href="#" class="whatsapp-float" id="sendWhatsapp" aria-label="WhatsApp ile gönder">
+    WhatsApp
+  </a>
+
+  <script>
+    /* === COUNTDOWN (NIŞAN + DÜĞÜN) INLINE === */
+    document.addEventListener("DOMContentLoaded", () => {
+      const pad = (n)=>String(n).padStart(2,"0");
+      const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
+      const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
+
+      function setText(id, val){
+        const el = document.getElementById(id);
+        if(el) el.textContent = val;
+      }
+
+      function calc(target){
+        const now = new Date();
+        let diff = target.getTime() - now.getTime();
+        if(diff < 0) diff = 0;
+
+        const t = Math.floor(diff/1000);
+        const d = Math.floor(t/86400);
+        const h = Math.floor((t%86400)/3600);
+        const m = Math.floor((t%3600)/60);
+        const s = t%60;
+        return {d,h,m,s};
+      }
+
+      function render(){
+        const e = calc(engagementDate);
+        setText("eDays", e.d); setText("eHours", pad(e.h)); setText("eMins", pad(e.m)); setText("eSecs", pad(e.s));
+
+        const w = calc(weddingDate);
+        setText("wDays", w.d); setText("wHours", pad(w.h)); setText("wMins", pad(w.m)); setText("wSecs", pad(w.s));
+
+        setText("year", new Date().getFullYear());
+      }
+
+      render();
+      window.__inviteTimer && clearInterval(window.__inviteTimer);
+      window.__inviteTimer = setInterval(render, 1000);
+    });
+  </script>
+
+  <script>
+    /* === RSVP -> WHATSAPP (905456265491) GÜVENLİ === */
+    document.addEventListener("DOMContentLoaded", () => {
+      const whatsappBtn = document.getElementById("sendWhatsapp");
+      const form = document.getElementById("rsvpForm");
+      const copyBtn = document.getElementById("copyMsg");
+      const statusEl = document.getElementById("status");
+
+      if(!form) return; // form yoksa asla hata verme
+
+      const PHONE = "905456265491";
+
+      function buildMessage(){
+        const name = form.querySelector('[name="name"]')?.value?.trim() || "";
+        const phone = form.querySelector('[name="phone"]')?.value?.trim() || "";
+        const attendance = form.querySelector('[name="attendance"]')?.value || "";
+        const guests = form.querySelector('[name="guests"]')?.value || "";
+        const note = form.querySelector('[name="note"]')?.value?.trim() || "";
+
+        if(!name || !attendance){
+          alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
+          return null;
+        }
+
+        return `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
+
+Ad Soyad: ${name}
+Telefon: ${phone || "Belirtilmedi"}
+Katılım: ${attendance}
+Kişi Sayısı: ${guests || "Belirtilmedi"}
+Not: ${note || "Yok"}`;
+      }
+
+      function openWhatsapp(){
+        const msg = buildMessage();
+        if(!msg) return;
+        const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+        window.open(url, "_blank");
+      }
+
+      // WhatsApp butonu varsa
+      if(whatsappBtn){
+        whatsappBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openWhatsapp();
+        });
+      }
+
+      // Form submit -> WhatsApp
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        openWhatsapp();
+      });
+
+      // Mesajı kopyala
+      if(copyBtn){
+        copyBtn.addEventListener("click", async () => {
+          const msg = buildMessage();
+          if(!msg) return;
+          try{
+            await navigator.clipboard.writeText(msg);
+            if(statusEl) statusEl.textContent = "Mesaj kopyalandı. WhatsApp’tan yapıştırıp gönderebilirsiniz.";
+          }catch{
+            alert("Kopyalama başarısız. Tarayıcı izin vermedi.");
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
