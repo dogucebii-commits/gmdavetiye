@@ -61,7 +61,7 @@
       background-repeat:no-repeat;
     }
 
-    /* Hafif sinematik parıltı (isteğe bağlı ama güzel) */
+    /* Hafif sinematik parıltı */
     .hero::before{
       content:"";
       position:absolute;
@@ -284,7 +284,6 @@
       margin: 6px auto 16px;
       border: 1px solid rgba(123,128,104,.22);
     }
-    .big-icon svg{opacity:.85}
     .place{font-size: 38px; margin: 6px 0 8px; font-weight:500}
     .meta{
       display:flex;
@@ -311,89 +310,6 @@
     }
     .map iframe{width:100%; height:100%; border:0}
 
-    /* TIMELINE */
-    .timeline{
-      margin-top: 18px;
-      position:relative;
-      padding-left: 52px;
-      max-width: 720px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-    .timeline:before{
-      content:"";
-      position:absolute;
-      left: 28px;
-      top: 8px;
-      bottom: 8px;
-      width:2px;
-      background: rgba(123,128,104,.25);
-      border-radius:999px;
-    }
-    .t-item{
-      display:grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      align-items:flex-start;
-      padding: 14px 0;
-    }
-    .t-ico{
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid rgba(123,128,104,.25);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      z-index:2;
-      font-size: 18px;
-    }
-    .t-time{
-      display:inline-block;
-      background: #3b4635;
-      color:#fff;
-      padding: 6px 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      letter-spacing:.05em;
-      margin-right: 10px;
-      min-width: 62px;
-      text-align:center;
-    }
-    .t-title{
-      font-family:"Playfair Display", serif;
-      font-size: 26px;
-      margin: 0 0 4px;
-    }
-    .t-desc{margin:0; color: var(--muted); line-height:1.55}
-
-    /* ACCOMMODATION */
-    .list{display:grid; gap:16px; margin-top: 18px; max-width:720px; margin-left:auto; margin-right:auto;}
-    .acc-title{font-family:"Playfair Display", serif; font-size: 30px; margin:0 0 6px}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(47,58,46,.25);
-      background: transparent;
-      cursor:pointer;
-      font-weight: 600;
-      text-decoration:none;
-    }
-    .btn:hover{background: rgba(123,128,104,.10)}
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color: var(--muted);
-      font-size: 14px;
-      margin: 8px 0 16px;
-    }
-
     /* RSVP */
     form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
@@ -410,44 +326,6 @@
     textarea{min-height:110px; resize:vertical}
     .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
     .status{margin-top:8px; color: var(--muted); text-align:center}
-
-    /* Music Button */
-    .music{
-      position:fixed;
-      right: 16px;
-      bottom: 18px;
-      width: 58px;
-      height: 58px;
-      border-radius: 999px;
-      border: 1px solid rgba(47,58,46,.18);
-      background: #6f7a63;
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow: 0 18px 44px rgba(0,0,0,.18);
-      cursor:pointer;
-      z-index: 50;
-    }
-    .music:active{transform:scale(.98)}
-    .music svg{width:24px; height:24px}
-
-    /* WhatsApp Butonu */
-    .whatsapp-float{
-      position: fixed;
-      right: 20px;
-      bottom: 90px;
-      background: #25D366;
-      color: #fff;
-      padding: 14px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      z-index: 10000;
-    }
-    .whatsapp-float:hover{background:#1ebe5d}
 
     footer{
       padding: 28px 0 40px;
@@ -475,8 +353,6 @@
       <h1 class="script">Gülçin Arslanaydın <span class="amp">&</span> Mustafa Hasançebi</h1>
       <div class="divider">✦</div>
       <div class="date serif">24 Haziran 2026 Çarşamba</div>
-
-      <!-- ✅ RSVP yazısı değişti -->
       <a class="jump" href="#rsvp" aria-label="Katılım bölümüne git">Katılım Bilgisi →</a>
     </div>
   </header>
@@ -490,15 +366,12 @@
       <div class="parents-grid">
         <div class="card parents-card">
           <div class="person">Gülçin Arslanaydın</div>
-
-          <div class="parents-frame" aria-label="Gülçin anne baba bilgileri">
+          <div class="parents-frame">
             <div class="parent-row">
               <div class="parent-role">Anne</div>
               <div class="parent-name">Gülseren</div>
             </div>
-
             <div class="parents-mini-divider"><span></span></div>
-
             <div class="parent-row">
               <div class="parent-role">Baba</div>
               <div class="parent-name">Halit</div>
@@ -508,15 +381,12 @@
 
         <div class="card parents-card">
           <div class="person">Mustafa Hasançebi</div>
-
-          <div class="parents-frame" aria-label="Mustafa anne baba bilgileri">
+          <div class="parents-frame">
             <div class="parent-row">
               <div class="parent-role">Anne</div>
               <div class="parent-name">Özlem</div>
             </div>
-
             <div class="parents-mini-divider"><span></span></div>
-
             <div class="parent-row">
               <div class="parent-role">Baba</div>
               <div class="parent-name">Erdal</div>
@@ -524,136 +394,27 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- COUNTDOWNS -->
   <!-- ✅ SIRA: Nişan Sayacı -> Nişan Konumu -> Düğün Sayacı -> Düğün Konumu -->
 
-<!-- NIŞAN SAYAÇ -->
-<section class="countdown-wrap" id="countdown-nisan" aria-label="Nişan Geri Sayım">
-  <div class="container center">
-    <h2 class="section-title script">Nişan Geri Sayım</h2>
-    <p class="section-sub serif">25 Mart 2026 • 19:00</p>
-    <div class="count-grid">
-      <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
-      <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
-      <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
-      <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- NIŞAN KONUM -->
-<section id="nisan-konum">
-  <div class="container center">
-    <h2 class="section-title script">Nişan</h2>
-    <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
-
-    <div class="card" style="margin-top:22px;">
-      <div class="big-icon" aria-hidden="true">💍</div>
-
-      <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
-        KONUM
-      </div>
-
-      <div class="place serif">Sakarya / Hendek</div>
-
-      <div class="meta">
-        <span>🗓️</span>
-        <span class="serif">25 Mart 2026</span>
-        <span class="dot">•</span>
-        <span>🕒</span>
-        <span class="serif">19:00 – 23:00</span>
-      </div>
-
-      <div class="map" aria-label="Nişan haritası">
-        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
-      </div>
-
-      <div style="margin-top:14px;">
-        <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">
-          Google Haritalar'da aç ↗
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DÜĞÜN SAYAÇ -->
-<section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
-  <div class="container center">
-    <h2 class="section-title script">Düğün Geri Sayım</h2>
-    <p class="section-sub serif">24 Haziran 2026 • 20:00</p>
-    <div class="count-grid">
-      <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
-      <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
-      <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
-      <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- DÜĞÜN KONUM -->
-<section id="dugun-konum">
-  <div class="container center">
-    <h2 class="section-title script">Günün detayları</h2>
-    <p class="section-sub serif">Bilmeniz gereken her şey</p>
-
-    <div class="card" style="margin-top:22px;">
-      <div class="big-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
-          <circle cx="12" cy="10" r="2.5"></circle>
-        </svg>
-      </div>
-
-      <div class="serif" style="letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-size:13px;">
-        KONUM
-      </div>
-
-      <div class="place serif">Trabzon Yomra Flowers Düğün Salonu</div>
-
-      <div class="meta">
-        <span>🕒</span>
-        <span class="serif">20:00 – 23:00</span>
-        <span class="dot">•</span>
-        <span class="serif">Trabzon / Yomra</span>
-      </div>
-
-      <div class="photo">
-        <img alt="Mekan görseli" src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=1600&q=80">
-      </div>
-
-      <div class="map" aria-label="Harita">
-        <iframe
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed">
-        </iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
+  <!-- NIŞAN SAYAÇ -->
+  <section class="countdown-wrap" id="countdown-nisan" aria-label="Nişan Geri Sayım">
     <div class="container center">
-      <h2 class="section-title script">Düğün Geri Sayım</h2>
-      <p class="section-sub serif">24 Haziran 2026 • 20:00</p>
+      <h2 class="section-title script">Nişan Geri Sayım</h2>
+      <p class="section-sub serif">25 Mart 2026 • 19:00</p>
       <div class="count-grid">
-        <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
-        <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
-        <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
-        <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
+        <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
+        <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
+        <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
+        <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
       </div>
     </div>
   </section>
 
-  <!-- NIŞAN -->
-  <section id="nisan">
+  <!-- NIŞAN KONUM -->
+  <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
       <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
@@ -689,10 +450,25 @@
     </div>
   </section>
 
-  <section id="detaylar">
+  <!-- DÜĞÜN SAYAÇ -->
+  <section class="countdown-wrap" id="countdown-dugun" aria-label="Düğün Geri Sayım">
     <div class="container center">
-      <h2 class="section-title script">Günün detayları</h2>
-      <p class="section-sub serif">Bilmeniz gereken her şey</p>
+      <h2 class="section-title script">Düğün Geri Sayım</h2>
+      <p class="section-sub serif">24 Haziran 2026 • 20:00</p>
+      <div class="count-grid">
+        <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
+        <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
+        <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
+        <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÜĞÜN KONUM -->
+  <section id="dugun-konum">
+    <div class="container center">
+      <h2 class="section-title script">Düğün</h2>
+      <p class="section-sub serif">Sizleri düğünümüze bekliyoruz</p>
 
       <div class="card" style="margin-top:22px;">
         <div class="big-icon" aria-hidden="true">
@@ -723,79 +499,6 @@
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed">
           </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROGRAM -->
-  <section id="program">
-    <div class="container center">
-      <h2 class="section-title script">Günün programı</h2>
-      <p class="section-sub serif">Sizin için hazırladıklarımız</p>
-
-      <div class="timeline" aria-label="Program akışı">
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">♡</div>
-          <div>
-            <span class="t-time">17:00</span>
-            <span class="t-title">Misafirlerin gelişi</span>
-            <p class="t-desc">Çiftlikte karşılama ve hoş geldiniz</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🍸</div>
-          <div>
-            <span class="t-time">17:30</span>
-            <span class="t-title">Hoş geldiniz ikramı</span>
-            <p class="t-desc">Beklerken hoş geldiniz kokteyli</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">⛪</div>
-          <div>
-            <span class="t-time">18:00</span>
-            <span class="t-title">Tören</span>
-            <p class="t-desc">Günün en özel anı</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🍷</div>
-          <div>
-            <span class="t-time">19:00</span>
-            <span class="t-title">Kokteyl</span>
-            <p class="t-desc">Bahçede atıştırmalıklar ve içecekler</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🍽️</div>
-          <div>
-            <span class="t-time">21:00</span>
-            <span class="t-title">Ziyafet</span>
-            <p class="t-desc">Akşam yemeği ve kutlama</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🎵</div>
-          <div>
-            <span class="t-time">00:00</span>
-            <span class="t-title">Parti</span>
-            <p class="t-desc">Şafağa kadar dans!</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-ico" aria-hidden="true">🎉</div>
-          <div>
-            <span class="t-time">03:00</span>
-            <span class="t-title">Partinin sonu</span>
-            <p class="t-desc">Vedalaşma ve güzel anılar</p>
-          </div>
         </div>
       </div>
     </div>
@@ -837,21 +540,15 @@
       <div>© <span id="year"></span> • Davetiye</div>
       <div style="margin-top:10px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
         <a href="#top">Yukarı</a>
-        <a href="#detaylar">Detaylar</a>
-        <a href="#program">Program</a>
+        <a href="#countdown-nisan">Nişan</a>
+        <a href="#countdown-dugun">Düğün</a>
         <a href="#rsvp">Katılım</a>
       </div>
     </div>
   </footer>
 
-  <!-- WhatsApp butonu -->
-  <a href="#" class="whatsapp-float" id="sendWhatsapp" aria-label="WhatsApp ile gönder">
-    WhatsApp
-  </a>
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      /* COUNTDOWN */
       const pad = (n)=>String(n).padStart(2,"0");
       const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
       const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
@@ -891,7 +588,6 @@
       /* RSVP -> WhatsApp */
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
-      const whatsappBtn = document.getElementById("sendWhatsapp");
       const copyBtn = document.getElementById("copyMsg");
       const statusEl = document.getElementById("status");
 
@@ -924,11 +620,6 @@ Not: ${note || "Yok"}`;
       }
 
       form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        openWhatsapp();
-      });
-
-      whatsappBtn.addEventListener("click", (e) => {
         e.preventDefault();
         openWhatsapp();
       });
