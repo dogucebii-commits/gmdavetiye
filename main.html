@@ -229,8 +229,6 @@
       text-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
     .hero h1 .amp{font-family:"Playfair Display", serif; font-size:.55em; opacity:.9; display:inline-block; margin:0 8px}
-    .hero .date{margin-top: 16px; color: rgba(255,255,255,.92); font-size: 18px; letter-spacing:.08em; text-shadow: 0 8px 22px rgba(0,0,0,.18);}
-
     .divider{display:flex; align-items:center; justify-content:center; gap:10px; margin: 22px 0 18px; color: rgba(255,255,255,.92);}
     .divider:before,.divider:after{content:""; height:1px; width:84px; background: rgba(255,255,255,.55);}
 
@@ -287,6 +285,7 @@
       letter-spacing:.04em;
       font-family:"Playfair Display", serif;
       position: relative;
+      overflow-wrap:anywhere; /* taşmasın */
     }
     .family-head::after{
       content:"";
@@ -305,6 +304,7 @@
       border-radius: 14px;
       background: rgba(255,255,255,.55);
       border: 1px solid rgba(39,49,38,.10);
+      flex-wrap: wrap; /* taşmasın */
     }
     .name-chip{
       display:inline-flex;
@@ -320,6 +320,7 @@
       border: 1px solid rgba(39,49,38,.10);
       box-shadow: 0 10px 26px rgba(0,0,0,.06);
       white-space: nowrap;
+      max-width: 100%;
     }
     .mini-divider{
       position: relative;
@@ -405,20 +406,49 @@
       .hero h1{font-size: 76px}
       .place{font-size: 44px}
     }
+
+    /* ✅ MOBİL DÜZELTMELER: aileler taşmasın + intro görseli sığsın */
     @media (max-width: 520px){
       .row{grid-template-columns:1fr}
-      .hero h1{font-size:56px}
+      .hero h1{font-size:52px}
+
+      /* Aileler mobilde alt alta */
+      .families-grid{
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+      }
+      /* Dikey çizgi -> yatay */
+      .family-divider{
+        width: 100% !important;
+        height: 1px !important;
+        background: linear-gradient(to right, transparent, rgba(39,49,38,.22), transparent) !important;
+      }
 
       .families-card{ padding: 18px 14px; }
       .family-head{ font-size: 18px; margin-bottom: 10px; }
       .family-col{ padding: 14px 10px; }
-      .family-names{ gap: 10px; padding: 12px 8px; }
+      .family-names{ gap: 10px; padding: 12px 8px; justify-content:center; }
       .name-chip{ font-size: 15px; padding: 9px 12px; }
       .mini-divider{ width: 28px; height: 28px; }
       .spark{ font-size: 13px; }
 
-      .families-grid{ gap: 12px; }
       .music-fab{ right: 10px; bottom: 10px; }
+
+      /* ✅ Intro görseli kesilmesin: ekrana sığsın */
+      .slide{
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background-position: center top !important;
+        transform: translateZ(0) scale(1.01) !important;
+      }
+      .hero{
+        min-height: 78vh;
+        padding: 84px 0 28px; /* görsel ile yazı arası */
+      }
+      .hero-gradient{
+        background: linear-gradient(to bottom, rgba(0,0,0,.52), rgba(0,0,0,.18) 58%, rgba(231,225,212,1));
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -463,10 +493,10 @@
       <small class="serif">EVLENİYORUZ</small>
       <h1 class="script">Gülçin <span class="amp">&</span> Mustafa</h1>
       <div class="divider">✦</div>
-      <div class="date serif" id="heroDate"></div>
     </div>
   </header>
 
+  <!-- ✅ AİLELER -->
   <section id="aileler">
     <div class="container center">
       <h2 class="section-title script">Ailelerimiz</h2>
@@ -499,6 +529,7 @@
     </div>
   </section>
 
+  <!-- ✅ NİŞAN SAYACI -->
   <section class="countdown-wrap" id="countdown-nisan">
     <div class="container center">
       <h2 class="section-title script">Nişan Geri Sayım</h2>
@@ -512,6 +543,7 @@
     </div>
   </section>
 
+  <!-- ✅ NİŞAN KONUM -->
   <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
@@ -550,6 +582,7 @@
     </div>
   </section>
 
+  <!-- ✅ DÜĞÜN SAYACI -->
   <section class="countdown-wrap" id="countdown-dugun">
     <div class="container center">
       <h2 class="section-title script">Düğün Geri Sayım</h2>
@@ -563,6 +596,7 @@
     </div>
   </section>
 
+  <!-- ✅ DÜĞÜN KONUM -->
   <section id="dugun-konum">
     <div class="container center">
       <h2 class="section-title script">Düğün</h2>
@@ -601,6 +635,7 @@
     </div>
   </section>
 
+  <!-- ✅ RSVP -->
   <section id="rsvp">
     <div class="container center">
       <h2 class="section-title script">Katılım</h2>
@@ -633,6 +668,7 @@
     <div class="container"></div>
   </footer>
 
+  <!-- ✅ MÜZİK -->
   <audio id="bgMusic" loop preload="auto">
     <source id="bgMusicSource" src="Carla Morrison - Disfruto (letra) [jwP1HRmDVII].mp3" type="audio/mpeg">
   </audio>
@@ -651,8 +687,6 @@
           });
         }, 250);
       });
-
-      
 
       // =========================
       // ✅ GERİ SAYIMLAR (Nişan + Düğün)
@@ -688,6 +722,7 @@
 
         const w = calc(weddingDate);
         setText("wDays", w.d);
+        setText("wHours", pad(e.h = w.h)); /* küçük koruma */
         setText("wHours", pad(w.h));
         setText("wMins", pad(w.m));
         setText("wSecs", pad(w.s));
@@ -747,7 +782,6 @@ Not: ${note || "Yok"}`;
           await music.play();
           setBtn(true);
         }catch(_){
-          // autoplay engellenirse
           setBtn(false);
         }
       }
