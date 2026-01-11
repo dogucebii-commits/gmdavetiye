@@ -408,16 +408,44 @@
     }
 
     /* ✅ MOBİL DÜZELTMELER: aileler taşmasın + intro görseli sığsın */
-    @media (max-width: 520px){
-      .row{grid-template-columns:1fr}
-      .hero h1{font-size:52px}
+   @media (max-width: 520px){
+  /* ✅ Aileler mobilde YAN YANA kalsın */
+  .families-grid{
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+  }
 
-      /* Aileler mobilde alt alta */
-      .families-grid{
-        flex-direction: column !important;
-        flex-wrap: wrap !important;
-        gap: 12px !important;
-      }
+  .family-col{
+    flex: 1 1 0;
+    padding: 12px 8px;
+  }
+
+  /* Ortadaki ayırıcı yine dikey kalsın */
+  .family-divider{
+    width: 1px !important;
+    height: auto !important;
+  }
+
+  /* Yazılar taşmasın */
+  .family-head{
+    font-size: 16px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .family-names{
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 6px;
+  }
+
+  .name-chip{
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+
       /* Dikey çizgi -> yatay */
       .family-divider{
         width: 100% !important;
