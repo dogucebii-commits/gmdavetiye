@@ -9,10 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- ✅ Video preload (doğru tip) -->
-  <link rel="preload" as="video" href="scene1-animated.mp4" type="video/mp4" fetchpriority="high">
-  <link rel="preload" as="video" href="scene2-animated.mp4" type="video/mp4">
-  <link rel="preload" as="video" href="scene3-animated.mp4" type="video/mp4">
+  <!-- ✅ Tek video preload -->
+  <link rel="preload" as="video" href="scene3-animated.mp4" type="video/mp4" fetchpriority="high">
 
   <style>
     :root{
@@ -30,6 +28,10 @@
       --nightOpacity: .40;
       --moonGlow: .40;
       --starOpacity: .80;
+
+      /* ✅ Loop geçiş ayarı */
+      --xfade: 900ms;           /* crossfade süresi */
+      --mobileFadeH: 140px;     /* mobil alt degrade yüksekliği */
     }
 
     *{box-sizing:border-box}
@@ -46,7 +48,7 @@
     .serif{font-family:"Playfair Display", serif;}
 
     /* =========================
-       HERO (Video slideshow)
+       HERO (Tek video + seamless loop)
        ========================= */
     .hero{
       min-height: 82vh;
@@ -63,39 +65,48 @@
 
     .hero-slideshow{ position:absolute; inset:0; z-index:0; }
 
-    .slide{
+    /* Video sahnesi */
+    .video-stage{
       position:absolute;
       inset:0;
-      opacity:0;
-      transform: translateZ(0) scale(1.04);
-      filter: saturate(1.06) contrast(1.05);
-      animation: heroFade 18s infinite;
-      animation-fill-mode: both;
-      will-change: opacity, transform;
+      z-index:0;
+      overflow:hidden;
+      transform: translateZ(0);
     }
 
-    /* Video fill */
-    .slide video{
+    /* ✅ 2 video üst üste (seamless loop için) */
+    .video-stage video{
+      position:absolute;
+      inset:0;
       width:100%;
       height:100%;
       object-fit: cover;
       object-position: center;
       display:block;
+      transform: scale(1.04);
+      filter: saturate(1.06) contrast(1.05);
+      will-change: opacity, transform;
     }
 
-    /* 3 sahne */
-    .s1{ animation-delay:0s; }
-    .s2{ animation-delay:6s; }
-    .s3{ animation-delay:12s; }
-
-    @keyframes heroFade{
-      /* İlk frame’de boş görünmesin diye 0% opacity 1 */
-      0%   { opacity:1; transform:translateZ(0) scale(1.06); }
-      8%   { opacity:1; }
-      30%  { opacity:1; transform:translateZ(0) scale(1.02); }
-      38%  { opacity:0; }
-      100% { opacity:0; }
+    /* Hafif hareket: loop daha az belli olur */
+    .video-stage .vA{
+      animation: slowKen 12s ease-in-out infinite;
     }
+    .video-stage .vB{
+      animation: slowKen 12s ease-in-out infinite reverse;
+    }
+    @keyframes slowKen{
+      0%   { transform: scale(1.05) translate3d(0,0,0); }
+      50%  { transform: scale(1.09) translate3d(0,-1.5%,0); }
+      100% { transform: scale(1.05) translate3d(0,0,0); }
+    }
+
+    /* Crossfade state */
+    .video-stage .vA{ opacity:1; transition: opacity var(--xfade) ease; }
+    .video-stage .vB{ opacity:0; transition: opacity var(--xfade) ease; }
+
+    .video-stage.isB .vA{ opacity:0; }
+    .video-stage.isB .vB{ opacity:1; }
 
     /* 🌙 Mood */
     .sky-mood{
@@ -227,6 +238,28 @@
       position:absolute; inset:0; pointer-events:none;
       z-index:6;
       background: linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.20) 55%, rgba(231,225,212,1));
+    }
+
+    /* ✅ Mobilde “alt çizgi” olmasın: video altına yumuşak geçiş */
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:-10%;
+      right:-10%;
+      bottom:-1px;
+      height: 180px;
+      z-index:20;
+      pointer-events:none;
+      background:
+        radial-gradient(80% 90% at 50% 0%,
+          rgba(231,225,212,0) 0%,
+          rgba(231,225,212,.40) 45%,
+          rgba(231,225,212,1) 100%),
+        linear-gradient(to bottom,
+          rgba(231,225,212,0) 0%,
+          rgba(231,225,212,.65) 55%,
+          rgba(231,225,212,1) 100%);
+      filter: blur(0px);
     }
 
     .hero small{
@@ -419,38 +452,38 @@
       .place{font-size: 44px}
     }
 
-    /* ✅ MOBİL: video kesilmesin -> contain */
     @media (max-width: 520px){
       .row{grid-template-columns:1fr}
       .hero h1{font-size:52px}
       .hero{ padding: 84px 0 28px; min-height: 78vh; }
 
-      .slide video{
-        object-fit: contain;
-        object-position: center top;
+      /* mobilde alt geçişi biraz daha güçlü */
+      .hero::after{
+        height: var(--mobileFadeH);
+        background:
+          radial-gradient(92% 95% at 50% 0%,
+            rgba(231,225,212,0) 0%,
+            rgba(231,225,212,.55) 42%,
+            rgba(231,225,212,1) 100%),
+          linear-gradient(to bottom,
+            rgba(231,225,212,0) 0%,
+            rgba(231,225,212,.72) 55%,
+            rgba(231,225,212,1) 100%);
+        filter: blur(0.5px);
       }
-
-      .families-card{ padding: 18px 14px; }
-      .family-col{ padding: 12px 8px; }
-      .family-head{ font-size: 16px; margin-bottom: 10px; }
-      .family-names{ gap: 6px; padding: 10px 6px; }
-      .name-chip{ font-size: 14px; padding: 8px 10px; }
-      .mini-divider{ width: 28px; height: 28px; flex-basis: 28px; }
-      .spark{ font-size: 13px; }
 
       .music-fab{ right: 10px; bottom: 10px; }
     }
 
-    /* ✅ Reduced motion: sadece 1. video */
     @media (prefers-reduced-motion: reduce){
-      .slide, .stars-overlay, .sparkle-overlay,
+      .stars-overlay, .sparkle-overlay,
       .falling-stars span, .shooting-stars i,
-      .mini-divider::before, .spark{
+      .mini-divider::before, .spark,
+      .video-stage .vA, .video-stage .vB{
         animation:none !important;
       }
-      .s1{opacity:1}
-      .s2,.s3{opacity:0}
-      .slide{ transform:none; filter:none; }
+      .video-stage .vA{opacity:1}
+      .video-stage .vB{opacity:0}
     }
   </style>
 </head>
@@ -460,21 +493,12 @@
   <header class="hero" id="top">
     <div class="hero-slideshow" aria-hidden="true">
 
-      <!-- ✅ VIDEO SLIDES -->
-      <div class="slide s1">
-        <video autoplay muted loop playsinline preload="auto">
-          <source src="scene1-animated.mp4" type="video/mp4">
+      <!-- ✅ SADECE 3. VİDEO (seamless loop için 2 katman) -->
+      <div class="video-stage" id="videoStage">
+        <video class="vA" id="heroVA" autoplay muted playsinline preload="auto">
+          <source src="scene3-animated.mp4" type="video/mp4">
         </video>
-      </div>
-
-      <div class="slide s2">
-        <video autoplay muted loop playsinline preload="auto">
-          <source src="scene2-animated.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <div class="slide s3">
-        <video autoplay muted loop playsinline preload="auto">
+        <video class="vB" id="heroVB" autoplay muted playsinline preload="auto">
           <source src="scene3-animated.mp4" type="video/mp4">
         </video>
       </div>
@@ -688,19 +712,17 @@
       // ✅ 1) GERİ SAYIMLAR (Nişan + Düğün)
       // =========================
       const pad = (n)=>String(n).padStart(2,"0");
-      const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
-      const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
+      const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
+      const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
 
       function setText(id, val){
         const el = document.getElementById(id);
         if(el) el.textContent = val;
       }
-
       function calc(target){
         const now = new Date();
         let diff = target.getTime() - now.getTime();
         if(diff < 0) diff = 0;
-
         const t = Math.floor(diff/1000);
         const d = Math.floor(t/86400);
         const h = Math.floor((t%86400)/3600);
@@ -708,7 +730,6 @@
         const s = t%60;
         return {d,h,m,s};
       }
-
       function render(){
         const e = calc(engagementDate);
         setText("eDays", e.d);
@@ -722,7 +743,6 @@
         setText("wMins", pad(w.m));
         setText("wSecs", pad(w.s));
       }
-
       render();
       window.__inviteTimer && clearInterval(window.__inviteTimer);
       window.__inviteTimer = setInterval(render, 1000);
@@ -759,27 +779,72 @@ Not: ${note || "Yok"}`;
         const msg = buildMessage();
         if(!msg) return;
         const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
-        // Daha stabil: aynı sekmede aç
         window.location.href = url;
       });
 
       // =========================
-      // ✅ 3) HERO VIDEOLARINI OYNAT (mobil autoplay için muted + playsinline zaten var)
+      // ✅ 3) HERO VIDEO: seamless loop (2 video + crossfade)
       // =========================
-      const heroVideos = Array.from(document.querySelectorAll(".slide video"));
-      heroVideos.forEach(v => {
-        v.muted = true;         // autoplay şart
+      const stage = document.getElementById("videoStage");
+      const vA = document.getElementById("heroVA");
+      const vB = document.getElementById("heroVB");
+
+      const CROSSFADE_MS = 900;     // CSS --xfade ile aynı tut
+      const PRE_ROLL_SEC = 0.9;     // bitmeden kaç sn önce diğerini başlat
+
+      // Mobil autoplay için şart
+      [vA, vB].forEach(v => {
+        v.muted = true;
         v.playsInline = true;
-        v.loop = true;
         v.preload = "auto";
       });
 
-      async function tryPlayVideos(){
-        for(const v of heroVideos){
-          try{ await v.play(); } catch(_) {}
+      let showingB = false;
+      let busy = false;
+
+      async function safePlay(v){
+        try { await v.play(); } catch(_) {}
+      }
+
+      // İlk başlat
+      vA.currentTime = 0;
+      safePlay(vA);
+
+      function active(){ return showingB ? vB : vA; }
+      function standby(){ return showingB ? vA : vB; }
+
+      async function swapIfNeeded(){
+        if(busy) return;
+        const a = active();
+        const s = standby();
+
+        if(!isFinite(a.duration) || a.duration === 0) return;
+        const remain = a.duration - a.currentTime;
+
+        if(remain <= PRE_ROLL_SEC){
+          busy = true;
+
+          try { s.currentTime = 0; } catch(_) {}
+          await safePlay(s);
+
+          // crossfade başlat
+          showingB = !showingB;
+          stage.classList.toggle("isB", showingB);
+
+          // eskiyi fade bitince durdur
+          setTimeout(() => {
+            try { a.pause(); } catch(_) {}
+            busy = false;
+          }, CROSSFADE_MS + 80);
         }
       }
-      tryPlayVideos();
+
+      // Sık kontrol (timeupdate bazı cihazlarda seyrek gelir)
+      setInterval(swapIfNeeded, 120);
+
+      // Meta data gelince garanti start
+      vA.addEventListener("loadedmetadata", () => safePlay(vA));
+      vB.addEventListener("loadedmetadata", () => { /* standby */ });
 
       // =========================
       // ✅ 4) MÜZİK
@@ -792,17 +857,10 @@ Not: ${note || "Yok"}`;
         toggle.textContent = on ? "🔊 Müzik Açık" : "🔇 Müzik Kapalı";
       }
       async function playMusic(){
-        try{
-          await music.play();
-          setBtn(true);
-        }catch(_){
-          setBtn(false);
-        }
+        try{ await music.play(); setBtn(true); }
+        catch(_){ setBtn(false); }
       }
-      function stopMusic(){
-        music.pause();
-        setBtn(false);
-      }
+      function stopMusic(){ music.pause(); setBtn(false); }
 
       playMusic();
       toggle.addEventListener("click", async () => {
