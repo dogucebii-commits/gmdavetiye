@@ -58,7 +58,7 @@
 </head>
 <body>
 
-  <div class="intro-wrap">
+  <div class="intro-wrap" id="intro">
     <!-- loop YOK: video bitince tekrar etmez -->
     <video id="introVideo" autoplay muted playsinline preload="auto">
       <source src="5s auto 720p Video 02.mp4" type="video/mp4">
@@ -103,4 +103,23 @@
       // iOS autoplay engeli için tıklayınca play dene
       try{ vid.play(); }catch(_){}
 
-      setTimeout(goNext, 200
+      // SADECE tıklayınca geç
+      setTimeout(goNext, 200);
+    }
+
+    document.addEventListener("click", handleTap, {passive:true});
+    document.addEventListener("touchstart", handleTap, {passive:true});
+
+    // ✅ Video bitince otomatik geçiş YOK.
+    // Sadece durur ve son karede kalır; kullanıcı tıklayana kadar ekranda bekler.
+    vid.addEventListener("ended", () => {
+      try{
+        vid.pause();
+        // Bazı tarayıcılarda son kareyi garanti etmek için:
+        vid.currentTime = vid.duration;
+      }catch(_){}
+    });
+  </script>
+
+</body>
+</html>
