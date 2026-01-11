@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- ✅ Video adı boşluk içerdiği için URL-ENCODE kullandık -->
   <link rel="preload" as="video" href="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4" fetchpriority="high">
@@ -32,6 +32,8 @@
       --xfade: 1200ms;
       --maskSoft: 24%;
       --heroExtra: 130px;
+
+      --focus: rgba(91,96,78,.28);
     }
 
     *{box-sizing:border-box}
@@ -47,6 +49,9 @@
     .script{font-family:"Great Vibes", cursive;}
     .serif{font-family:"Playfair Display", serif;}
 
+    /* =========================
+       ✅ HERO
+       ========================= */
     .hero{
       min-height: 88vh;
       position: relative;
@@ -68,7 +73,6 @@
       overflow:hidden;
       transform: translateZ(0);
 
-      /* ✅ Keskin alt çizgi yok */
       -webkit-mask-image: linear-gradient(to bottom,
         rgba(0,0,0,1) 0%,
         rgba(0,0,0,1) calc(100% - var(--maskSoft)),
@@ -280,6 +284,9 @@
       padding: 26px 18px;
     }
 
+    /* =========================
+       ✅ AİLELER + MOBİL FIX
+       ========================= */
     #aileler{
       position: relative;
       margin-top: calc(-1 * (var(--heroExtra) + 30px));
@@ -315,25 +322,21 @@
       border: 1px solid rgba(39,49,38,.10);
       overflow:hidden;
     }
-
-    /* ✅ MOBİLDE kelime kırılmasını düzelt */
+    /* ✅ Arslanaydın gibi kelimeler mobilde bölünmesin */
     .family-head{
       text-align:center;
-      font-size: clamp(18px, 5vw, 24px);
+      font-size: 24px;
       margin: 2px 0 14px;
       color: var(--text);
       letter-spacing:.04em;
       font-family:"Playfair Display", serif;
 
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
+      word-break: keep-all;
       overflow-wrap: normal;
-      word-break: normal;
-
-      -webkit-hyphens: none;
       hyphens: none;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .family-head::after{
       content:"";
@@ -420,6 +423,9 @@
     .map{border-radius: 16px; overflow:hidden; border: 1px solid var(--line); height: 220px;}
     .map iframe{width:100%; height:100%; border:0}
 
+    /* =========================
+       ✅ RSVP (Daha şık)
+       ========================= */
     form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
 
@@ -427,17 +433,15 @@
       width:100%; padding: 12px 12px; border-radius: 14px;
       border: 1px solid rgba(39,49,38,.20);
       background: rgba(255,255,255,.82); font: inherit; outline:none;
-      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    input:focus, textarea:focus, select:focus{
+      box-shadow: 0 0 0 4px var(--focus);
+      border-color: rgba(91,96,78,.55);
     }
     textarea{min-height:110px; resize:vertical}
-    input:focus, textarea:focus, select:focus{
-      border-color: rgba(91,96,78,.55);
-      box-shadow: 0 0 0 3px rgba(91,96,78,.14);
-      background: rgba(255,255,255,.92);
-    }
 
     .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
-    .status{margin-top:8px; color: var(--muted); text-align:center; min-height: 18px; font-size:13px;}
+    .status{margin-top:8px; color: var(--muted); text-align:center}
 
     .btn{
       display:inline-flex; align-items:center; gap:10px;
@@ -445,8 +449,96 @@
       border: 1px solid rgba(39,49,38,.25);
       background: transparent; cursor:pointer;
       font-weight: 600; text-decoration:none;
+      transition: transform .12s ease, background .12s ease;
     }
-    .btn:hover{background: rgba(91,96,78,.10)}
+    .btn:hover{background: rgba(91,96,78,.10); transform: translateY(-1px);}
+
+    .rsvp-card{
+      padding: 20px 18px;
+      background:
+        radial-gradient(600px 240px at 25% 0%, rgba(91,96,78,.10), transparent 60%),
+        radial-gradient(520px 220px at 90% 30%, rgba(39,49,38,.08), transparent 62%),
+        rgba(244,242,236,.92);
+    }
+
+    .rsvp-title-mini{
+      font-family:"Playfair Display", serif;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      color: rgba(39,49,38,.62);
+      margin: 0 0 8px;
+      text-align:center;
+    }
+
+    .pill-grid{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin: 6px 0 10px;
+    }
+    .pill{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(39,49,38,.16);
+      background: rgba(255,255,255,.70);
+      cursor:pointer;
+      user-select:none;
+      font-weight:600;
+      box-shadow: 0 10px 22px rgba(0,0,0,.05);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); }
+    .pill input{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      pointer-events:none;
+    }
+    .pill.is-on{
+      background: rgba(91,96,78,.14);
+      border-color: rgba(91,96,78,.35);
+    }
+
+    .seg{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0 2px;
+    }
+    .seg label{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(39,49,38,.16);
+      background: rgba(255,255,255,.70);
+      cursor:pointer;
+      font-weight:700;
+      transition: background .12s ease, border-color .12s ease, transform .12s ease;
+    }
+    .seg label:hover{ transform: translateY(-1px); }
+    .seg input{ position:absolute; opacity:0; pointer-events:none; }
+    .seg label.is-on{
+      background: rgba(39,49,38,.10);
+      border-color: rgba(39,49,38,.26);
+    }
+
+    .hint{
+      text-align:center;
+      color: rgba(39,49,38,.65);
+      font-size:13px;
+      margin: 6px 0 0;
+    }
 
     footer{padding: 28px 0 40px; color: var(--muted); text-align:center;}
 
@@ -457,6 +549,93 @@
       z-index: 9999;
       background: rgba(244,242,236,.95);
       backdrop-filter: blur(6px);
+    }
+
+    /* =========================
+       ✅ ADMIN VIEW
+       ========================= */
+    .admin-wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 16px 44px;
+      display:none;
+    }
+    .admin-wrap.is-on{ display:block; }
+    .invite-wrap.is-off{ display:none; }
+
+    .admin-card{
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .admin-title{
+      font-family:"Playfair Display", serif;
+      font-weight:600;
+      margin:0 0 6px;
+    }
+    .admin-sub{ color:var(--muted); margin:0 0 14px; line-height:1.5; }
+
+    .admin-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:12px; margin-top:12px;}
+    .kpis{ display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    .kpi{
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 16px;
+      padding: 14px 14px;
+      background: rgba(39,49,38,.06);
+    }
+    .kpi b{ display:block; font-size:34px; font-family:"Playfair Display", serif; }
+    .kpi span{ color:rgba(39,49,38,.75); font-weight:600; letter-spacing:.08em; text-transform:uppercase; font-size:12px;}
+
+    .filters{ display:grid; gap:10px;}
+    .frow{ display:grid; grid-template-columns: 1.2fr .8fr .8fr; gap:10px; }
+    .admin-btn{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(39,49,38,.20);
+      background: rgba(39,49,38,.10);
+      font: inherit;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .admin-btn:hover{ background: rgba(39,49,38,.14); }
+    .danger{ background: rgba(198,40,40,.12); border-color: rgba(198,40,40,.25); }
+    .danger:hover{ background: rgba(198,40,40,.18); }
+
+    .tableWrap{ overflow:auto; border-radius: 16px; border:1px solid var(--line); background: rgba(255,255,255,.60); margin-top:12px;}
+    table{ width:100%; border-collapse:collapse; min-width: 980px; }
+    th, td{ padding: 10px 10px; border-bottom: 1px solid rgba(39,49,38,.10); text-align:left; vertical-align:top; }
+    th{
+      font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      color: rgba(39,49,38,.70);
+      background: rgba(255,255,255,.55);
+      position:sticky; top:0;
+    }
+    .tag{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px;
+      border:1px solid rgba(39,49,38,.16);
+      background: rgba(244,242,236,.92);
+      margin-right:6px;
+      white-space:nowrap;
+    }
+    .tag.nisan{ background: rgba(91,96,78,.12); border-color: rgba(91,96,78,.25); }
+    .tag.dugun{ background: rgba(39,49,38,.10); border-color: rgba(39,49,38,.22); }
+    .tag.yes{ background: rgba(46,125,50,.12); border-color: rgba(46,125,50,.22); }
+    .tag.no{ background: rgba(198,40,40,.10); border-color: rgba(198,40,40,.22); }
+    .muted{ color:var(--muted); }
+    .actions{ display:flex; gap:8px; }
+
+    .admin-footer{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .small{ font-size:13px; color:var(--muted); }
+
+    .admin-login{
+      max-width: 520px;
+      margin: 16px auto 0;
+      display:grid;
+      gap:10px;
     }
 
     @media (min-width: 720px){
@@ -473,8 +652,21 @@
       :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
 
-      .families-card{ padding: 24px 16px; }
-      .family-col{ padding: 16px 12px; }
+      /* ✅ aileler mobil: alt alta */
+      .families-grid{ flex-direction: column !important; gap: 12px; }
+      .family-divider{
+        width: 100%; height: 1px;
+        background: linear-gradient(to right, transparent, rgba(39,49,38,.20), transparent);
+        flex: 0 0 1px;
+      }
+      .family-head{ font-size: 22px; }
+
+      .seg{ grid-template-columns: 1fr; }
+
+      /* admin */
+      .admin-grid{ grid-template-columns: 1fr; }
+      .frow{ grid-template-columns: 1fr; }
+      table{ min-width: 860px; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -487,357 +679,566 @@
       .video-stage .vA{opacity:1}
       .video-stage .vB{opacity:0}
     }
-
-    /* =========================
-       ✅ RSVP (Katılım) - Daha Şık
-       ========================= */
-    .rsvp-card{
-      padding: 22px 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62));
-      border: 1px solid rgba(39,49,38,.14);
-    }
-    .rsvp-title{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin: 0 0 6px;
-      font-family:"Playfair Display", serif;
-      font-size: 20px;
-      color: var(--text);
-    }
-    .rsvp-sub{
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .field{
-      text-align:left;
-      display:grid;
-      gap: 8px;
-    }
-    .label{
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(39,49,38,.70);
-      font-weight: 600;
-    }
-    .pill-group{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .pill-group input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(39,49,38,.18);
-      background: rgba(244,242,236,.92);
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      font-weight: 650;
-    }
-    .pill:hover{ transform: translateY(-1px); }
-    .pill-group input:checked + .pill{
-      background: rgba(91,96,78,.16);
-      border-color: rgba(91,96,78,.40);
-    }
-    .pill-group input:focus-visible + .pill{
-      outline: 2px solid rgba(91,96,78,.55);
-      outline-offset: 2px;
-    }
-    .rsvp-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .rsvp-actions{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content:center;
-      margin-top: 6px;
-    }
-    .btn-primary{
-      border: 1px solid rgba(91,96,78,.42);
-      background: rgba(91,96,78,.14);
-    }
-    .btn-primary:hover{
-      background: rgba(91,96,78,.20);
-    }
-    .btn-ghost{
-      background: transparent;
-    }
-    @media (max-width: 520px){
-      .rsvp-grid{ grid-template-columns: 1fr; }
-      .rsvp-card{ padding: 20px 14px; }
-    }
   </style>
 </head>
 
 <body>
 
-  <header class="hero" id="top">
-    <div class="hero-slideshow" aria-hidden="true">
+  <!-- =========================
+       ✅ ADMIN PANEL (Tek dosya)
+       Erişim: /#admin
+       ========================= -->
+  <div class="admin-wrap" id="adminWrap">
+    <div class="admin-card">
+      <h1 class="admin-title">RSVP Admin</h1>
+      <p class="admin-sub">Formdan gelen katılımları burada görürsün. <b>Nişan / Düğün</b> toplamları ayrı hesaplanır.</p>
 
-      <div class="video-stage" id="videoStage">
-        <video class="vA" id="heroVA" autoplay muted playsinline preload="auto">
-          <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
-        </video>
-        <video class="vB" id="heroVB" autoplay muted playsinline preload="auto">
-          <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
-        </video>
+      <div id="adminLocked">
+        <div class="admin-login admin-card" style="background:rgba(255,255,255,.55);">
+          <div class="rsvp-title-mini">ADMIN GİRİŞ</div>
+          <input id="adminUser" placeholder="Kullanıcı" value="admin" />
+          <input id="adminPass" placeholder="Şifre" type="password" />
+          <button class="admin-btn" id="adminLoginBtn">Giriş Yap</button>
+          <div class="small" id="adminLoginStatus"></div>
+        </div>
       </div>
 
-      <div class="sky-mood"></div>
-      <div class="vignette"></div>
-
-      <div class="stars-overlay"></div>
-
-      <div class="falling-stars" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-
-      <div class="shooting-stars" aria-hidden="true">
-        <i></i><i></i><i></i>
-      </div>
-
-      <div class="sparkle-overlay"></div>
-      <div class="hero-gradient"></div>
-    </div>
-
-    <div class="container hero-inner">
-      <small class="serif">EVLENİYORUZ</small>
-      <h1 class="script">Gülçin <span class="amp">&</span> Mustafa</h1>
-      <div class="divider">✦</div>
-    </div>
-  </header>
-
-  <section id="aileler">
-    <div class="container center">
-      <h2 class="section-title script">Ailelerimiz</h2>
-
-      <div class="card families-card" style="margin-top:22px;">
-        <div class="families-grid">
-          <div class="family-col">
-            <div class="family-head">Arslanaydın</div>
-            <div class="family-names">
-              <span class="name-chip">Gülseren</span>
-              <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
-              <span class="name-chip">Yusuf</span>
+      <div id="adminContent" style="display:none;">
+        <div class="admin-grid">
+          <div class="admin-card">
+            <div class="kpis">
+              <div class="kpi">
+                <span>💍 Nişan Toplam</span>
+                <b id="kpiNisan">0</b>
+              </div>
+              <div class="kpi">
+                <span>💒 Düğün Toplam</span>
+                <b id="kpiDugun">0</b>
+              </div>
+            </div>
+            <div class="small" style="margin-top:10px;">
+              Varsayılan: sadece <b>Evet</b> diyenler toplama dahil edilir.
             </div>
           </div>
 
-          <div class="family-divider" aria-hidden="true"></div>
+          <div class="admin-card">
+            <div class="filters">
+              <div class="frow">
+                <input id="q" placeholder="Ara (ad, telefon, not)" />
+                <select id="event">
+                  <option value="">Tüm Etkinlikler</option>
+                  <option value="Nişan">Nişan</option>
+                  <option value="Düğün">Düğün</option>
+                </select>
+                <select id="attendanceF">
+                  <option value="">Tüm Katılımlar</option>
+                  <option value="Evet">Evet</option>
+                  <option value="Hayır">Hayır</option>
+                </select>
+              </div>
 
-          <div class="family-col">
-            <div class="family-head">Hasançebi</div>
-            <div class="family-names">
-              <span class="name-chip">Özlem</span>
-              <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
-              <span class="name-chip">Erdal</span>
+              <div class="frow" style="grid-template-columns: 1fr 1fr 1fr;">
+                <button class="admin-btn" id="refresh">Yenile</button>
+                <button class="admin-btn" id="toggleOnlyYes">Toplam: Sadece Evet ✅</button>
+                <button class="admin-btn danger" id="clearAll">Tüm Kayıtları Sil</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
-  </section>
-
-  <section class="countdown-wrap" id="countdown-nisan">
-    <div class="container center">
-      <h2 class="section-title script">Nişan Geri Sayım</h2>
-      <div class="count-grid">
-        <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
-        <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
-        <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
-        <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="nisan-konum">
-    <div class="container center">
-      <h2 class="section-title script">Nişan</h2>
-      <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
-
-      <div class="card" style="margin-top:22px;">
-        <div class="big-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
-            <circle cx="12" cy="10" r="2.5"></circle>
-          </svg>
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tarih</th>
+                <th>Etkinlik</th>
+                <th>Katılım</th>
+                <th>Ad</th>
+                <th>Telefon</th>
+                <th>Kişi</th>
+                <th>Not</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              <tr><td colspan="8" class="muted">Yükleniyor…</td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <div class="serif" style="letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:13px;">KONUM</div>
-        <div class="place serif">Liva Organizasyon</div>
-
-        <div class="meta">
-          <span>🕒</span><span class="serif">19:00 – 23:00</span>
-          <span class="dot">•</span><span class="serif">Sakarya / Hendek</span>
-        </div>
-
-        <div class="map" aria-label="Nişan haritası">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Liva%20Organizasyon%20Hendek%20Sakarya&output=embed">
-          </iframe>
-        </div>
-
-        <div style="margin-top:14px;">
-          <a class="btn"
-             href="https://www.google.com/maps/search/?api=1&query=Liva%20Organizasyon%20Hendek%20Sakarya"
-             target="_blank" rel="noreferrer">
-            Google Haritalar'da aç ↗
-          </a>
+        <div class="admin-footer">
+          <div class="small">Toplam kayıt: <b id="totalCount">0</b></div>
+          <div class="small muted" id="lastUpdate">—</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="countdown-wrap" id="countdown-dugun">
-    <div class="container center">
-      <h2 class="section-title script">Düğün Geri Sayım</h2>
-      <div class="count-grid">
-        <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
-        <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
-        <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
-        <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
+  <!-- =========================
+       ✅ DAVETİYE
+       ========================= -->
+  <div class="invite-wrap" id="inviteWrap">
+
+    <header class="hero" id="top">
+      <div class="hero-slideshow" aria-hidden="true">
+
+        <div class="video-stage" id="videoStage">
+          <video class="vA" id="heroVA" autoplay muted playsinline preload="auto">
+            <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
+          </video>
+          <video class="vB" id="heroVB" autoplay muted playsinline preload="auto">
+            <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="sky-mood"></div>
+        <div class="vignette"></div>
+
+        <div class="stars-overlay"></div>
+
+        <div class="falling-stars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="shooting-stars" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </div>
+
+        <div class="sparkle-overlay"></div>
+        <div class="hero-gradient"></div>
       </div>
-    </div>
-  </section>
 
-  <section id="dugun-konum">
-    <div class="container center">
-      <h2 class="section-title script">Düğün</h2>
-      <p class="section-sub serif">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız</p>
-
-      <div class="card" style="margin-top:22px;">
-        <div class="big-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
-            <circle cx="12" cy="10" r="2.5"></circle>
-          </svg>
-        </div>
-
-        <div class="serif" style="letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:13px;">KONUM</div>
-        <div class="place serif">Flowers Düğün Salonu</div>
-
-        <div class="meta">
-          <span>🕒</span><span class="serif">20:00 – 23:00</span>
-          <span class="dot">•</span><span class="serif">Trabzon / Yomra</span>
-        </div>
-
-        <div class="map" aria-label="Harita">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed"></iframe>
-        </div>
-
-        <div style="margin-top:14px;">
-          <a class="btn"
-            href="https://www.google.com/maps/search/?api=1&query=Trabzon%20Yomra%20Flowers%20D%C3%BC%C4%9F%C3%BCn%20Salonu"
-            target="_blank" rel="noreferrer">
-            Google Haritalar'da aç ↗
-          </a>
-        </div>
-
+      <div class="container hero-inner">
+        <small class="serif">EVLENİYORUZ</small>
+        <h1 class="script">Gülçin <span class="amp">&</span> Mustafa</h1>
+        <div class="divider">✦</div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- ✅ YENİ RSVP (ŞIK + NİŞAN/DÜĞÜN SEÇİMİ) -->
-  <section id="rsvp">
-    <div class="container center">
-      <h2 class="section-title script">Katılım</h2>
+    <section id="aileler">
+      <div class="container center">
+        <h2 class="section-title script">Ailelerimiz</h2>
 
-      <form class="card rsvp-card" id="rsvpForm">
-        <div class="rsvp-title">✦ Katılım Bilgisi</div>
-        <p class="rsvp-sub serif">Lütfen hangi etkinliğe katılacağınızı seçin ve WhatsApp’tan bize iletin.</p>
+        <div class="card families-card" style="margin-top:22px;">
+          <div class="families-grid">
+            <div class="family-col">
+              <div class="family-head">Arslanaydın</div>
+              <div class="family-names">
+                <span class="name-chip">Gülseren</span>
+                <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
+                <span class="name-chip">Yusuf</span>
+              </div>
+            </div>
 
-        <div class="field">
-          <div class="label">Hangi etkinliğe geliyorsunuz?</div>
-          <div class="pill-group" role="group" aria-label="Etkinlik seçimi">
-            <input type="checkbox" id="evNisan" name="events" value="Nişan">
-            <label class="pill" for="evNisan">💍 <span>Nişan</span></label>
+            <div class="family-divider" aria-hidden="true"></div>
 
-            <input type="checkbox" id="evDugun" name="events" value="Düğün">
-            <label class="pill" for="evDugun">💒 <span>Düğün</span></label>
-          </div>
-        </div>
-
-        <div class="rsvp-grid" style="margin-top:12px;">
-          <div class="field">
-            <div class="label">Ad Soyad</div>
-            <input name="name" required placeholder="Ad Soyad" autocomplete="name" />
-          </div>
-
-          <div class="field">
-            <div class="label">Telefon (opsiyonel)</div>
-            <input name="phone" placeholder="05xx..." inputmode="tel" autocomplete="tel" />
-          </div>
-        </div>
-
-        <div class="rsvp-grid">
-          <div class="field">
-            <div class="label">Katılım durumu</div>
-            <div class="pill-group" role="radiogroup" aria-label="Katılım durumu">
-              <input type="radio" id="attYes" name="attendance" value="Evet" required>
-              <label class="pill" for="attYes">✅ <span>Evet, geliyorum</span></label>
-
-              <input type="radio" id="attNo" name="attendance" value="Hayır" required>
-              <label class="pill" for="attNo">❌ <span>Maalesef gelemiyorum</span></label>
+            <div class="family-col">
+              <div class="family-head">Hasançebi</div>
+              <div class="family-names">
+                <span class="name-chip">Özlem</span>
+                <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
+                <span class="name-chip">Erdal</span>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="label">Kişi sayısı (opsiyonel)</div>
-            <input name="guests" type="number" min="0" max="10" placeholder="Örn: 2" />
+      </div>
+    </section>
+
+    <section class="countdown-wrap" id="countdown-nisan">
+      <div class="container center">
+        <h2 class="section-title script">Nişan Geri Sayım</h2>
+        <div class="count-grid">
+          <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
+          <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
+          <div class="time-card"><b id="eMins">00</b><span>DAKİKA</span></div>
+          <div class="time-card"><b id="eSecs">00</b><span>SANİYE</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="nisan-konum">
+      <div class="container center">
+        <h2 class="section-title script">Nişan</h2>
+        <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
+
+        <div class="card" style="margin-top:22px;">
+          <div class="big-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+          </div>
+
+          <div class="serif" style="letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:13px;">KONUM</div>
+          <div class="place serif">Liva Organizasyon</div>
+
+          <div class="meta">
+            <span>🕒</span><span class="serif">19:00 – 23:00</span>
+            <span class="dot">•</span><span class="serif">Sakarya / Hendek</span>
+          </div>
+
+          <div class="map" aria-label="Nişan haritası">
+            <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Liva%20Organizasyon%20Hendek%20Sakarya&output=embed">
+            </iframe>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn"
+               href="https://www.google.com/maps/search/?api=1&query=Liva%20Organizasyon%20Hendek%20Sakarya"
+               target="_blank" rel="noreferrer">
+              Google Haritalar'da aç ↗
+            </a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="field">
-          <div class="label">Not (opsiyonel)</div>
-          <textarea name="note" placeholder="Alerji, özel durum, mesajınız..."></textarea>
+    <section class="countdown-wrap" id="countdown-dugun">
+      <div class="container center">
+        <h2 class="section-title script">Düğün Geri Sayım</h2>
+        <div class="count-grid">
+          <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
+          <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
+          <div class="time-card"><b id="wMins">00</b><span>DAKİKA</span></div>
+          <div class="time-card"><b id="wSecs">00</b><span>SANİYE</span></div>
         </div>
+      </div>
+    </section>
 
-        <div class="rsvp-actions">
-          <button class="btn btn-primary" type="submit">WhatsApp ile Gönder</button>
-          <button class="btn btn-ghost" type="reset">Formu Temizle</button>
+    <section id="dugun-konum">
+      <div class="container center">
+        <h2 class="section-title script">Düğün</h2>
+        <p class="section-sub serif">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız</p>
+
+        <div class="card" style="margin-top:22px;">
+          <div class="big-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+          </div>
+
+          <div class="serif" style="letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:13px;">KONUM</div>
+          <div class="place serif">Flowers Düğün Salonu</div>
+
+          <div class="meta">
+            <span>🕒</span><span class="serif">20:00 – 23:00</span>
+            <span class="dot">•</span><span class="serif">Trabzon / Yomra</span>
+          </div>
+
+          <div class="map" aria-label="Harita">
+            <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed"></iframe>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn"
+              href="https://www.google.com/maps/search/?api=1&query=Trabzon%20Yomra%20Flowers%20D%C3%BC%C4%9F%C3%BCn%20Salonu"
+              target="_blank" rel="noreferrer">
+              Google Haritalar'da aç ↗
+            </a>
+          </div>
+
         </div>
+      </div>
+    </section>
 
-        <div class="status" id="status"></div>
-      </form>
-    </div>
-  </section>
+    <section id="rsvp">
+      <div class="container center">
+        <h2 class="section-title script">Katılım</h2>
 
-  <footer>
-    <div class="container"></div>
-  </footer>
+        <form class="card rsvp-card" id="rsvpForm">
+          <p class="rsvp-title-mini">HANGİ ETKİNLİĞE KATILACAKSINIZ?</p>
 
-  <audio id="bgMusic" loop preload="auto">
-    <source id="bgMusicSource" src="Carla Morrison - Disfruto (letra) [jwP1HRmDVII].mp3" type="audio/mpeg">
-  </audio>
-  <button id="musicToggle" class="btn music-fab" type="button">🔊 Müzik Açık</button>
+          <!-- ✅ Etkinlik seçimi -->
+          <div class="pill-grid" id="eventPills">
+            <label class="pill">
+              <input type="checkbox" name="events" value="Nişan">
+              💍 Nişan
+            </label>
+            <label class="pill">
+              <input type="checkbox" name="events" value="Düğün">
+              💒 Düğün
+            </label>
+          </div>
+
+          <div class="row">
+            <input name="name" required placeholder="Ad Soyad" />
+            <input name="phone" placeholder="Telefon (opsiyonel)" />
+          </div>
+
+          <p class="rsvp-title-mini" style="margin-top:6px;">KATILIM DURUMU</p>
+
+          <div class="seg" id="attSeg">
+            <label>
+              <input type="radio" name="attendance" value="Evet">
+              ✅ Evet, geliyorum
+            </label>
+            <label>
+              <input type="radio" name="attendance" value="Hayır">
+              ❌ Maalesef gelemiyorum
+            </label>
+          </div>
+
+          <p class="hint">Kişi sayısı: toplam kaç kişi geleceksiniz?</p>
+
+          <div class="row">
+            <input name="guests" type="number" min="0" max="10" placeholder="Kişi sayısı (örn: 2)" />
+            <select name="dummy" aria-hidden="true">
+              <option selected disabled>✦</option>
+            </select>
+          </div>
+
+          <textarea name="note" placeholder="Not (alerji, özel durum vs.)"></textarea>
+
+          <div class="form-actions">
+            <button class="btn" type="submit">WhatsApp ile Gönder</button>
+          </div>
+
+          <div class="status" id="status"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container"></div>
+    </footer>
+
+    <audio id="bgMusic" loop preload="auto">
+      <source id="bgMusicSource" src="Carla Morrison - Disfruto (letra) [jwP1HRmDVII].mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggle" class="btn music-fab" type="button">🔊 Müzik Açık</button>
+
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
 
-      // ✅ Dosya adında boşluk olduğu için URL-encode edilmiş src kullanıyoruz
-      const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
-      // Eğer video /assets içindeyse: const VIDEO_SRC = "assets/WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
+      // =========================
+      // ✅ ADMIN ROUTE: #admin
+      // =========================
+      const ADMIN_USER = "admin";
+      const ADMIN_PASS = "560055Dh.61";
+      const ADMIN_SESSION_KEY = "invite_admin_authed_v1";
+
+      const adminWrap = document.getElementById("adminWrap");
+      const inviteWrap = document.getElementById("inviteWrap");
+
+      function isAdminRoute(){
+        return (location.hash || "").toLowerCase() === "#admin";
+      }
+      function showAdmin(on){
+        adminWrap.classList.toggle("is-on", on);
+        inviteWrap.classList.toggle("is-off", on);
+      }
+
+      function setAdminAuthed(val){
+        if(val) sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
+        else sessionStorage.removeItem(ADMIN_SESSION_KEY);
+      }
+      function isAdminAuthed(){
+        return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1";
+      }
+
+      function escapeHtml(s){
+        return String(s ?? "")
+          .replaceAll("&","&amp;")
+          .replaceAll("<","&lt;")
+          .replaceAll(">","&gt;")
+          .replaceAll('"',"&quot;")
+          .replaceAll("'","&#039;");
+      }
+
+      // =========================
+      // ✅ RSVP STORAGE (local)
+      // =========================
+      const STORE_KEY = "invite_rsvp_records_v1";
+
+      function loadRecords(){
+        try{
+          const raw = localStorage.getItem(STORE_KEY);
+          const arr = raw ? JSON.parse(raw) : [];
+          return Array.isArray(arr) ? arr : [];
+        }catch(_){
+          return [];
+        }
+      }
+      function saveRecords(arr){
+        localStorage.setItem(STORE_KEY, JSON.stringify(arr));
+      }
+      function addRecord(rec){
+        const arr = loadRecords();
+        arr.unshift(rec);
+        saveRecords(arr);
+      }
+      function deleteRecord(id){
+        const arr = loadRecords().filter(r => r.id !== id);
+        saveRecords(arr);
+      }
+      function clearAllRecords(){
+        localStorage.removeItem(STORE_KEY);
+      }
+
+      function calcTotals({ onlyYes = true } = {}){
+        const rows = loadRecords();
+        let nisan = 0;
+        let dugun = 0;
+
+        for(const r of rows){
+          if(onlyYes && r.attendance !== "Evet") continue;
+
+          const count = Number(r.guests || 0); // toplam kişi sayısı varsayımı
+          if(r.events?.includes("Nişan")) nisan += count;
+          if(r.events?.includes("Düğün")) dugun += count;
+        }
+        return { nisan, dugun };
+      }
+
+      // =========================
+      // ✅ ADMIN UI
+      // =========================
+      let onlyYesTotals = true;
+
+      function eventTags(events){
+        const out = [];
+        if(events?.includes("Nişan")) out.push('<span class="tag nisan">💍 Nişan</span>');
+        if(events?.includes("Düğün")) out.push('<span class="tag dugun">💒 Düğün</span>');
+        return out.join(" ");
+      }
+      function attendanceTag(val){
+        if (val === "Evet") return '<span class="tag yes">✅ Evet</span>';
+        if (val === "Hayır") return '<span class="tag no">❌ Hayır</span>';
+        return '<span class="tag">—</span>';
+      }
+      function fmtDate(iso){
+        try{ return new Date(iso).toLocaleString("tr-TR"); }
+        catch(_){ return iso || ""; }
+      }
+
+      function getFilteredRows(){
+        const q = (document.getElementById("q")?.value || "").trim().toLowerCase();
+        const event = (document.getElementById("event")?.value || "");
+        const att = (document.getElementById("attendanceF")?.value || "");
+        let rows = loadRecords();
+
+        if(q){
+          rows = rows.filter(r =>
+            (r.name || "").toLowerCase().includes(q) ||
+            (r.phone || "").toLowerCase().includes(q) ||
+            (r.note || "").toLowerCase().includes(q)
+          );
+        }
+        if(event){
+          rows = rows.filter(r => (r.events || []).includes(event));
+        }
+        if(att){
+          rows = rows.filter(r => r.attendance === att);
+        }
+        return rows;
+      }
+
+      function renderAdmin(){
+        const adminLocked = document.getElementById("adminLocked");
+        const adminContent = document.getElementById("adminContent");
+        adminLocked.style.display = isAdminAuthed() ? "none" : "block";
+        adminContent.style.display = isAdminAuthed() ? "block" : "none";
+
+        if(!isAdminAuthed()) return;
+
+        const totals = calcTotals({ onlyYes: onlyYesTotals });
+        document.getElementById("kpiNisan").textContent = totals.nisan;
+        document.getElementById("kpiDugun").textContent = totals.dugun;
+
+        const rows = getFilteredRows();
+        document.getElementById("totalCount").textContent = rows.length;
+
+        const tb = document.getElementById("tbody");
+        if(!rows.length){
+          tb.innerHTML = `<tr><td colspan="8" class="muted">Kayıt yok.</td></tr>`;
+        } else {
+          tb.innerHTML = rows.map(r => `
+            <tr>
+              <td>${fmtDate(r.created_at)}</td>
+              <td>${eventTags(r.events)}</td>
+              <td>${attendanceTag(r.attendance)}</td>
+              <td><b>${escapeHtml(r.name)}</b></td>
+              <td class="muted">${escapeHtml(r.phone || "")}</td>
+              <td><b>${Number(r.guests || 0)}</b></td>
+              <td class="muted">${escapeHtml(r.note || "")}</td>
+              <td>
+                <div class="actions">
+                  <button class="admin-btn danger" data-del="${r.id}" style="padding:8px 10px;border-radius:12px;">Sil</button>
+                </div>
+              </td>
+            </tr>
+          `).join("");
+
+          tb.querySelectorAll("[data-del]").forEach(btn=>{
+            btn.addEventListener("click", () => {
+              const id = btn.getAttribute("data-del");
+              if(!confirm("Bu kaydı silmek istiyor musun?")) return;
+              deleteRecord(id);
+              renderAdmin();
+            });
+          });
+        }
+
+        document.getElementById("lastUpdate").textContent =
+          "Son güncelleme: " + new Date().toLocaleString("tr-TR");
+      }
+
+      function wireAdmin(){
+        const loginBtn = document.getElementById("adminLoginBtn");
+        const status = document.getElementById("adminLoginStatus");
+        loginBtn?.addEventListener("click", () => {
+          const u = (document.getElementById("adminUser").value || "").trim();
+          const p = (document.getElementById("adminPass").value || "").trim();
+          if(u === ADMIN_USER && p === ADMIN_PASS){
+            setAdminAuthed(true);
+            status.textContent = "Giriş başarılı ✅";
+            renderAdmin();
+          } else {
+            status.textContent = "Hatalı kullanıcı/şifre ❌";
+          }
+        });
+
+        document.getElementById("refresh")?.addEventListener("click", renderAdmin);
+        document.getElementById("toggleOnlyYes")?.addEventListener("click", () => {
+          onlyYesTotals = !onlyYesTotals;
+          document.getElementById("toggleOnlyYes").textContent =
+            onlyYesTotals ? "Toplam: Sadece Evet ✅" : "Toplam: Evet+Hayır (hepsi)";
+          renderAdmin();
+        });
+
+        document.getElementById("clearAll")?.addEventListener("click", () => {
+          if(!confirm("TÜM kayıtları silmek istiyor musun?")) return;
+          clearAllRecords();
+          renderAdmin();
+        });
+
+        ["q","event","attendanceF"].forEach(id=>{
+          document.getElementById(id)?.addEventListener("change", renderAdmin);
+        });
+        document.getElementById("q")?.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter"){ e.preventDefault(); renderAdmin(); }
+        });
+      }
+
+      function route(){
+        const admin = isAdminRoute();
+        showAdmin(admin);
+        if(admin){
+          wireAdmin();
+          renderAdmin();
+        }
+      }
+      window.addEventListener("hashchange", route);
+      route();
 
       // =========================
       // ✅ 1) GERİ SAYIMLAR
@@ -861,7 +1262,7 @@
         const s = t%60;
         return {d,h,m,s};
       }
-      function render(){
+      function renderCountdowns(){
         const e = calc(engagementDate);
         setText("eDays", e.d);
         setText("eHours", pad(e.h));
@@ -874,43 +1275,39 @@
         setText("wMins", pad(w.m));
         setText("wSecs", pad(w.s));
       }
-      render();
+      renderCountdowns();
       window.__inviteTimer && clearInterval(window.__inviteTimer);
-      window.__inviteTimer = setInterval(render, 1000);
+      window.__inviteTimer = setInterval(renderCountdowns, 1000);
 
       // =========================
-      // ✅ 2) RSVP -> WhatsApp
+      // ✅ 2) RSVP -> localStorage + WhatsApp
       // =========================
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
-      const status = document.getElementById("status");
+      const statusEl = document.getElementById("status");
 
-      function buildMessage(){
-        const name = form.querySelector('[name="name"]').value.trim();
-        const phone = form.querySelector('[name="phone"]').value.trim();
-        const attendanceEl = form.querySelector('[name="attendance"]:checked');
-        const guests = form.querySelector('[name="guests"]').value;
-        const note = form.querySelector('[name="note"]').value.trim();
+      function syncPills(){
+        document.querySelectorAll('#eventPills .pill').forEach(lbl=>{
+          const input = lbl.querySelector('input');
+          lbl.classList.toggle('is-on', !!input.checked);
+        });
+      }
+      function syncSeg(){
+        document.querySelectorAll('#attSeg label').forEach(lbl=>{
+          const input = lbl.querySelector('input');
+          lbl.classList.toggle('is-on', !!input.checked);
+        });
+      }
+      document.querySelectorAll('#eventPills input').forEach(i=> i.addEventListener('change', syncPills));
+      document.querySelectorAll('#attSeg input').forEach(i=> i.addEventListener('change', syncSeg));
+      syncPills(); syncSeg();
 
-        const selectedEvents = Array.from(form.querySelectorAll('[name="events"]:checked'))
-          .map(i => i.value);
+      function getSelectedEvents(){
+        return Array.from(form.querySelectorAll('[name="events"]:checked')).map(i => i.value);
+      }
 
-        if(!name){
-          alert("Lütfen Ad Soyad alanını doldurun.");
-          return null;
-        }
-        if(selectedEvents.length === 0){
-          alert("Lütfen en az bir etkinlik seçin (Nişan / Düğün).");
-          return null;
-        }
-        if(!attendanceEl){
-          alert("Lütfen Katılım Durumunu seçin.");
-          return null;
-        }
-
-        const attendance = attendanceEl.value;
-        const eventText = selectedEvents.join(" + ");
-
+      function buildWhatsappMessage({events, name, phone, attendance, guests, note}){
+        const eventText = events.join(" + ");
         return `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
 
 Etkinlik: ${eventText}
@@ -923,22 +1320,54 @@ Not: ${note || "Yok"}`;
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const msg = buildMessage();
-        if(!msg) return;
 
-        if(status) status.textContent = "WhatsApp açılıyor…";
+        const name = form.querySelector('[name="name"]').value.trim();
+        const phone = form.querySelector('[name="phone"]').value.trim();
+        const attendanceEl = form.querySelector('[name="attendance"]:checked');
+        const guestsRaw = form.querySelector('[name="guests"]').value;
+        const note = form.querySelector('[name="note"]').value.trim();
+        const selectedEvents = getSelectedEvents();
 
+        if(!name){
+          alert("Lütfen Ad Soyad alanını doldurun.");
+          return;
+        }
+        if(selectedEvents.length === 0){
+          alert("Lütfen en az bir etkinlik seçin (Nişan / Düğün).");
+          return;
+        }
+        if(!attendanceEl){
+          alert("Lütfen Katılım Durumunu seçin.");
+          return;
+        }
+
+        const attendance = attendanceEl.value;
+        const guests = Number(guestsRaw || 0);
+
+        // ✅ Kaydet
+        addRecord({
+          id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+          created_at: new Date().toISOString(),
+          events: selectedEvents,
+          name,
+          phone,
+          attendance,
+          guests,
+          note
+        });
+
+        statusEl.textContent = "Kaydedildi. WhatsApp açılıyor…";
+
+        // ✅ WhatsApp yönlendir
+        const msg = buildWhatsappMessage({events:selectedEvents, name, phone, attendance, guests, note});
         const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
         window.location.href = url;
-      });
-
-      form.addEventListener("reset", () => {
-        if(status) status.textContent = "";
       });
 
       // =========================
       // ✅ 3) HERO VIDEO: SEAMLESS LOOP
       // =========================
+      const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
       const stage = document.getElementById("videoStage");
       const vA = document.getElementById("heroVA");
       const vB = document.getElementById("heroVB");
@@ -947,7 +1376,6 @@ Not: ${note || "Yok"}`;
       const PRE_ROLL_SEC = 1.4;
       const TICK_MS = 70;
 
-      // ✅ Kaynağı JS ile garanti set ediyoruz (yanlış src kalmasın)
       function setVideoSource(videoEl, src){
         const source = videoEl.querySelector("source");
         source.src = src;
@@ -1009,7 +1437,6 @@ Not: ${note || "Yok"}`;
         if(remain <= PRE_ROLL_SEC) doSwap();
       }
       setInterval(tick, TICK_MS);
-
       vA.addEventListener("loadedmetadata", () => safePlay(vA));
 
       // =========================
