@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- ✅ Tek video preload -->
   <link rel="preload" as="video" href="scene3-animated.mp4" type="video/mp4" fetchpriority="high">
 
   <style>
@@ -29,9 +28,10 @@
       --moonGlow: .40;
       --starOpacity: .80;
 
-      /* ✅ Loop geçiş ayarı */
-      --xfade: 900ms;           /* crossfade süresi */
-      --mobileFadeH: 140px;     /* mobil alt degrade yüksekliği */
+      /* ✅ Seamless loop ayarı */
+      --xfade: 1200ms;      /* crossfade süresi */
+      --maskSoft: 24%;      /* alt mask yumuşaklık */
+      --heroExtra: 130px;   /* hero'yu uzatma (Ailelerimiz'e kadar video hissi) */
     }
 
     *{box-sizing:border-box}
@@ -48,21 +48,20 @@
     .serif{font-family:"Playfair Display", serif;}
 
     /* =========================
-       HERO (Tek video + seamless loop)
+       HERO (tek video + görünür alan uzatıldı)
        ========================= */
     .hero{
-      min-height: 82vh;
+      min-height: 88vh;
       position: relative;
       overflow: hidden;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding: 64px 0 36px;
+      padding: 64px 0 calc(36px + var(--heroExtra));
       background:#0f1624;
     }
     .hero-inner{ position:relative; z-index:30; }
-
     .hero-slideshow{ position:absolute; inset:0; z-index:0; }
 
     /* Video sahnesi */
@@ -72,9 +71,18 @@
       z-index:0;
       overflow:hidden;
       transform: translateZ(0);
+
+      /* ✅ Keskin alt çizgi yok: video katmanı altta yumuşakça “yok olur” */
+      -webkit-mask-image: linear-gradient(to bottom,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,1) calc(100% - var(--maskSoft)),
+        rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,1) calc(100% - var(--maskSoft)),
+        rgba(0,0,0,0) 100%);
     }
 
-    /* ✅ 2 video üst üste (seamless loop için) */
     .video-stage video{
       position:absolute;
       inset:0;
@@ -83,30 +91,42 @@
       object-fit: cover;
       object-position: center;
       display:block;
-      transform: scale(1.04);
-      filter: saturate(1.06) contrast(1.05);
+      transform: scale(1.06);
+      filter: saturate(1.08) contrast(1.06);
       will-change: opacity, transform;
     }
 
-    /* Hafif hareket: loop daha az belli olur */
-    .video-stage .vA{
-      animation: slowKen 12s ease-in-out infinite;
-    }
-    .video-stage .vB{
-      animation: slowKen 12s ease-in-out infinite reverse;
-    }
+    /* Hafif “ken burns” hareketi: loop kamuflaj */
+    .video-stage .vA{ animation: slowKen 14s ease-in-out infinite; }
+    .video-stage .vB{ animation: slowKen 14s ease-in-out infinite reverse; }
+
     @keyframes slowKen{
-      0%   { transform: scale(1.05) translate3d(0,0,0); }
-      50%  { transform: scale(1.09) translate3d(0,-1.5%,0); }
-      100% { transform: scale(1.05) translate3d(0,0,0); }
+      0%   { transform: scale(1.06) translate3d(0,0,0); }
+      50%  { transform: scale(1.11) translate3d(0,-1.7%,0); }
+      100% { transform: scale(1.06) translate3d(0,0,0); }
     }
 
-    /* Crossfade state */
+    /* Crossfade */
     .video-stage .vA{ opacity:1; transition: opacity var(--xfade) ease; }
     .video-stage .vB{ opacity:0; transition: opacity var(--xfade) ease; }
-
     .video-stage.isB .vA{ opacity:0; }
     .video-stage.isB .vB{ opacity:1; }
+
+    /* ✅ Crossfade anında çok hafif haze (jump’ı gözden kaçırır) */
+    .video-stage::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:0;
+      transition: opacity var(--xfade) ease;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(700px 460px at 65% 22%, rgba(255,255,255,.14), transparent 62%),
+        radial-gradient(520px 360px at 24% 28%, rgba(255,255,255,.10), transparent 64%),
+        linear-gradient(to bottom, rgba(255,255,255,.04), rgba(255,255,255,0));
+    }
+    .video-stage.xfade::after{ opacity:.20; }
 
     /* 🌙 Mood */
     .sky-mood{
@@ -122,7 +142,6 @@
           rgba(10,18,30, calc(var(--nightOpacity) * .35)) 55%,
           rgba(10,18,30, 0) 100%);
     }
-
     .vignette{
       position:absolute; inset:-10%; pointer-events:none;
       z-index:2;
@@ -173,7 +192,6 @@
       55%  { transform: translate3d(18px, 58vh, 0) scale(.95); }
       100% { transform: translate3d(-10px, 112vh, 0) scale(.45); opacity:0; }
     }
-
     .falling-stars span:nth-child(1) { left: 6%;  animation-duration: calc(9s  * var(--starSpeed));  animation-delay: 0s; }
     .falling-stars span:nth-child(2) { left: 12%; animation-duration: calc(12s * var(--starSpeed));  animation-delay: 2s; }
     .falling-stars span:nth-child(3) { left: 18%; animation-duration: calc(10s * var(--starSpeed));  animation-delay: 4s; }
@@ -237,29 +255,7 @@
     .hero-gradient{
       position:absolute; inset:0; pointer-events:none;
       z-index:6;
-      background: linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.20) 55%, rgba(231,225,212,1));
-    }
-
-    /* ✅ Mobilde “alt çizgi” olmasın: video altına yumuşak geçiş */
-    .hero::after{
-      content:"";
-      position:absolute;
-      left:-10%;
-      right:-10%;
-      bottom:-1px;
-      height: 180px;
-      z-index:20;
-      pointer-events:none;
-      background:
-        radial-gradient(80% 90% at 50% 0%,
-          rgba(231,225,212,0) 0%,
-          rgba(231,225,212,.40) 45%,
-          rgba(231,225,212,1) 100%),
-        linear-gradient(to bottom,
-          rgba(231,225,212,0) 0%,
-          rgba(231,225,212,.65) 55%,
-          rgba(231,225,212,1) 100%);
-      filter: blur(0px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.52), rgba(0,0,0,.18) 55%, rgba(0,0,0,0) 100%);
     }
 
     .hero small{
@@ -293,6 +289,16 @@
       box-shadow: var(--shadow);
       padding: 26px 18px;
     }
+
+    /* ✅ AİLELER: video üstüne otursun (video Aileler'e kadar görünür) */
+    #aileler{
+      position: relative;
+      margin-top: calc(-1 * (var(--heroExtra) + 30px));
+      padding-top: calc(44px + var(--heroExtra));
+      z-index: 40;
+    }
+    /* Aileler bölümünde arka plan transparan kalsın, kart zaten kapatıyor */
+    #aileler .container{ position:relative; }
 
     /* ✅ AİLELER: her zaman YAN YANA */
     .families-card{ padding: 28px 22px; }
@@ -455,23 +461,10 @@
     @media (max-width: 520px){
       .row{grid-template-columns:1fr}
       .hero h1{font-size:52px}
-      .hero{ padding: 84px 0 28px; min-height: 78vh; }
+      .hero{ padding: 84px 0 calc(28px + var(--heroExtra)); min-height: 82vh; }
 
-      /* mobilde alt geçişi biraz daha güçlü */
-      .hero::after{
-        height: var(--mobileFadeH);
-        background:
-          radial-gradient(92% 95% at 50% 0%,
-            rgba(231,225,212,0) 0%,
-            rgba(231,225,212,.55) 42%,
-            rgba(231,225,212,1) 100%),
-          linear-gradient(to bottom,
-            rgba(231,225,212,0) 0%,
-            rgba(231,225,212,.72) 55%,
-            rgba(231,225,212,1) 100%);
-        filter: blur(0.5px);
-      }
-
+      /* Mobilde alt maske daha uzun -> çizgi hiç belli olmaz */
+      :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
     }
 
@@ -709,7 +702,7 @@
     document.addEventListener("DOMContentLoaded", () => {
 
       // =========================
-      // ✅ 1) GERİ SAYIMLAR (Nişan + Düğün)
+      // ✅ 1) GERİ SAYIMLAR
       // =========================
       const pad = (n)=>String(n).padStart(2,"0");
       const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
@@ -783,20 +776,22 @@ Not: ${note || "Yok"}`;
       });
 
       // =========================
-      // ✅ 3) HERO VIDEO: seamless loop (2 video + crossfade)
+      // ✅ 3) HERO VIDEO: SEAMLESS LOOP (hiç anlaşılmasın)
       // =========================
       const stage = document.getElementById("videoStage");
       const vA = document.getElementById("heroVA");
       const vB = document.getElementById("heroVB");
 
-      const CROSSFADE_MS = 900;     // CSS --xfade ile aynı tut
-      const PRE_ROLL_SEC = 0.9;     // bitmeden kaç sn önce diğerini başlat
+      const CROSSFADE_MS = 1200; // CSS --xfade ile uyumlu
+      const PRE_ROLL_SEC = 1.4;  // bitmeden kaç sn önce başlasın
+      const TICK_MS = 70;        // kontrol aralığı (daha sık = daha pürüzsüz)
 
-      // Mobil autoplay için şart
+      // Mobil autoplay uyumu
       [vA, vB].forEach(v => {
         v.muted = true;
         v.playsInline = true;
         v.preload = "auto";
+        v.loop = false; // ✅ biz yöneteceğiz
       });
 
       let showingB = false;
@@ -806,45 +801,58 @@ Not: ${note || "Yok"}`;
         try { await v.play(); } catch(_) {}
       }
 
-      // İlk başlat
-      vA.currentTime = 0;
-      safePlay(vA);
-
       function active(){ return showingB ? vB : vA; }
       function standby(){ return showingB ? vA : vB; }
 
-      async function swapIfNeeded(){
+      function setXfade(on){
+        stage.classList.toggle("xfade", on);
+      }
+
+      // Başlat
+      vA.currentTime = 0;
+      safePlay(vA);
+
+      async function doSwap(){
         if(busy) return;
+        busy = true;
+
         const a = active();
         const s = standby();
 
-        if(!isFinite(a.duration) || a.duration === 0) return;
+        // standby'yi başa al ve oynat
+        try { s.currentTime = 0; } catch(_) {}
+        await safePlay(s);
+
+        // Crossfade başlat
+        setXfade(true);
+        showingB = !showingB;
+        stage.classList.toggle("isB", showingB);
+
+        // Fade bitince eskiyi durdur ve haze kapat
+        setTimeout(() => {
+          try { a.pause(); } catch(_) {}
+          setXfade(false);
+          busy = false;
+        }, CROSSFADE_MS + 60);
+      }
+
+      function tick(){
+        if(busy) return;
+        const a = active();
+
+        // duration hazır değilse çık
+        if(!isFinite(a.duration) || a.duration <= 0) return;
+
         const remain = a.duration - a.currentTime;
-
         if(remain <= PRE_ROLL_SEC){
-          busy = true;
-
-          try { s.currentTime = 0; } catch(_) {}
-          await safePlay(s);
-
-          // crossfade başlat
-          showingB = !showingB;
-          stage.classList.toggle("isB", showingB);
-
-          // eskiyi fade bitince durdur
-          setTimeout(() => {
-            try { a.pause(); } catch(_) {}
-            busy = false;
-          }, CROSSFADE_MS + 80);
+          doSwap();
         }
       }
 
-      // Sık kontrol (timeupdate bazı cihazlarda seyrek gelir)
-      setInterval(swapIfNeeded, 120);
+      setInterval(tick, TICK_MS);
 
-      // Meta data gelince garanti start
+      // Bazı cihazlarda metadata gelmeden süre bilinmiyor
       vA.addEventListener("loadedmetadata", () => safePlay(vA));
-      vB.addEventListener("loadedmetadata", () => { /* standby */ });
 
       // =========================
       // ✅ 4) MÜZİK
