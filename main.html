@@ -154,8 +154,14 @@
 
     .card{background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px 18px;}
 
-    /* Aileler yan yana */
+    /* =========================
+       ✅ AİLELER (YENİ TASARIM)
+       - anne/baba kaldırıldı
+       - iki isim arası animasyonlu ✦
+       ========================= */
+
     .families-card{ padding: 28px 22px; }
+
     .families-grid{
       display:flex !important;
       flex-wrap: nowrap !important;
@@ -166,30 +172,107 @@
       margin: 0 auto;
       text-align:left;
     }
-    .family-col{ flex: 1 1 0; min-width: 0; }
-    .family-divider{ width: 1px; background: rgba(47,58,46,.14); border-radius: 999px; }
+
+    .family-divider{
+      width: 1px;
+      border-radius: 999px;
+      background: linear-gradient(to bottom, transparent, rgba(47,58,46,.18), transparent);
+      align-self: stretch;
+    }
+
+    .family-col{
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 18px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.45));
+      border: 1px solid rgba(47,58,46,.10);
+    }
+
     .family-head{
-      text-align:center; font-size: 26px; margin: 0 0 16px; color: var(--text);
-      letter-spacing:.01em; font-family:"Playfair Display", serif;
+      text-align:center;
+      font-size: 24px;
+      margin: 2px 0 14px;
+      color: var(--text);
+      letter-spacing:.04em;
+      font-family:"Playfair Display", serif;
+      position: relative;
     }
-    .family-lines{ display:grid; gap: 12px; }
-    .family-lines .line{
-      display:flex; align-items:center; justify-content: space-between;
-      gap: 12px; padding: 12px 14px; border-radius: 14px;
-      border: 1px solid rgba(47,58,46,.10); background: rgba(255,255,255,.55);
+
+    .family-head::after{
+      content:"";
+      display:block;
+      width: 86px;
+      height: 1px;
+      margin: 12px auto 0;
+      background: linear-gradient(to right, transparent, rgba(47,58,46,.22), transparent);
     }
-    .family-lines .label{
-      font-family:"Playfair Display", serif; font-size: 12px; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(47,58,46,.70); white-space: nowrap;
-      position: relative; padding-left: 10px;
+
+    .family-names{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 12px;
+      padding: 14px 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(47,58,46,.10);
     }
-    .family-lines .label::before{
-      content:""; position:absolute; left:0; top:50%; transform: translateY(-50%);
-      width: 4px; height: 16px; border-radius: 999px; background: rgba(123,128,104,.55);
+
+    .name-chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-family:"Playfair Display", serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      background: rgba(251,250,247,.9);
+      border: 1px solid rgba(47,58,46,.10);
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
+      white-space: nowrap;
     }
-    .family-lines .value{
-      font-family:"Playfair Display", serif; font-size: 18px; font-weight: 700;
-      color: var(--text); text-align:right; white-space: nowrap;
+
+    .mini-divider{
+      position: relative;
+      width: 30px;
+      height: 30px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 999px;
+      border: 1px solid rgba(123,128,104,.28);
+      background: rgba(123,128,104,.10);
+      overflow:hidden;
+    }
+
+    .mini-divider::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%);
+      animation: shimmer 2.8s ease-in-out infinite;
+      opacity:.8;
+    }
+
+    .spark{
+      position: relative;
+      font-size: 14px;
+      color: rgba(47,58,46,.75);
+      animation: breathe 2.4s ease-in-out infinite;
+      transform-origin:center;
+    }
+
+    @keyframes breathe{
+      0%,100%{ transform: scale(1) rotate(0deg); opacity:.75; }
+      50%{ transform: scale(1.12) rotate(8deg); opacity:1; }
+    }
+
+    @keyframes shimmer{
+      0%,100%{ transform: translate3d(-8px,6px,0); filter: blur(.2px); opacity:.55; }
+      50%{ transform: translate3d(10px,-6px,0); filter: blur(.6px); opacity:.9; }
     }
 
     .big-icon{
@@ -244,11 +327,15 @@
     @media (max-width: 520px){
       .row{grid-template-columns:1fr}
       .hero h1{font-size:56px}
+
       .families-card{ padding: 18px 14px; }
-      .family-head{ font-size: 18px; margin-bottom: 12px; }
-      .family-lines .value{ font-size: 15px; }
-      .family-lines .label{ font-size: 11px; }
-      .family-lines .line{ padding: 10px 10px; }
+      .family-head{ font-size: 18px; margin-bottom: 10px; }
+      .family-col{ padding: 14px 10px; }
+      .family-names{ gap: 10px; padding: 12px 8px; }
+      .name-chip{ font-size: 15px; padding: 9px 12px; }
+      .mini-divider{ width: 28px; height: 28px; }
+      .spark{ font-size: 13px; }
+
       .families-grid{ gap: 12px; }
       .music-fab{ right: 10px; bottom: 10px; }
     }
@@ -256,6 +343,7 @@
     @media (prefers-reduced-motion: reduce){
       .slide, .stars-overlay, .sparkle-overlay, .grain-overlay{ animation:none !important; }
       .slide{ opacity:1; transform:none; filter:none; }
+      .spark, .mini-divider::before{ animation:none !important; }
     }
   </style>
 </head>
@@ -283,6 +371,7 @@
     </div>
   </header>
 
+  <!-- ✅ AİLELER (GÜNCELLENDİ) -->
   <section id="aileler">
     <div class="container center">
       <h2 class="section-title script">Ailelerimiz</h2>
@@ -291,20 +380,22 @@
       <div class="card families-card" style="margin-top:22px;">
         <div class="families-grid">
           <div class="family-col">
-            <div class="family-head"> Arslanaydın</div>
-            <div class="family-lines">
-              <div class="line"><span class="label">Anne</span><span class="value">Gülseren</span></div>
-              <div class="line"><span class="label">Baba</span><span class="value">Yusuf</span></div>
+            <div class="family-head">Arslanaydın</div>
+            <div class="family-names">
+              <span class="name-chip">Gülseren</span>
+              <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
+              <span class="name-chip">Yusuf</span>
             </div>
           </div>
 
           <div class="family-divider" aria-hidden="true"></div>
 
           <div class="family-col">
-            <div class="family-head"> Hasançebi</div>
-            <div class="family-lines">
-              <div class="line"><span class="label">Anne</span><span class="value">Özlem</span></div>
-              <div class="line"><span class="label">Baba</span><span class="value">Erdal</span></div>
+            <div class="family-head">Hasançebi</div>
+            <div class="family-names">
+              <span class="name-chip">Özlem</span>
+              <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
+              <span class="name-chip">Erdal</span>
             </div>
           </div>
         </div>
@@ -326,7 +417,7 @@
     </div>
   </section>
 
-  <!-- ✅ NİŞAN (DÜĞÜN İLE AYNI YAPI) -->
+  <!-- ✅ NİŞAN -->
   <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
@@ -455,7 +546,7 @@
     <source id="bgMusicSource" src="Sabah Fabrikam [QZ1jyCUQxiE].mp3.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- ✅ Müzik Aç/Kapat Butonu (İsteyen kıssın) -->
+  <!-- ✅ Müzik Aç/Kapat Butonu -->
   <button id="musicToggle" class="btn music-fab" type="button">🔊 Müzik Açık</button>
 
   <script>
@@ -508,7 +599,6 @@
       // =========================
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
-      const statusEl = document.getElementById("status");
 
       function buildMessage(){
         const name = form.querySelector('[name="name"]').value.trim();
@@ -550,7 +640,6 @@ Not: ${note || "Yok"}`;
       const SRC_KEY  = "bgMusicSrc";
       const ON_KEY   = "bgMusicOn";
 
-      // introdan gelen src varsa uygula
       const incomingSrc = localStorage.getItem(SRC_KEY);
       if(incomingSrc && sourceEl) sourceEl.src = incomingSrc;
 
@@ -566,7 +655,6 @@ Not: ${note || "Yok"}`;
           setBtn(true);
           localStorage.setItem(ON_KEY, "1");
         }catch(_){
-          // autoplay bloklanırsa en azından buton kapalı görünsün
           setBtn(false);
         }
       }
@@ -577,13 +665,11 @@ Not: ${note || "Yok"}`;
         localStorage.setItem(ON_KEY, "0");
       }
 
-      // ✅ Intro tıklamasıyla gelindiyse 1 kere otomatik başlat
       const flag = localStorage.getItem(FLAG_KEY);
       if(flag === "1"){
         localStorage.removeItem(FLAG_KEY);
         playMusic();
       }else{
-        // kullanıcı daha önce açtıysa aç, kapattıysa kapalı kalsın
         const saved = localStorage.getItem(ON_KEY);
         if(saved === "1") playMusic();
         else setBtn(false);
