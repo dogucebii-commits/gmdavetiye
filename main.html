@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <link rel="preload" as="video" href="WhatsApp Video 2026-01-11 at 15.35.36.mp4" type="video/mp4" fetchpriority="high">
+  <!-- ✅ Video adı boşluk içerdiği için URL-ENCODE kullandık -->
+  <link rel="preload" as="video" href="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4" fetchpriority="high">
 
   <style>
     :root{
@@ -28,10 +29,9 @@
       --moonGlow: .40;
       --starOpacity: .80;
 
-      /* ✅ Seamless loop ayarı */
-      --xfade: 1200ms;      /* crossfade süresi */
-      --maskSoft: 24%;      /* alt mask yumuşaklık */
-      --heroExtra: 130px;   /* hero'yu uzatma (Ailelerimiz'e kadar video hissi) */
+      --xfade: 1200ms;
+      --maskSoft: 24%;
+      --heroExtra: 130px;
     }
 
     *{box-sizing:border-box}
@@ -47,9 +47,6 @@
     .script{font-family:"Great Vibes", cursive;}
     .serif{font-family:"Playfair Display", serif;}
 
-    /* =========================
-       HERO (tek video + görünür alan uzatıldı)
-       ========================= */
     .hero{
       min-height: 88vh;
       position: relative;
@@ -64,7 +61,6 @@
     .hero-inner{ position:relative; z-index:30; }
     .hero-slideshow{ position:absolute; inset:0; z-index:0; }
 
-    /* Video sahnesi */
     .video-stage{
       position:absolute;
       inset:0;
@@ -72,7 +68,7 @@
       overflow:hidden;
       transform: translateZ(0);
 
-      /* ✅ Keskin alt çizgi yok: video katmanı altta yumuşakça “yok olur” */
+      /* ✅ Keskin alt çizgi yok */
       -webkit-mask-image: linear-gradient(to bottom,
         rgba(0,0,0,1) 0%,
         rgba(0,0,0,1) calc(100% - var(--maskSoft)),
@@ -94,9 +90,9 @@
       transform: scale(1.06);
       filter: saturate(1.08) contrast(1.06);
       will-change: opacity, transform;
+      background:#0f1624;
     }
 
-    /* Hafif “ken burns” hareketi: loop kamuflaj */
     .video-stage .vA{ animation: slowKen 14s ease-in-out infinite; }
     .video-stage .vB{ animation: slowKen 14s ease-in-out infinite reverse; }
 
@@ -106,13 +102,11 @@
       100% { transform: scale(1.06) translate3d(0,0,0); }
     }
 
-    /* Crossfade */
     .video-stage .vA{ opacity:1; transition: opacity var(--xfade) ease; }
     .video-stage .vB{ opacity:0; transition: opacity var(--xfade) ease; }
     .video-stage.isB .vA{ opacity:0; }
     .video-stage.isB .vB{ opacity:1; }
 
-    /* ✅ Crossfade anında çok hafif haze (jump’ı gözden kaçırır) */
     .video-stage::after{
       content:"";
       position:absolute;
@@ -128,7 +122,6 @@
     }
     .video-stage.xfade::after{ opacity:.20; }
 
-    /* 🌙 Mood */
     .sky-mood{
       position:absolute; inset:0; pointer-events:none;
       z-index:1;
@@ -149,7 +142,6 @@
       opacity:.60;
     }
 
-    /* ⭐ Sabit yıldız */
     .stars-overlay{
       position:absolute; inset:0; pointer-events:none;
       z-index:3;
@@ -166,7 +158,6 @@
     }
     @keyframes starDrift{ 0%{transform:translate3d(0,0,0)} 100%{transform:translate3d(-40px,30px,0)} }
 
-    /* ✨ Üstten aşağı akan yıldızlar */
     .falling-stars{
       position:absolute; inset:0; pointer-events:none;
       z-index:12;
@@ -211,7 +202,6 @@
     .falling-stars span:nth-child(17){ left: 58%; animation-duration: calc(14.8s* var(--starSpeed));  animation-delay: 7.8s; }
     .falling-stars span:nth-child(18){ left: 92%; animation-duration: calc(17s  * var(--starSpeed));  animation-delay: 8.8s; }
 
-    /* 🌠 Kayan yıldız */
     .shooting-stars{
       position:absolute; inset:0; pointer-events:none;
       z-index:13;
@@ -290,17 +280,14 @@
       padding: 26px 18px;
     }
 
-    /* ✅ AİLELER: video üstüne otursun (video Aileler'e kadar görünür) */
     #aileler{
       position: relative;
       margin-top: calc(-1 * (var(--heroExtra) + 30px));
       padding-top: calc(44px + var(--heroExtra));
       z-index: 40;
     }
-    /* Aileler bölümünde arka plan transparan kalsın, kart zaten kapatıyor */
     #aileler .container{ position:relative; }
 
-    /* ✅ AİLELER: her zaman YAN YANA */
     .families-card{ padding: 28px 22px; }
     .families-grid{
       display:flex !important;
@@ -463,7 +450,6 @@
       .hero h1{font-size:52px}
       .hero{ padding: 84px 0 calc(28px + var(--heroExtra)); min-height: 82vh; }
 
-      /* Mobilde alt maske daha uzun -> çizgi hiç belli olmaz */
       :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
     }
@@ -486,13 +472,12 @@
   <header class="hero" id="top">
     <div class="hero-slideshow" aria-hidden="true">
 
-      <!-- ✅ SADECE 3. VİDEO (seamless loop için 2 katman) -->
       <div class="video-stage" id="videoStage">
         <video class="vA" id="heroVA" autoplay muted playsinline preload="auto">
-          <source src="scene3-animated.mp4" type="video/mp4">
+          <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
         </video>
         <video class="vB" id="heroVB" autoplay muted playsinline preload="auto">
-          <source src="scene3-animated.mp4" type="video/mp4">
+          <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
         </video>
       </div>
 
@@ -522,16 +507,14 @@
     </div>
   </header>
 
-  <!-- ✅ AİLELER -->
   <section id="aileler">
     <div class="container center">
       <h2 class="section-title script">Ailelerimiz</h2>
-      <p class="section-sub serif"></p>
 
       <div class="card families-card" style="margin-top:22px;">
         <div class="families-grid">
           <div class="family-col">
-            <div class="family-head">Arslanaydın </div>
+            <div class="family-head">Arslanaydın</div>
             <div class="family-names">
               <span class="name-chip">Gülseren</span>
               <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
@@ -542,7 +525,7 @@
           <div class="family-divider" aria-hidden="true"></div>
 
           <div class="family-col">
-            <div class="family-head">Hasançebi </div>
+            <div class="family-head">Hasançebi</div>
             <div class="family-names">
               <span class="name-chip">Özlem</span>
               <span class="mini-divider" aria-hidden="true"><span class="spark">✦</span></span>
@@ -555,7 +538,6 @@
     </div>
   </section>
 
-  <!-- ✅ NİŞAN SAYACI -->
   <section class="countdown-wrap" id="countdown-nisan">
     <div class="container center">
       <h2 class="section-title script">Nişan Geri Sayım</h2>
@@ -568,7 +550,6 @@
     </div>
   </section>
 
-  <!-- ✅ NİŞAN KONUM -->
   <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
@@ -607,7 +588,6 @@
     </div>
   </section>
 
-  <!-- ✅ DÜĞÜN SAYACI -->
   <section class="countdown-wrap" id="countdown-dugun">
     <div class="container center">
       <h2 class="section-title script">Düğün Geri Sayım</h2>
@@ -620,7 +600,6 @@
     </div>
   </section>
 
-  <!-- ✅ DÜĞÜN KONUM -->
   <section id="dugun-konum">
     <div class="container center">
       <h2 class="section-title script">Düğün</h2>
@@ -659,7 +638,6 @@
     </div>
   </section>
 
-  <!-- ✅ RSVP -->
   <section id="rsvp">
     <div class="container center">
       <h2 class="section-title script">Katılım</h2>
@@ -692,7 +670,6 @@
     <div class="container"></div>
   </footer>
 
-  <!-- ✅ MÜZİK -->
   <audio id="bgMusic" loop preload="auto">
     <source id="bgMusicSource" src="Carla Morrison - Disfruto (letra) [jwP1HRmDVII].mp3" type="audio/mpeg">
   </audio>
@@ -700,6 +677,10 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+
+      // ✅ Dosya adında boşluk olduğu için URL-encode edilmiş src kullanıyoruz
+      const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
+      // Eğer video /assets içindeyse: const VIDEO_SRC = "assets/WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
 
       // =========================
       // ✅ 1) GERİ SAYIMLAR
@@ -776,22 +757,30 @@ Not: ${note || "Yok"}`;
       });
 
       // =========================
-      // ✅ 3) HERO VIDEO: SEAMLESS LOOP (hiç anlaşılmasın)
+      // ✅ 3) HERO VIDEO: SEAMLESS LOOP
       // =========================
       const stage = document.getElementById("videoStage");
       const vA = document.getElementById("heroVA");
       const vB = document.getElementById("heroVB");
 
-      const CROSSFADE_MS = 1200; // CSS --xfade ile uyumlu
-      const PRE_ROLL_SEC = 1.4;  // bitmeden kaç sn önce başlasın
-      const TICK_MS = 70;        // kontrol aralığı (daha sık = daha pürüzsüz)
+      const CROSSFADE_MS = 1200;
+      const PRE_ROLL_SEC = 1.4;
+      const TICK_MS = 70;
 
-      // Mobil autoplay uyumu
+      // ✅ Kaynağı JS ile garanti set ediyoruz (yanlış src kalmasın)
+      function setVideoSource(videoEl, src){
+        const source = videoEl.querySelector("source");
+        source.src = src;
+        videoEl.load();
+      }
+      setVideoSource(vA, VIDEO_SRC);
+      setVideoSource(vB, VIDEO_SRC);
+
       [vA, vB].forEach(v => {
         v.muted = true;
         v.playsInline = true;
         v.preload = "auto";
-        v.loop = false; // ✅ biz yöneteceğiz
+        v.loop = false;
       });
 
       let showingB = false;
@@ -808,7 +797,6 @@ Not: ${note || "Yok"}`;
         stage.classList.toggle("xfade", on);
       }
 
-      // Başlat
       vA.currentTime = 0;
       safePlay(vA);
 
@@ -819,16 +807,13 @@ Not: ${note || "Yok"}`;
         const a = active();
         const s = standby();
 
-        // standby'yi başa al ve oynat
         try { s.currentTime = 0; } catch(_) {}
         await safePlay(s);
 
-        // Crossfade başlat
         setXfade(true);
         showingB = !showingB;
         stage.classList.toggle("isB", showingB);
 
-        // Fade bitince eskiyi durdur ve haze kapat
         setTimeout(() => {
           try { a.pause(); } catch(_) {}
           setXfade(false);
@@ -839,19 +824,12 @@ Not: ${note || "Yok"}`;
       function tick(){
         if(busy) return;
         const a = active();
-
-        // duration hazır değilse çık
         if(!isFinite(a.duration) || a.duration <= 0) return;
-
         const remain = a.duration - a.currentTime;
-        if(remain <= PRE_ROLL_SEC){
-          doSwap();
-        }
+        if(remain <= PRE_ROLL_SEC) doSwap();
       }
-
       setInterval(tick, TICK_MS);
 
-      // Bazı cihazlarda metadata gelmeden süre bilinmiyor
       vA.addEventListener("loadedmetadata", () => safePlay(vA));
 
       // =========================
@@ -877,7 +855,7 @@ Not: ${note || "Yok"}`;
       });
 
       // =========================
-      // ✅ 5) SAATE GÖRE GECE/GÜNDÜZ MOOD
+      // ✅ 5) SAATE GÖRE MOOD
       // =========================
       function applyTimeMood(){
         const h = new Date().getHours();
