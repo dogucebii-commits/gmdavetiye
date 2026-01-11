@@ -202,8 +202,6 @@
     .place{font-size: 38px; margin: 6px 0 8px; font-weight:500}
     .meta{display:flex; gap:12px; align-items:center; justify-content:center; color: var(--muted); margin-bottom: 14px; flex-wrap:wrap;}
     .meta .dot{opacity:.5}
-    .photo{border-radius: 16px; overflow:hidden; border: 1px solid var(--line); margin: 14px 0;}
-    .photo img{display:block; width:100%; height:auto}
     .map{border-radius: 16px; overflow:hidden; border: 1px solid var(--line); height: 220px;}
     .map iframe{width:100%; height:100%; border:0}
 
@@ -228,24 +226,15 @@
 
     footer{padding: 28px 0 40px; color: var(--muted); text-align:center;}
 
-    /* ✅ MÜZİK BUTONU */
-    .music-btn{
+    /* ✅ Müzik butonu: mevcut .btn görünümüyle aynı, sağ altta sabit */
+    .music-fab{
       position: fixed;
-      right: 16px;
-      bottom: 16px;
+      right: 14px;
+      bottom: 14px;
       z-index: 9999;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(47,58,46,.25);
       background: rgba(251,250,247,.92);
-      backdrop-filter: blur(8px);
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      backdrop-filter: blur(6px);
     }
-    .music-btn:hover{ background: rgba(251,250,247,1); }
 
     @media (min-width: 720px){
       .count-grid{grid-template-columns: repeat(4, minmax(0,1fr))}
@@ -261,6 +250,7 @@
       .family-lines .label{ font-size: 11px; }
       .family-lines .line{ padding: 10px 10px; }
       .families-grid{ gap: 12px; }
+      .music-fab{ right: 10px; bottom: 10px; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -269,6 +259,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header class="hero" id="top">
@@ -335,7 +326,7 @@
     </div>
   </section>
 
-  <!-- ✅ NİŞAN (DÜZELTİLDİ) -->
+  <!-- ✅ NİŞAN (DÜĞÜN İLE AYNI YAPI) -->
   <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
@@ -354,17 +345,21 @@
 
         <div class="meta">
           <span>🕒</span><span class="serif">19:00 – 23:00</span>
-          <span class="dot">•</span>
-          <span class="serif">Sakarya / Hendek</span>
+          <span class="dot">•</span><span class="serif">Sakarya / Hendek</span>
         </div>
 
         <div class="map" aria-label="Nişan haritası">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
+          <iframe
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Liva%20Organizasyon%20Hendek%20Sakarya&output=embed">
+          </iframe>
         </div>
 
         <div style="margin-top:14px;">
-          <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">
+          <a class="btn"
+             href="https://www.google.com/maps/search/?api=1&query=Liva%20Organizasyon%20Hendek%20Sakarya"
+             target="_blank" rel="noreferrer">
             Google Haritalar'da aç ↗
           </a>
         </div>
@@ -406,8 +401,6 @@
           <span class="dot">•</span><span class="serif">Trabzon / Yomra</span>
         </div>
 
-        <div class="photo"></div>
-
         <div class="map" aria-label="Harita">
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed"></iframe>
@@ -415,8 +408,8 @@
 
         <div style="margin-top:14px;">
           <a class="btn"
-             href="https://www.google.com/maps/search/?api=1&query=Trabzon%20Yomra%20Flowers%20D%C3%BC%C4%9F%C3%BCn%20Salonu"
-             target="_blank" rel="noreferrer">
+            href="https://www.google.com/maps/search/?api=1&query=Trabzon%20Yomra%20Flowers%20D%C3%BC%C4%9F%C3%BCn%20Salonu"
+            target="_blank" rel="noreferrer">
             Google Haritalar'da aç ↗
           </a>
         </div>
@@ -457,14 +450,19 @@
     <div class="container"></div>
   </footer>
 
-  <!-- ✅ ARKA PLAN MÜZİĞİ -->
+  <!-- ✅ MÜZİK -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="Sabah Fabrikam [QZ1jyCUQxiE].mp3" type="audio/mpeg">
+    <source id="bgMusicSource" src="Sabah Fabrikam [QZ1jyCUQxiE].mp3.mp3" type="audio/mpeg">
   </audio>
-  <button class="music-btn" id="musicToggle" aria-label="Müzik Aç/Kapat">🔇 Müzik Kapalı</button>
+
+  <!-- ✅ Müzik Aç/Kapat Butonu (İsteyen kıssın) -->
+  <button id="musicToggle" class="btn music-fab" type="button">🔊 Müzik Açık</button>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // =========================
+      // ✅ GERİ SAYIM
+      // =========================
       const pad = (n)=>String(n).padStart(2,"0");
       const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
       const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
@@ -505,6 +503,9 @@
       window.__inviteTimer && clearInterval(window.__inviteTimer);
       window.__inviteTimer = setInterval(render, 1000);
 
+      // =========================
+      // ✅ RSVP -> WhatsApp
+      // =========================
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
       const statusEl = document.getElementById("status");
@@ -536,16 +537,24 @@ Not: ${note || "Yok"}`;
         if(!msg) return;
         const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
         window.open(url, "_blank");
-        if(statusEl) statusEl.textContent = "WhatsApp açıldı. Mesajı gönderip katılım bildirebilirsiniz.";
       });
 
-      // ✅ MÜZİK KONTROL (iOS/Android uyumlu)
-      const music  = document.getElementById("bgMusic");
+      // =========================
+      // ✅ MÜZİK: introdan gelince otomatik başla
+      // =========================
+      const music = document.getElementById("bgMusic");
+      const sourceEl = document.getElementById("bgMusicSource");
       const toggle = document.getElementById("musicToggle");
 
-      music.volume = 0.35;
+      const FLAG_KEY = "bgMusicAutoStart";
+      const SRC_KEY  = "bgMusicSrc";
+      const ON_KEY   = "bgMusicOn";
 
-      const saved = localStorage.getItem("bgMusicOn"); // "1" / "0"
+      // introdan gelen src varsa uygula
+      const incomingSrc = localStorage.getItem(SRC_KEY);
+      if(incomingSrc && sourceEl) sourceEl.src = incomingSrc;
+
+      music.volume = 0.35;
 
       function setBtn(on){
         toggle.textContent = on ? "🔊 Müzik Açık" : "🔇 Müzik Kapalı";
@@ -554,38 +563,36 @@ Not: ${note || "Yok"}`;
       async function playMusic(){
         try{
           await music.play();
-          localStorage.setItem("bgMusicOn","1");
           setBtn(true);
+          localStorage.setItem(ON_KEY, "1");
         }catch(_){
+          // autoplay bloklanırsa en azından buton kapalı görünsün
           setBtn(false);
         }
       }
 
       function stopMusic(){
         music.pause();
-        localStorage.setItem("bgMusicOn","0");
         setBtn(false);
+        localStorage.setItem(ON_KEY, "0");
       }
 
-      if(saved === "1"){
+      // ✅ Intro tıklamasıyla gelindiyse 1 kere otomatik başlat
+      const flag = localStorage.getItem(FLAG_KEY);
+      if(flag === "1"){
+        localStorage.removeItem(FLAG_KEY);
         playMusic();
       }else{
-        setBtn(false);
+        // kullanıcı daha önce açtıysa aç, kapattıysa kapalı kalsın
+        const saved = localStorage.getItem(ON_KEY);
+        if(saved === "1") playMusic();
+        else setBtn(false);
       }
 
       toggle.addEventListener("click", async () => {
         if(music.paused) await playMusic();
         else stopMusic();
       });
-
-      // Kullanıcı ilk dokunuşunda (mobil) - eğer açık kaydedildiyse başlat
-      const unlock = async () => {
-        if(localStorage.getItem("bgMusicOn") === "1" && music.paused){
-          await playMusic();
-        }
-        window.removeEventListener("pointerdown", unlock);
-      };
-      window.addEventListener("pointerdown", unlock, { passive:true });
     });
   </script>
 
