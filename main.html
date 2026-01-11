@@ -316,33 +316,38 @@
     </div>
   </section>
 
+  <!-- ✅ NİŞAN: DÜZELTİLDİ (bozuk kapanışlar kaldırıldı, kart bütün) -->
   <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
       <p class="section-sub serif">Düğünden önce sizleri nişanımıza bekliyoruz</p>
-      <div class="card" style="margin-top:22px;">
-       <div class="big-icon" aria-hidden="true">
-  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
-    <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
-    <circle cx="12" cy="10" r="2.5"></circle>
-  </svg>
-</div>
 
-  </svg>
-</div>
+      <div class="card" style="margin-top:22px;">
+        <div class="big-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"></path>
+            <circle cx="12" cy="10" r="2.5"></circle>
+          </svg>
+        </div>
 
         <div class="serif" style="letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-size:13px;">KONUM</div>
         <div class="place serif">Liva Organizasyon</div>
+
         <div class="meta">
-          <span>•</span><span class="serif">Sakarya / Hendek</span>
-          <span class="dot">•</span>
           <span>🕒</span><span class="serif">19:00 – 23:00</span>
+          <span class="dot">•</span>
+          <span class="serif">Sakarya / Hendek</span>
         </div>
+
         <div class="map" aria-label="Nişan haritası">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Sakarya%20Hendek&output=embed"></iframe>
         </div>
+
         <div style="margin-top:14px;">
-          <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">Google Haritalar'da aç ↗</a>
+          <a class="btn" href="https://maps.app.goo.gl/3TGKJYR9L2GFWHfc9" target="_blank" rel="noreferrer">
+            Google Haritalar'da aç ↗
+          </a>
         </div>
       </div>
     </div>
@@ -382,23 +387,20 @@
           <span class="dot">•</span><span class="serif">Trabzon / Yomra</span>
         </div>
 
-        <div class="photo">
-          
+        <div class="photo"></div>
+
+        <div class="map" aria-label="Harita">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed"></iframe>
         </div>
 
-       <div class="map" aria-label="Harita">
-  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-    src="https://www.google.com/maps?q=Trabzon+Yomra+Flowers+D%C3%BC%C4%9F%C3%BCn+Salonu&output=embed"></iframe>
-</div>
-
-<div style="margin-top:14px;">
-  <a class="btn"
-     href="https://www.google.com/maps/search/?api=1&query=Trabzon%20Yomra%20Flowers%20D%C3%BC%C4%9F%C3%BCn%20Salonu"
-     target="_blank" rel="noreferrer">
-    Google Haritalar'da aç ↗
-  </a>
-</div>
-
+        <div style="margin-top:14px;">
+          <a class="btn"
+             href="https://www.google.com/maps/search/?api=1&query=Trabzon%20Yomra%20Flowers%20D%C3%BC%C4%9F%C3%BCn%20Salonu"
+             target="_blank" rel="noreferrer">
+            Google Haritalar'da aç ↗
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -406,7 +408,6 @@
   <section id="rsvp">
     <div class="container center">
       <h2 class="section-title script">Katılım</h2>
-      
 
       <form class="card" id="rsvpForm">
         <div class="row">
@@ -425,7 +426,9 @@
 
         <div class="form-actions">
           <button class="btn" type="submit">WhatsApp ile Gönder</button>
-         
+          <!-- İstersen kopyalama butonu ekleyebilirsin:
+          <button class="btn" type="button" id="copyMsg">Mesajı Kopyala</button>
+          -->
         </div>
 
         <div class="status" id="status"></div>
@@ -434,10 +437,7 @@
   </section>
 
   <footer>
-    <div class="container">
-      
-      </div>
-    </div>
+    <div class="container"></div>
   </footer>
 
   <script>
@@ -477,7 +477,8 @@
         setText("wMins", pad(w.m));
         setText("wSecs", pad(w.s));
 
-        setText("year", new Date().getFullYear());
+        // Eğer footer'a yıl yazacaksan, HTML'e id="year" olan bir span koymalısın.
+        // setText("year", new Date().getFullYear());
       }
 
       render();
@@ -486,7 +487,7 @@
 
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
-      const copyBtn = document.getElementById("copyMsg");
+      const copyBtn = document.getElementById("copyMsg"); // (opsiyonel)
       const statusEl = document.getElementById("status");
 
       function buildMessage(){
@@ -518,19 +519,21 @@ Not: ${note || "Yok"}`;
         window.open(url, "_blank");
       });
 
-      copyBtn.addEventListener("click", async () => {
-        const msg = buildMessage();
-        if(!msg) return;
-        try{
-          await navigator.clipboard.writeText(msg);
-          if(statusEl) statusEl.textContent = "Mesaj kopyalandı. WhatsApp’tan yapıştırıp gönderebilirsiniz.";
-        }catch{
-          alert("Kopyalama başarısız. Tarayıcı izin vermedi.");
-        }
-      });
+      // copyMsg butonu ekli değilse hata vermesin diye kontrol ettim
+      if(copyBtn){
+        copyBtn.addEventListener("click", async () => {
+          const msg = buildMessage();
+          if(!msg) return;
+          try{
+            await navigator.clipboard.writeText(msg);
+            if(statusEl) statusEl.textContent = "Mesaj kopyalandı. WhatsApp’tan yapıştırıp gönderebilirsiniz.";
+          }catch{
+            alert("Kopyalama başarısız. Tarayıcı izin vermedi.");
+          }
+        });
+      }
     });
   </script>
 
 </body>
 </html>
-
