@@ -9,14 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- ✅ Görselleri daha hızlı başlatmak için preload (scene1 kesin, diğerleri opsiyonel) -->
-  <link rel="preload" as="image" href="scene1-animated.mp4" fetchpriority="high">
-  <link rel="preload" as="image" href="scene2-animated.mp4">
-  <link rel="preload" as="image" href="scene3-animated.mp4">
+  <!-- ✅ Video preload (doğru tip) -->
+  <link rel="preload" as="video" href="scene1-animated.mp4" type="video/mp4" fetchpriority="high">
+  <link rel="preload" as="video" href="scene2-animated.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="scene3-animated.mp4" type="video/mp4">
 
   <style>
     :root{
-      /* ✅ Alt tema biraz daha koyu (yıldızlar daha net) */
       --bg:#e7e1d4;
       --olive:#5b604e;
       --card:#f4f2ec;
@@ -27,11 +26,10 @@
       --shadow: 0 18px 50px rgba(0,0,0,.10);
       --max: 880px;
 
-      /* Efekt & mood */
-      --starSpeed: 1;        /* 1 normal, 1.6 yavaş */
-      --nightOpacity: .40;   /* hero karartma */
+      --starSpeed: 1;
+      --nightOpacity: .40;
       --moonGlow: .40;
-      --starOpacity: .80;    /* gündüz bile yıldız görünsün */
+      --starOpacity: .80;
     }
 
     *{box-sizing:border-box}
@@ -48,7 +46,7 @@
     .serif{font-family:"Playfair Display", serif;}
 
     /* =========================
-       HERO (scene1-2-3 slideshow)
+       HERO (Video slideshow)
        ========================= */
     .hero{
       min-height: 82vh;
@@ -59,7 +57,7 @@
       justify-content:center;
       text-align:center;
       padding: 64px 0 36px;
-      background:#0f1624; /* boş beklemesin */
+      background:#0f1624;
     }
     .hero-inner{ position:relative; z-index:30; }
 
@@ -67,24 +65,32 @@
 
     .slide{
       position:absolute;
-      inset:-2%;
-      background-size:cover;
-      background-position:center;
+      inset:0;
       opacity:0;
-      transform: translateZ(0) scale(1.06);
+      transform: translateZ(0) scale(1.04);
       filter: saturate(1.06) contrast(1.05);
       animation: heroFade 18s infinite;
       animation-fill-mode: both;
       will-change: opacity, transform;
     }
 
-    /* ✅ Scene1 hemen görünsün */
-    .s1{ background-image:url("scene1.png"); animation-delay:0s; opacity:1; }
+    /* Video fill */
+    .slide video{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      object-position: center;
+      display:block;
+    }
+
+    /* 3 sahne */
+    .s1{ animation-delay:0s; }
     .s2{ animation-delay:6s; }
     .s3{ animation-delay:12s; }
 
     @keyframes heroFade{
-      0%   { opacity:0; transform:translateZ(0) scale(1.08); }
+      /* İlk frame’de boş görünmesin diye 0% opacity 1 */
+      0%   { opacity:1; transform:translateZ(0) scale(1.06); }
       8%   { opacity:1; }
       30%  { opacity:1; transform:translateZ(0) scale(1.02); }
       38%  { opacity:0; }
@@ -157,7 +163,6 @@
       100% { transform: translate3d(-10px, 112vh, 0) scale(.45); opacity:0; }
     }
 
-    /* 18 yıldız (duration var(--starSpeed) ile uzar/kısalır) */
     .falling-stars span:nth-child(1) { left: 6%;  animation-duration: calc(9s  * var(--starSpeed));  animation-delay: 0s; }
     .falling-stars span:nth-child(2) { left: 12%; animation-duration: calc(12s * var(--starSpeed));  animation-delay: 2s; }
     .falling-stars span:nth-child(3) { left: 18%; animation-duration: calc(10s * var(--starSpeed));  animation-delay: 4s; }
@@ -241,7 +246,6 @@
     .section-title{font-size: 44px; margin: 0 0 10px; font-weight: 400; color: #2f3a2e;}
     .section-sub{margin:0; color: var(--muted); font-size: 17px; line-height: 1.6;}
 
-    /* ✅ sayaç bandı */
     .countdown-wrap{background: var(--olive); padding: 46px 0; margin-top: -14px;}
     .countdown-wrap .section-title, .countdown-wrap .section-sub{color: rgba(255,255,255,.94)}
     .count-grid{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:16px; margin-top: 22px;}
@@ -257,7 +261,7 @@
       padding: 26px 18px;
     }
 
-    /* ✅ AİLELER: her zaman YAN YANA (mobilde de) */
+    /* ✅ AİLELER: her zaman YAN YANA */
     .families-card{ padding: 28px 22px; }
     .families-grid{
       display:flex !important;
@@ -415,21 +419,17 @@
       .place{font-size: 44px}
     }
 
-    /* ✅ MOBİL: aileler YAN YANA kalsın + intro görüntü sığsın */
+    /* ✅ MOBİL: video kesilmesin -> contain */
     @media (max-width: 520px){
       .row{grid-template-columns:1fr}
       .hero h1{font-size:52px}
       .hero{ padding: 84px 0 28px; min-height: 78vh; }
 
-      /* Görsel kesilmesin: mobilde contain */
-      .slide{
-        background-size: contain !important;
-        background-repeat: no-repeat !important;
-        background-position: center top !important;
-        transform: translateZ(0) scale(1.01) !important;
+      .slide video{
+        object-fit: contain;
+        object-position: center top;
       }
 
-      /* aile kutuları biraz küçülsün ama yan yana kalsın */
       .families-card{ padding: 18px 14px; }
       .family-col{ padding: 12px 8px; }
       .family-head{ font-size: 16px; margin-bottom: 10px; }
@@ -441,13 +441,16 @@
       .music-fab{ right: 10px; bottom: 10px; }
     }
 
+    /* ✅ Reduced motion: sadece 1. video */
     @media (prefers-reduced-motion: reduce){
       .slide, .stars-overlay, .sparkle-overlay,
       .falling-stars span, .shooting-stars i,
       .mini-divider::before, .spark{
         animation:none !important;
       }
-      .slide{ opacity:1; transform:none; filter:none; }
+      .s1{opacity:1}
+      .s2,.s3{opacity:0}
+      .slide{ transform:none; filter:none; }
     }
   </style>
 </head>
@@ -456,9 +459,25 @@
 
   <header class="hero" id="top">
     <div class="hero-slideshow" aria-hidden="true">
-      <div class="slide s1" data-bg="scene1.png"></div>
-      <div class="slide s2" data-bg="scene2.png"></div>
-      <div class="slide s3" data-bg="scene3.png"></div>
+
+      <!-- ✅ VIDEO SLIDES -->
+      <div class="slide s1">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="scene1-animated.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="slide s2">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="scene2-animated.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="slide s3">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="scene3-animated.mp4" type="video/mp4">
+        </video>
+      </div>
 
       <div class="sky-mood"></div>
       <div class="vignette"></div>
@@ -523,7 +542,6 @@
   <section class="countdown-wrap" id="countdown-nisan">
     <div class="container center">
       <h2 class="section-title script">Nişan Geri Sayım</h2>
-      <!-- ✅ İstediğin yazıyı kaldırdım -->
       <div class="count-grid">
         <div class="time-card"><b id="eDays">0</b><span>GÜN</span></div>
         <div class="time-card"><b id="eHours">00</b><span>SAAT</span></div>
@@ -576,7 +594,6 @@
   <section class="countdown-wrap" id="countdown-dugun">
     <div class="container center">
       <h2 class="section-title script">Düğün Geri Sayım</h2>
-      <!-- ✅ İstediğin yazıyı kaldırdım -->
       <div class="count-grid">
         <div class="time-card"><b id="wDays">0</b><span>GÜN</span></div>
         <div class="time-card"><b id="wHours">00</b><span>SAAT</span></div>
@@ -668,30 +685,6 @@
     document.addEventListener("DOMContentLoaded", () => {
 
       // =========================
-      // ✅ 0) Görselleri hızlı yüklet (ısıtma)
-      // =========================
-      function preloadImage(url){
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.decoding = "async";
-          img.src = url;
-        });
-      }
-
-      // Slide backgroundlarını data-bg'den setle (gecikmeden)
-      const slides = Array.from(document.querySelectorAll(".slide[data-bg]"));
-      slides.forEach(s => {
-        const src = s.getAttribute("data-bg");
-        if (src) s.style.backgroundImage = `url("${src}")`;
-      });
-
-      // scene2/scene3'ü arka planda ısıt (cache)
-      preloadImage("scene2.png");
-      preloadImage("scene3.png");
-
-      // =========================
       // ✅ 1) GERİ SAYIMLAR (Nişan + Düğün)
       // =========================
       const pad = (n)=>String(n).padStart(2,"0");
@@ -766,11 +759,30 @@ Not: ${note || "Yok"}`;
         const msg = buildMessage();
         if(!msg) return;
         const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
-        window.open(url, "_blank");
+        // Daha stabil: aynı sekmede aç
+        window.location.href = url;
       });
 
       // =========================
-      // ✅ 3) MÜZİK: sayfa açılır açılmaz çalmayı dener
+      // ✅ 3) HERO VIDEOLARINI OYNAT (mobil autoplay için muted + playsinline zaten var)
+      // =========================
+      const heroVideos = Array.from(document.querySelectorAll(".slide video"));
+      heroVideos.forEach(v => {
+        v.muted = true;         // autoplay şart
+        v.playsInline = true;
+        v.loop = true;
+        v.preload = "auto";
+      });
+
+      async function tryPlayVideos(){
+        for(const v of heroVideos){
+          try{ await v.play(); } catch(_) {}
+        }
+      }
+      tryPlayVideos();
+
+      // =========================
+      // ✅ 4) MÜZİK
       // =========================
       const music = document.getElementById("bgMusic");
       const toggle = document.getElementById("musicToggle");
@@ -784,7 +796,6 @@ Not: ${note || "Yok"}`;
           await music.play();
           setBtn(true);
         }catch(_){
-          // bazı telefonlarda otomatik çalma engellenebilir
           setBtn(false);
         }
       }
@@ -800,7 +811,7 @@ Not: ${note || "Yok"}`;
       });
 
       // =========================
-      // ✅ 4) SAATE GÖRE GECE/GÜNDÜZ MOOD
+      // ✅ 5) SAATE GÖRE GECE/GÜNDÜZ MOOD
       // =========================
       function applyTimeMood(){
         const h = new Date().getHours();
@@ -824,7 +835,7 @@ Not: ${note || "Yok"}`;
       setInterval(applyTimeMood, 120000);
 
       // =========================
-      // ✅ 5) Aşağı indikçe yıldızlar yavaşlasın
+      // ✅ 6) Aşağı indikçe yıldızlar yavaşlasın
       // =========================
       const slowTargets = ["#countdown-dugun", "#dugun-konum", "#rsvp"]
         .map(sel => document.querySelector(sel))
