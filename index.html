@@ -35,7 +35,6 @@
       transform: translate(-50%, -50%);
       pointer-events:none;
       background: rgba(255,255,255,.45);
-      box-shadow: 0 0 0 0 rgba(255,255,255,.40);
       animation: ripple .55s ease-out forwards;
       z-index:5;
     }
@@ -68,8 +67,8 @@
   <div class="fadeout" id="fade"></div>
 
   <script>
-    // ✅ Davetiye sayfan (bir sonraki sayfa)
     const NEXT_PAGE = "main.html";
+    const AUTO_MS = 4000; // ✅ 4 saniye
 
     const fade = document.getElementById("fade");
     const vid  = document.getElementById("introVideo");
@@ -84,30 +83,40 @@
     }
 
     let locked = false;
+    let autoTimer = null;
+
     function goNext(){
+      if(locked) return;
+      locked = true;
+
+      // otomatik zamanlayıcıyı iptal et
+      if(autoTimer) clearTimeout(autoTimer);
+
       fade.classList.add("on");
       setTimeout(() => window.location.href = NEXT_PAGE, 220);
     }
 
     function handleTap(e){
       if(locked) return;
-      locked = true;
 
       const x = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
       const y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
 
       rippleAt(x,y);
 
-      // iPhone bazı durumlarda autoplay'i engeller; tıklayınca tekrar play dene
+      // iOS autoplay engeli için tıklayınca play dene
       try{ vid.play(); }catch(_){}
 
-      setTimeout(goNext, 260);
+      setTimeout(goNext, 200);
     }
 
     document.addEventListener("click", handleTap, {passive:true});
     document.addEventListener("touchstart", handleTap, {passive:true});
 
-    // İstersen video bitince otomatik geçsin (kapalı bıraktım)
+    // ✅ 4 saniye sonunda otomatik geçiş
+    autoTimer = setTimeout(goNext, AUTO_MS);
+
+    // (İstersen video bitince de otomatik geçsin)
     // vid.addEventListener("ended", goNext);
   </script>
 
