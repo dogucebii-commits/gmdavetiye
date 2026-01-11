@@ -59,6 +59,7 @@
 <body>
 
   <div class="intro-wrap">
+    <!-- loop YOK: video bitince tekrar etmez -->
     <video id="introVideo" autoplay muted playsinline preload="auto">
       <source src="5s auto 720p Video 02.mp4" type="video/mp4">
     </video>
@@ -68,7 +69,6 @@
 
   <script>
     const NEXT_PAGE = "main.html";
-    const AUTO_MS = 4000; // ✅ 4 saniye
 
     const fade = document.getElementById("fade");
     const vid  = document.getElementById("introVideo");
@@ -83,14 +83,10 @@
     }
 
     let locked = false;
-    let autoTimer = null;
 
     function goNext(){
       if(locked) return;
       locked = true;
-
-      // otomatik zamanlayıcıyı iptal et
-      if(autoTimer) clearTimeout(autoTimer);
 
       fade.classList.add("on");
       setTimeout(() => window.location.href = NEXT_PAGE, 220);
@@ -107,18 +103,4 @@
       // iOS autoplay engeli için tıklayınca play dene
       try{ vid.play(); }catch(_){}
 
-      setTimeout(goNext, 200);
-    }
-
-    document.addEventListener("click", handleTap, {passive:true});
-    document.addEventListener("touchstart", handleTap, {passive:true});
-
-    // ✅ 4 saniye sonunda otomatik geçiş
-    autoTimer = setTimeout(goNext, AUTO_MS);
-
-    // (İstersen video bitince de otomatik geçsin)
-    // vid.addEventListener("ended", goNext);
-  </script>
-
-</body>
-</html>
+      setTimeout(goNext, 200
