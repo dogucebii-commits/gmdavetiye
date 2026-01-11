@@ -316,7 +316,7 @@
       overflow:hidden;
     }
 
-    /* ✅ MOBİLDE "Arslanaydın" gibi kelimeler hece hece kırılmasın */
+    /* ✅ MOBİLDE kelime kırılmasını düzelt */
     .family-head{
       text-align:center;
       font-size: clamp(18px, 5vw, 24px);
@@ -335,7 +335,6 @@
       -webkit-hyphens: none;
       hyphens: none;
     }
-
     .family-head::after{
       content:"";
       display:block;
@@ -423,14 +422,23 @@
 
     form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+
     input, textarea, select{
       width:100%; padding: 12px 12px; border-radius: 14px;
       border: 1px solid rgba(39,49,38,.20);
       background: rgba(255,255,255,.82); font: inherit; outline:none;
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
     }
     textarea{min-height:110px; resize:vertical}
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(91,96,78,.55);
+      box-shadow: 0 0 0 3px rgba(91,96,78,.14);
+      background: rgba(255,255,255,.92);
+    }
+
     .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
-    .status{margin-top:8px; color: var(--muted); text-align:center}
+    .status{margin-top:8px; color: var(--muted); text-align:center; min-height: 18px; font-size:13px;}
+
     .btn{
       display:inline-flex; align-items:center; gap:10px;
       padding: 12px 14px; border-radius: 12px;
@@ -465,7 +473,6 @@
       :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
 
-      /* küçük ek iyileştirme */
       .families-card{ padding: 24px 16px; }
       .family-col{ padding: 16px 12px; }
     }
@@ -479,6 +486,103 @@
       }
       .video-stage .vA{opacity:1}
       .video-stage .vB{opacity:0}
+    }
+
+    /* =========================
+       ✅ RSVP (Katılım) - Daha Şık
+       ========================= */
+    .rsvp-card{
+      padding: 22px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62));
+      border: 1px solid rgba(39,49,38,.14);
+    }
+    .rsvp-title{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin: 0 0 6px;
+      font-family:"Playfair Display", serif;
+      font-size: 20px;
+      color: var(--text);
+    }
+    .rsvp-sub{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .field{
+      text-align:left;
+      display:grid;
+      gap: 8px;
+    }
+    .label{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(39,49,38,.70);
+      font-weight: 600;
+    }
+    .pill-group{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill-group input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(39,49,38,.18);
+      background: rgba(244,242,236,.92);
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      font-weight: 650;
+    }
+    .pill:hover{ transform: translateY(-1px); }
+    .pill-group input:checked + .pill{
+      background: rgba(91,96,78,.16);
+      border-color: rgba(91,96,78,.40);
+    }
+    .pill-group input:focus-visible + .pill{
+      outline: 2px solid rgba(91,96,78,.55);
+      outline-offset: 2px;
+    }
+    .rsvp-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .rsvp-actions{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content:center;
+      margin-top: 6px;
+    }
+    .btn-primary{
+      border: 1px solid rgba(91,96,78,.42);
+      background: rgba(91,96,78,.14);
+    }
+    .btn-primary:hover{
+      background: rgba(91,96,78,.20);
+    }
+    .btn-ghost{
+      background: transparent;
+    }
+    @media (max-width: 520px){
+      .rsvp-grid{ grid-template-columns: 1fr; }
+      .rsvp-card{ padding: 20px 14px; }
     }
   </style>
 </head>
@@ -654,27 +758,64 @@
     </div>
   </section>
 
+  <!-- ✅ YENİ RSVP (ŞIK + NİŞAN/DÜĞÜN SEÇİMİ) -->
   <section id="rsvp">
     <div class="container center">
       <h2 class="section-title script">Katılım</h2>
 
-      <form class="card" id="rsvpForm">
-        <div class="row">
-          <input name="name" required placeholder="Ad Soyad" />
-          <input name="phone" placeholder="Telefon (opsiyonel)" />
-        </div>
-        <div class="row">
-          <select name="attendance" required>
-            <option value="" disabled selected>Katılım durumu</option>
-            <option value="Evet">Evet, geliyorum</option>
-            <option value="Hayır">Maalesef gelemiyorum</option>
-          </select>
-          <input name="guests" type="number" min="0" max="10" placeholder="Kişi sayısı (opsiyonel)" />
-        </div>
-        <textarea name="note" placeholder="Not (alerji, özel durum vs.)"></textarea>
+      <form class="card rsvp-card" id="rsvpForm">
+        <div class="rsvp-title">✦ Katılım Bilgisi</div>
+        <p class="rsvp-sub serif">Lütfen hangi etkinliğe katılacağınızı seçin ve WhatsApp’tan bize iletin.</p>
 
-        <div class="form-actions">
-          <button class="btn" type="submit">WhatsApp ile Gönder</button>
+        <div class="field">
+          <div class="label">Hangi etkinliğe geliyorsunuz?</div>
+          <div class="pill-group" role="group" aria-label="Etkinlik seçimi">
+            <input type="checkbox" id="evNisan" name="events" value="Nişan">
+            <label class="pill" for="evNisan">💍 <span>Nişan</span></label>
+
+            <input type="checkbox" id="evDugun" name="events" value="Düğün">
+            <label class="pill" for="evDugun">💒 <span>Düğün</span></label>
+          </div>
+        </div>
+
+        <div class="rsvp-grid" style="margin-top:12px;">
+          <div class="field">
+            <div class="label">Ad Soyad</div>
+            <input name="name" required placeholder="Ad Soyad" autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <div class="label">Telefon (opsiyonel)</div>
+            <input name="phone" placeholder="05xx..." inputmode="tel" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="rsvp-grid">
+          <div class="field">
+            <div class="label">Katılım durumu</div>
+            <div class="pill-group" role="radiogroup" aria-label="Katılım durumu">
+              <input type="radio" id="attYes" name="attendance" value="Evet" required>
+              <label class="pill" for="attYes">✅ <span>Evet, geliyorum</span></label>
+
+              <input type="radio" id="attNo" name="attendance" value="Hayır" required>
+              <label class="pill" for="attNo">❌ <span>Maalesef gelemiyorum</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="label">Kişi sayısı (opsiyonel)</div>
+            <input name="guests" type="number" min="0" max="10" placeholder="Örn: 2" />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">Not (opsiyonel)</div>
+          <textarea name="note" placeholder="Alerji, özel durum, mesajınız..."></textarea>
+        </div>
+
+        <div class="rsvp-actions">
+          <button class="btn btn-primary" type="submit">WhatsApp ile Gönder</button>
+          <button class="btn btn-ghost" type="reset">Formu Temizle</button>
         </div>
 
         <div class="status" id="status"></div>
@@ -742,21 +883,37 @@
       // =========================
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
+      const status = document.getElementById("status");
 
       function buildMessage(){
         const name = form.querySelector('[name="name"]').value.trim();
         const phone = form.querySelector('[name="phone"]').value.trim();
-        const attendance = form.querySelector('[name="attendance"]').value;
+        const attendanceEl = form.querySelector('[name="attendance"]:checked');
         const guests = form.querySelector('[name="guests"]').value;
         const note = form.querySelector('[name="note"]').value.trim();
 
-        if(!name || !attendance){
-          alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
+        const selectedEvents = Array.from(form.querySelectorAll('[name="events"]:checked'))
+          .map(i => i.value);
+
+        if(!name){
+          alert("Lütfen Ad Soyad alanını doldurun.");
+          return null;
+        }
+        if(selectedEvents.length === 0){
+          alert("Lütfen en az bir etkinlik seçin (Nişan / Düğün).");
+          return null;
+        }
+        if(!attendanceEl){
+          alert("Lütfen Katılım Durumunu seçin.");
           return null;
         }
 
+        const attendance = attendanceEl.value;
+        const eventText = selectedEvents.join(" + ");
+
         return `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
 
+Etkinlik: ${eventText}
 Ad Soyad: ${name}
 Telefon: ${phone || "Belirtilmedi"}
 Katılım: ${attendance}
@@ -768,8 +925,15 @@ Not: ${note || "Yok"}`;
         e.preventDefault();
         const msg = buildMessage();
         if(!msg) return;
+
+        if(status) status.textContent = "WhatsApp açılıyor…";
+
         const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
         window.location.href = url;
+      });
+
+      form.addEventListener("reset", () => {
+        if(status) status.textContent = "";
       });
 
       // =========================
