@@ -602,8 +602,8 @@
       :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
 
-      /* ✅ MOBİL: Aile isimleri tam görünsün + kırılma sorunu çözümü
-         En garantisi: kolonları alt alta al */
+      /* ✅ MOBİL: Aile başlıkları tam görünsün ve garip kırılma olmasın:
+         Kolonları alt alta alıyoruz (en stabil çözüm) */
       .families-grid{ flex-direction: column !important; gap: 12px; }
       .family-divider{
         width:100%;
@@ -614,7 +614,7 @@
       .family-col{ padding: 16px 12px; }
       .families-card{ padding: 22px 14px; }
 
-      /* Mobilde başlık 2 satıra kadar izin verelim (garip hece bölünmesin) */
+      /* Mobilde başlık 2 satıra kadar izin */
       .family-head{
         font-size: 20px;
         white-space: normal;
@@ -667,6 +667,9 @@
           <input id="adminPass" placeholder="Şifre" type="password" />
           <button class="admin-btn" id="adminLoginBtn">Giriş Yap</button>
           <div class="small" id="adminLoginStatus"></div>
+          <div class="small muted" style="text-align:center;">
+            Admin’e girmek için link: <b>?admin=1</b>
+          </div>
         </div>
       </div>
 
@@ -696,9 +699,8 @@
                 </select>
               </div>
 
-              <div class="frow" style="grid-template-columns: 1fr 1fr 1fr;">
+              <div class="frow" style="grid-template-columns: 1fr 1fr;">
                 <button class="admin-btn" id="refresh">Yenile</button>
-                <button class="admin-btn" id="toggleOnlyYes">Toplam: Sadece Evet ✅</button>
                 <button class="admin-btn" id="openInvite">Davetiye Sayfasına Dön</button>
               </div>
             </div>
@@ -963,10 +965,10 @@
       // ✅ BACKEND (Google Apps Script)
       // =========================
       const API_URL = "https://script.google.com/macros/s/AKfycbzs1yheEbNVeX147GstRm_JYARdq6J20ggCTJuoGZe_igfCY58kRwbD355bHnbFJZo/exec";
-      const ADMIN_PASSWORD = "560055Dh.61"; // sadece admin login için (kolaylık)
+      const ADMIN_PASSWORD_HINT = "560055Dh.61"; // sadece admin ekranında kolaylık için (opsiyonel)
 
       // =========================
-      // ✅ Admin mı?
+      // ✅ Admin mı? (aynı dosyada)
       // =========================
       const params = new URLSearchParams(window.location.search);
       const isAdmin = params.get("admin") === "1";
@@ -987,7 +989,6 @@
       // =========================
       const $ = (id)=>document.getElementById(id);
       let ADMIN_PASS = "";
-      let ONLY_YES = true;
       let ALL_ROWS = [];
 
       async function fetchJSON(url){
@@ -998,7 +999,7 @@
 
       async function loadSummary(){
         const js = await fetchJSON(
-          API_URL + "?action=summary&onlyYes=" + (ONLY_YES ? "1":"0") + "&adminPass=" + encodeURIComponent(ADMIN_PASS)
+          API_URL + "?action=summary&onlyYes=1&adminPass=" + encodeURIComponent(ADMIN_PASS)
         );
         if(!js.ok) throw new Error(js.error || "SUMMARY_ERROR");
         $("kpiNisan").textContent = js.summary.nisan;
@@ -1064,12 +1065,6 @@
       if (isAdmin) {
         $("openInvite").addEventListener("click", ()=>{ window.location.href = window.location.pathname; });
 
-        $("toggleOnlyYes").addEventListener("click", async ()=>{
-          ONLY_YES = !ONLY_YES;
-          $("toggleOnlyYes").textContent = ONLY_YES ? "Toplam: Sadece Evet ✅" : "Toplam: Hepsi";
-          try { await loadSummary(); } catch(e){}
-        });
-
         ["q","event","attendanceF"].forEach(id=>{
           const el = $(id);
           el.addEventListener("input", renderAdminTable);
@@ -1093,7 +1088,6 @@
             return;
           }
 
-          // kolaylık: doğru şifreyi girince deniyoruz
           ADMIN_PASS = pass;
 
           try{
@@ -1101,20 +1095,19 @@
             $("adminLocked").style.display = "none";
             $("adminContent").style.display = "block";
           }catch(err){
-            setAdminStatus("Şifre yanlış veya yetki yok.");
+            setAdminStatus("Şifre yanlış veya erişim yok. (Apps Script ADMIN_PASSWORD / Deploy ayarlarını kontrol et)");
             $("adminLocked").style.display = "block";
             $("adminContent").style.display = "none";
           }
         });
 
-        // Şifreyi hızlı doldurmak istersen (isteğe bağlı): adminPass input boşsa default yaz
+        // pratik: input'a çift tıklarsan şifreyi otomatik doldurur
         $("adminPass").addEventListener("dblclick", ()=>{
-          if(!$("adminPass").value) $("adminPass").value = ADMIN_PASSWORD;
+          if(!$("adminPass").value) $("adminPass").value = ADMIN_PASSWORD_HINT;
         });
-      }
 
-      // Eğer admin sayfasındaysak davetiye JS'lerini çalıştırmaya gerek yok
-      if (isAdmin) return;
+        return; // admin sayfasındayken davetiye JS'lerini çalıştırma
+      }
 
       // =========================
       // ✅ Dosya adında boşluk olduğu için URL-encode edilmiş src kullanıyoruz
@@ -1161,7 +1154,7 @@
       window.__inviteTimer = setInterval(render, 1000);
 
       // =========================
-      // ✅ 2) RSVP -> WhatsApp + Sheets
+      // ✅ 2) RSVP -> WhatsApp + Sheets (CORS/Preflight fix)
       // =========================
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
@@ -1198,7 +1191,11 @@
         const attendance = attendanceEl ? attendanceEl.value : "";
         const guestsRaw = form.querySelector('[name="guests"]').value;
         const note = form.querySelector('[name="note"]').value.trim();
-        const guests = Number(guestsRaw || 0);
+
+        // kişi sayısı boş bırakılırsa 1 saymak istersen:
+        // const guests = guestsRaw === "" ? 1 : Number(guestsRaw || 0);
+        let guests = Number(guestsRaw || 0);
+        if(!isFinite(guests) || guests < 0) guests = 0;
 
         const selectedEvents = [...form.querySelectorAll('input[name="events"]:checked')].map(x => x.value);
 
@@ -1211,22 +1208,34 @@
           return;
         }
 
-        // Sheets'e kaydet (arka planda)
+        // ✅ Sheets'e kaydet (preflight olmadan + yönlendirmede de gitsin diye sendBeacon)
+        status.textContent = "Kaydediliyor…";
+
+        const payload = JSON.stringify({
+          name,
+          phone,
+          attendance,
+          guests,
+          note,
+          events: selectedEvents
+        });
+
+        let sent = false;
         try{
-          status.textContent = "Kaydediliyor…";
+          if (navigator.sendBeacon) {
+            const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+            sent = navigator.sendBeacon(API_URL, blob);
+          }
+        }catch(_){}
+
+        if(!sent){
           fetch(API_URL, {
             method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({
-              name,
-              phone,
-              attendance,
-              guests: isFinite(guests) ? guests : 0,
-              note,
-              events: selectedEvents
-            })
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: payload,
+            keepalive: true
           }).catch(()=>{});
-        }catch(_){}
+        }
 
         // WhatsApp mesajı
         const msg = `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
