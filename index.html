@@ -11,6 +11,7 @@
       overflow:hidden;
       cursor:pointer;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; /* iOS/Android dokunmaları sadeleştir */
     }
     .intro-wrap{
       position:fixed;
@@ -87,36 +88,35 @@
     function goNext(){
       if(locked) return;
       locked = true;
-
       fade.classList.add("on");
       setTimeout(() => window.location.href = NEXT_PAGE, 220);
     }
 
-    function handleTap(e){
+    function handlePointerDown(e){
       if(locked) return;
 
-      const x = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
-      const y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+      // Pointer event: hem mouse hem dokunma
+      const x = (typeof e.clientX === "number") ? e.clientX : (window.innerWidth/2);
+      const y = (typeof e.clientY === "number") ? e.clientY : (window.innerHeight/2);
 
       rippleAt(x,y);
 
-      // iOS autoplay engeli için tıklayınca play dene
+      // iOS autoplay engeli için dokununca play dene
       try{ vid.play(); }catch(_){}
 
-      // SADECE tıklayınca geç
+      // SADECE kullanıcı etkileşimiyle geç
       setTimeout(goNext, 200);
     }
 
-    document.addEventListener("click", handleTap, {passive:true});
-    document.addEventListener("click", handleTap, {passive:true});
+    // Tek event: çifte tetik yok
+    document.addEventListener("pointerdown", handlePointerDown, { passive:true });
 
-
-    // ✅ Video bitince otomatik geçiş YOK.
-    // Sadece durur ve son karede kalır; kullanıcı tıklayana kadar ekranda bekler.
+    // Video bitince otomatik geçiş YOK.
+    // Son karede kalsın; kullanıcı dokunana kadar ekranda bekler.
     vid.addEventListener("ended", () => {
       try{
         vid.pause();
-        // Bazı tarayıcılarda son kareyi garanti etmek için:
+        // Son kareyi garantilemek için:
         vid.currentTime = vid.duration;
       }catch(_){}
     });
