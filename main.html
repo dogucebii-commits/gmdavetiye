@@ -69,11 +69,11 @@
       transform: translateZ(0) scale(1.06);
       filter: saturate(1.06) contrast(1.05);
       animation: heroFade 18s infinite;
+      animation-fill-mode: both;
       will-change: opacity, transform;
     }
 
-    /* ✅ İlk açılışta scene1 hemen görünsün */
-    .s1{ background-image:url("scene1.png"); opacity:1; animation-delay:0s; }
+    .s1{ background-image:url("scene1.png"); animation-delay:0s; }
     .s2{ animation-delay:6s; }
     .s3{ animation-delay:12s; }
 
@@ -85,7 +85,7 @@
       100% { opacity:0; }
     }
 
-    /* 🌙 Ortam (stars altta kalmasın diye z-index düşük) */
+    /* 🌙 Ortam */
     .sky-mood{
       position:absolute; inset:0; pointer-events:none;
       z-index:1;
@@ -124,7 +124,7 @@
     }
     @keyframes starDrift{ 0%{transform:translate3d(0,0,0)} 100%{transform:translate3d(-40px,30px,0)} }
 
-    /* ✨ 1) Üstten aşağı akan yıldızlar (kuyruklu, net) */
+    /* ✨ Üstten aşağı akan yıldızlar */
     .falling-stars{
       position:absolute; inset:0; pointer-events:none;
       z-index:12;
@@ -145,8 +145,6 @@
       animation-timing-function: linear;
       animation-iteration-count: infinite;
     }
-
-    /* 1) drift: aşağı inerken hafif sağa/sola */
     @keyframes fallDrift{
       0%   { transform: translate3d(0, -12vh, 0) scale(1); opacity:0; }
       10%  { opacity:1; }
@@ -174,7 +172,7 @@
     .falling-stars span:nth-child(17){ left: 58%; animation-duration: calc(14.8s* var(--starSpeed));  animation-delay: 7.8s; }
     .falling-stars span:nth-child(18){ left: 92%; animation-duration: calc(17s  * var(--starSpeed));  animation-delay: 8.8s; }
 
-    /* 🌠 2) Kayan yıldızlar */
+    /* 🌠 Kayan yıldızlar */
     .shooting-stars{
       position:absolute; inset:0; pointer-events:none;
       z-index:13;
@@ -203,7 +201,6 @@
     .shooting-stars i:nth-child(2){ top: 28%; width: 200px; animation-duration: calc(15s * var(--starSpeed)); animation-delay: 6.5s; }
     .shooting-stars i:nth-child(3){ top: 10%; width: 140px; animation-duration: calc(19s * var(--starSpeed)); animation-delay: 10.5s; }
 
-    /* çok hafif parıltı */
     .sparkle-overlay{
       position:absolute; inset:0; pointer-events:none;
       z-index:4;
@@ -218,7 +215,7 @@
 
     .hero-gradient{
       position:absolute; inset:0; pointer-events:none;
-      z-index:6; /* stars üstüne çıkmasın */
+      z-index:6;
       background: linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.20) 55%, rgba(231,225,212,1));
     }
 
@@ -237,20 +234,10 @@
     .divider{display:flex; align-items:center; justify-content:center; gap:10px; margin: 22px 0 18px; color: rgba(255,255,255,.92);}
     .divider:before,.divider:after{content:""; height:1px; width:84px; background: rgba(255,255,255,.55);}
 
-    .jump{
-      margin-top: 18px;
-      display:inline-flex; gap:10px; align-items:center; justify-content:center;
-      padding: 12px 16px; border-radius: 999px;
-      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22);
-      color:#fff; text-decoration:none; font-weight:600; backdrop-filter: blur(6px);
-    }
-    .jump:hover{background: rgba(255,255,255,.18)}
-
     section{padding: 44px 0}
     .section-title{font-size: 44px; margin: 0 0 10px; font-weight: 400; color: #2f3a2e;}
     .section-sub{margin:0; color: var(--muted); font-size: 17px; line-height: 1.6;}
 
-    /* ✅ sayaç bandı daha koyu */
     .countdown-wrap{background: var(--olive); padding: 46px 0; margin-top: -14px;}
     .countdown-wrap .section-title, .countdown-wrap .section-sub{color: rgba(255,255,255,.94)}
     .count-grid{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:16px; margin-top: 22px;}
@@ -266,7 +253,7 @@
       padding: 26px 18px;
     }
 
-    /* ✅ AİLELER (anne/baba yok, arada ✦ animasyonlu) */
+    /* ✅ Aileler */
     .families-card{ padding: 28px 22px; }
     .families-grid{
       display:flex !important;
@@ -404,7 +391,6 @@
 
     footer{padding: 28px 0 40px; color: var(--muted); text-align:center;}
 
-    /* ✅ Müzik butonu */
     .music-fab{
       position: fixed;
       right: 14px;
@@ -478,11 +464,9 @@
       <h1 class="script">Gülçin <span class="amp">&</span> Mustafa</h1>
       <div class="divider">✦</div>
       <div class="date serif" id="heroDate"></div>
-      
     </div>
   </header>
 
-  <!-- ✅ AİLELER -->
   <section id="aileler">
     <div class="container center">
       <h2 class="section-title script">Ailelerimiz</h2>
@@ -515,7 +499,6 @@
     </div>
   </section>
 
-  <!-- ✅ NİŞAN SAYACI -->
   <section class="countdown-wrap" id="countdown-nisan">
     <div class="container center">
       <h2 class="section-title script">Nişan Geri Sayım</h2>
@@ -529,7 +512,6 @@
     </div>
   </section>
 
-  <!-- ✅ NİŞAN KONUM -->
   <section id="nisan-konum">
     <div class="container center">
       <h2 class="section-title script">Nişan</h2>
@@ -568,7 +550,6 @@
     </div>
   </section>
 
-  <!-- ✅ DÜĞÜN SAYACI -->
   <section class="countdown-wrap" id="countdown-dugun">
     <div class="container center">
       <h2 class="section-title script">Düğün Geri Sayım</h2>
@@ -582,7 +563,6 @@
     </div>
   </section>
 
-  <!-- ✅ DÜĞÜN KONUM -->
   <section id="dugun-konum">
     <div class="container center">
       <h2 class="section-title script">Düğün</h2>
@@ -621,7 +601,6 @@
     </div>
   </section>
 
-  <!-- ✅ RSVP -->
   <section id="rsvp">
     <div class="container center">
       <h2 class="section-title script">Katılım</h2>
@@ -654,7 +633,6 @@
     <div class="container"></div>
   </footer>
 
-  <!-- ✅ MÜZİK -->
   <audio id="bgMusic" loop preload="auto">
     <source id="bgMusicSource" src="Carla Morrison - Disfruto (letra) [jwP1HRmDVII].mp3" type="audio/mpeg">
   </audio>
@@ -672,16 +650,19 @@
             if(src) s.style.backgroundImage = `url("${src}")`;
           });
         }, 250);
-     
+      });
+
+      // ✅ Üstte tarih satırı (isteğe bağlı)
+      const heroDate = document.getElementById("heroDate");
+      if(heroDate){
+        heroDate.textContent = "25 Mart 2026 • Nişan  |  24 Haziran 2026 • Düğün";
+      }
+
       // =========================
       // ✅ GERİ SAYIMLAR (Nişan + Düğün)
       // =========================
       const pad = (n)=>String(n).padStart(2,"0");
-
-      // Nişan: 25 Mart 2026 19:00  (ay index: Mart=2)
       const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
-
-      // Düğün: 24 Haziran 2026 20:00 (Haziran=5)
       const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
 
       function setText(id, val){
@@ -770,7 +751,7 @@ Not: ${note || "Yok"}`;
           await music.play();
           setBtn(true);
         }catch(_){
-          // autoplay engellenirse (bazı Safari/iOS)
+          // autoplay engellenirse
           setBtn(false);
         }
       }
@@ -786,12 +767,10 @@ Not: ${note || "Yok"}`;
       });
 
       // =========================
-      // ✅ 4) SAATE GÖRE GECE/GÜNDÜZ MOOD (yıldızlar gündüz de net)
+      // ✅ SAATE GÖRE GECE/GÜNDÜZ MOOD
       // =========================
       function applyTimeMood(){
         const h = new Date().getHours();
-
-        // gündüz bile yıldızlar görünsün diye stars minimumu yüksek
         let night = 0.28, moon = 0.22, stars = 0.70;
 
         if(h >= 21 || h <= 5){
@@ -812,7 +791,7 @@ Not: ${note || "Yok"}`;
       setInterval(applyTimeMood, 120000);
 
       // =========================
-      // ✅ 3) aşağı indikçe yıldızlar yavaşlasın (düğün/rsvp yakınında)
+      // ✅ aşağı indikçe yıldızlar yavaşlasın
       // =========================
       const slowTargets = ["#countdown-dugun", "#dugun-konum", "#rsvp"]
         .map(sel => document.querySelector(sel))
