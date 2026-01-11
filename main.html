@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- ✅ Video adı boşluk içerdiği için URL-ENCODE kullandık -->
+  <!-- Video adı boşluk içerdiği için URL-ENCODE -->
   <link rel="preload" as="video" href="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4" fetchpriority="high">
 
   <style>
@@ -49,9 +49,7 @@
     .script{font-family:"Great Vibes", cursive;}
     .serif{font-family:"Playfair Display", serif;}
 
-    /* =========================
-       ✅ HERO
-       ========================= */
+    /* ====== HERO ====== */
     .hero{
       min-height: 88vh;
       position: relative;
@@ -73,6 +71,7 @@
       overflow:hidden;
       transform: translateZ(0);
 
+      /* Keskin alt çizgi yok */
       -webkit-mask-image: linear-gradient(to bottom,
         rgba(0,0,0,1) 0%,
         rgba(0,0,0,1) calc(100% - var(--maskSoft)),
@@ -164,8 +163,7 @@
 
     .falling-stars{
       position:absolute; inset:0; pointer-events:none;
-      z-index:12;
-      overflow:hidden;
+      z-index:12; overflow:hidden;
       opacity: var(--starOpacity);
     }
     .falling-stars span{
@@ -265,6 +263,7 @@
     .divider{display:flex; align-items:center; justify-content:center; gap:10px; margin: 22px 0 18px; color: rgba(255,255,255,.92);}
     .divider:before,.divider:after{content:""; height:1px; width:84px; background: rgba(255,255,255,.55);}
 
+    /* ====== SECTIONS ====== */
     section{padding: 44px 0}
     .section-title{font-size: 44px; margin: 0 0 10px; font-weight: 400; color: #2f3a2e;}
     .section-sub{margin:0; color: var(--muted); font-size: 17px; line-height: 1.6;}
@@ -284,9 +283,7 @@
       padding: 26px 18px;
     }
 
-    /* =========================
-       ✅ AİLELER + MOBİL FIX
-       ========================= */
+    /* ====== AİLELER ====== */
     #aileler{
       position: relative;
       margin-top: calc(-1 * (var(--heroExtra) + 30px));
@@ -322,7 +319,8 @@
       border: 1px solid rgba(39,49,38,.10);
       overflow:hidden;
     }
-    /* ✅ Arslanaydın gibi kelimeler mobilde bölünmesin */
+
+    /* Masaüstünde tek satır, taşarsa ellipsis */
     .family-head{
       text-align:center;
       font-size: 24px;
@@ -335,8 +333,10 @@
       word-break: keep-all;
       overflow-wrap: normal;
       hyphens: none;
-      text-overflow: ellipsis;
+
       overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.15;
     }
     .family-head::after{
       content:"";
@@ -410,6 +410,7 @@
       50%{ transform: translate3d(10px,-6px,0); opacity:.8; }
     }
 
+    /* ====== KONUM KARTLARI ====== */
     .big-icon{
       width: 76px; height: 76px; border-radius: 999px;
       background: rgba(91,96,78,.18);
@@ -423,12 +424,9 @@
     .map{border-radius: 16px; overflow:hidden; border: 1px solid var(--line); height: 220px;}
     .map iframe{width:100%; height:100%; border:0}
 
-    /* =========================
-       ✅ RSVP (Daha şık)
-       ========================= */
+    /* ====== FORM ====== */
     form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
-
     input, textarea, select{
       width:100%; padding: 12px 12px; border-radius: 14px;
       border: 1px solid rgba(39,49,38,.20);
@@ -439,7 +437,6 @@
       border-color: rgba(91,96,78,.55);
     }
     textarea{min-height:110px; resize:vertical}
-
     .form-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
     .status{margin-top:8px; color: var(--muted); text-align:center}
 
@@ -453,30 +450,29 @@
     }
     .btn:hover{background: rgba(91,96,78,.10); transform: translateY(-1px);}
 
+    /* RSVP daha şık */
     .rsvp-card{
-      padding: 20px 18px;
+      padding: 22px 18px;
       background:
         radial-gradient(600px 240px at 25% 0%, rgba(91,96,78,.10), transparent 60%),
         radial-gradient(520px 220px at 90% 30%, rgba(39,49,38,.08), transparent 62%),
         rgba(244,242,236,.92);
     }
-
-    .rsvp-title-mini{
+    .rsvp-mini{
       font-family:"Playfair Display", serif;
       letter-spacing:.12em;
       text-transform:uppercase;
       font-size:12px;
       color: rgba(39,49,38,.62);
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       text-align:center;
     }
-
     .pill-grid{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       justify-content:center;
-      margin: 6px 0 10px;
+      margin: 4px 0 10px;
     }
     .pill{
       position:relative;
@@ -490,21 +486,13 @@
       background: rgba(255,255,255,.70);
       cursor:pointer;
       user-select:none;
-      font-weight:600;
+      font-weight:700;
       box-shadow: 0 10px 22px rgba(0,0,0,.05);
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
     .pill:hover{ transform: translateY(-1px); }
-    .pill input{
-      position:absolute;
-      inset:0;
-      opacity:0;
-      pointer-events:none;
-    }
-    .pill.is-on{
-      background: rgba(91,96,78,.14);
-      border-color: rgba(91,96,78,.35);
-    }
+    .pill input{ position:absolute; inset:0; opacity:0; pointer-events:none; }
+    .pill.is-on{ background: rgba(91,96,78,.14); border-color: rgba(91,96,78,.35); }
 
     .seg{
       display:grid;
@@ -523,22 +511,13 @@
       border: 1px solid rgba(39,49,38,.16);
       background: rgba(255,255,255,.70);
       cursor:pointer;
-      font-weight:700;
+      font-weight:800;
       transition: background .12s ease, border-color .12s ease, transform .12s ease;
     }
     .seg label:hover{ transform: translateY(-1px); }
     .seg input{ position:absolute; opacity:0; pointer-events:none; }
-    .seg label.is-on{
-      background: rgba(39,49,38,.10);
-      border-color: rgba(39,49,38,.26);
-    }
-
-    .hint{
-      text-align:center;
-      color: rgba(39,49,38,.65);
-      font-size:13px;
-      margin: 6px 0 0;
-    }
+    .seg label.is-on{ background: rgba(39,49,38,.10); border-color: rgba(39,49,38,.26); }
+    .hint{ text-align:center; color: rgba(39,49,38,.65); font-size:13px; margin: 6px 0 0; }
 
     footer{padding: 28px 0 40px; color: var(--muted); text-align:center;}
 
@@ -551,30 +530,24 @@
       backdrop-filter: blur(6px);
     }
 
-    /* =========================
-       ✅ ADMIN VIEW
-       ========================= */
+    /* ====== ADMIN ====== */
     .admin-wrap{
       max-width: 1100px;
       margin: 0 auto;
-      padding: 22px 16px 44px;
+      padding: 18px 16px 44px;
       display:none;
     }
     .admin-wrap.is-on{ display:block; }
     .invite-wrap.is-off{ display:none; }
 
     .admin-card{
-      background: rgba(255,255,255,.72);
+      background: rgba(255,255,255,.70);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 16px;
     }
-    .admin-title{
-      font-family:"Playfair Display", serif;
-      font-weight:600;
-      margin:0 0 6px;
-    }
+    .admin-title{ font-family:"Playfair Display", serif; font-weight:600; margin:0 0 6px; }
     .admin-sub{ color:var(--muted); margin:0 0 14px; line-height:1.5; }
 
     .admin-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:12px; margin-top:12px;}
@@ -586,7 +559,7 @@
       background: rgba(39,49,38,.06);
     }
     .kpi b{ display:block; font-size:34px; font-family:"Playfair Display", serif; }
-    .kpi span{ color:rgba(39,49,38,.75); font-weight:600; letter-spacing:.08em; text-transform:uppercase; font-size:12px;}
+    .kpi span{ color:rgba(39,49,38,.75); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:12px;}
 
     .filters{ display:grid; gap:10px;}
     .frow{ display:grid; grid-template-columns: 1.2fr .8fr .8fr; gap:10px; }
@@ -598,12 +571,9 @@
       background: rgba(39,49,38,.10);
       font: inherit;
       cursor:pointer;
-      font-weight:700;
+      font-weight:800;
     }
     .admin-btn:hover{ background: rgba(39,49,38,.14); }
-    .danger{ background: rgba(198,40,40,.12); border-color: rgba(198,40,40,.25); }
-    .danger:hover{ background: rgba(198,40,40,.18); }
-
     .tableWrap{ overflow:auto; border-radius: 16px; border:1px solid var(--line); background: rgba(255,255,255,.60); margin-top:12px;}
     table{ width:100%; border-collapse:collapse; min-width: 980px; }
     th, td{ padding: 10px 10px; border-bottom: 1px solid rgba(39,49,38,.10); text-align:left; vertical-align:top; }
@@ -613,30 +583,10 @@
       background: rgba(255,255,255,.55);
       position:sticky; top:0;
     }
-    .tag{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px;
-      border:1px solid rgba(39,49,38,.16);
-      background: rgba(244,242,236,.92);
-      margin-right:6px;
-      white-space:nowrap;
-    }
-    .tag.nisan{ background: rgba(91,96,78,.12); border-color: rgba(91,96,78,.25); }
-    .tag.dugun{ background: rgba(39,49,38,.10); border-color: rgba(39,49,38,.22); }
-    .tag.yes{ background: rgba(46,125,50,.12); border-color: rgba(46,125,50,.22); }
-    .tag.no{ background: rgba(198,40,40,.10); border-color: rgba(198,40,40,.22); }
     .muted{ color:var(--muted); }
-    .actions{ display:flex; gap:8px; }
-
     .admin-footer{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px;}
     .small{ font-size:13px; color:var(--muted); }
-
-    .admin-login{
-      max-width: 520px;
-      margin: 16px auto 0;
-      display:grid;
-      gap:10px;
-    }
+    .admin-login{ max-width: 520px; margin: 16px auto 0; display:grid; gap:10px; }
 
     @media (min-width: 720px){
       .count-grid{grid-template-columns: repeat(4, minmax(0,1fr))}
@@ -652,18 +602,36 @@
       :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
 
-      /* ✅ aileler mobil: alt alta */
+      /* ✅ MOBİL: Aile isimleri tam görünsün + kırılma sorunu çözümü
+         En garantisi: kolonları alt alta al */
       .families-grid{ flex-direction: column !important; gap: 12px; }
       .family-divider{
-        width: 100%; height: 1px;
+        width:100%;
+        height:1px;
         background: linear-gradient(to right, transparent, rgba(39,49,38,.20), transparent);
-        flex: 0 0 1px;
+        flex:0 0 1px;
       }
-      .family-head{ font-size: 22px; }
+      .family-col{ padding: 16px 12px; }
+      .families-card{ padding: 22px 14px; }
+
+      /* Mobilde başlık 2 satıra kadar izin verelim (garip hece bölünmesin) */
+      .family-head{
+        font-size: 20px;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+
+        word-break: keep-all;
+        overflow-wrap: normal;
+        hyphens: none;
+      }
 
       .seg{ grid-template-columns: 1fr; }
 
-      /* admin */
       .admin-grid{ grid-template-columns: 1fr; }
       .frow{ grid-template-columns: 1fr; }
       table{ min-width: 860px; }
@@ -684,18 +652,17 @@
 
 <body>
 
-  <!-- =========================
-       ✅ ADMIN PANEL (Tek dosya)
-       Erişim: /#admin
-       ========================= -->
+  <!-- ===================== ADMIN (aynı dosyada) ===================== -->
   <div class="admin-wrap" id="adminWrap">
     <div class="admin-card">
       <h1 class="admin-title">RSVP Admin</h1>
-      <p class="admin-sub">Formdan gelen katılımları burada görürsün. <b>Nişan / Düğün</b> toplamları ayrı hesaplanır.</p>
+      <p class="admin-sub">
+        Buraya giriş yapınca form kayıtlarını görürsün. Toplamlar <b>sadece “Evet”</b> diyenlerden hesaplanır.
+      </p>
 
       <div id="adminLocked">
         <div class="admin-login admin-card" style="background:rgba(255,255,255,.55);">
-          <div class="rsvp-title-mini">ADMIN GİRİŞ</div>
+          <div class="rsvp-mini">ADMIN GİRİŞ</div>
           <input id="adminUser" placeholder="Kullanıcı" value="admin" />
           <input id="adminPass" placeholder="Şifre" type="password" />
           <button class="admin-btn" id="adminLoginBtn">Giriş Yap</button>
@@ -707,18 +674,10 @@
         <div class="admin-grid">
           <div class="admin-card">
             <div class="kpis">
-              <div class="kpi">
-                <span>💍 Nişan Toplam</span>
-                <b id="kpiNisan">0</b>
-              </div>
-              <div class="kpi">
-                <span>💒 Düğün Toplam</span>
-                <b id="kpiDugun">0</b>
-              </div>
+              <div class="kpi"><span>💍 Nişan Toplam</span><b id="kpiNisan">0</b></div>
+              <div class="kpi"><span>💒 Düğün Toplam</span><b id="kpiDugun">0</b></div>
             </div>
-            <div class="small" style="margin-top:10px;">
-              Varsayılan: sadece <b>Evet</b> diyenler toplama dahil edilir.
-            </div>
+            <div class="small" style="margin-top:10px;">(Kişi sayısı = formdaki “Kişi sayısı” alanı)</div>
           </div>
 
           <div class="admin-card">
@@ -740,7 +699,7 @@
               <div class="frow" style="grid-template-columns: 1fr 1fr 1fr;">
                 <button class="admin-btn" id="refresh">Yenile</button>
                 <button class="admin-btn" id="toggleOnlyYes">Toplam: Sadece Evet ✅</button>
-                <button class="admin-btn danger" id="clearAll">Tüm Kayıtları Sil</button>
+                <button class="admin-btn" id="openInvite">Davetiye Sayfasına Dön</button>
               </div>
             </div>
           </div>
@@ -750,19 +709,10 @@
           <table>
             <thead>
               <tr>
-                <th>Tarih</th>
-                <th>Etkinlik</th>
-                <th>Katılım</th>
-                <th>Ad</th>
-                <th>Telefon</th>
-                <th>Kişi</th>
-                <th>Not</th>
-                <th>İşlem</th>
+                <th>Tarih</th><th>Etkinlik</th><th>Katılım</th><th>Ad</th><th>Telefon</th><th>Kişi</th><th>Not</th>
               </tr>
             </thead>
-            <tbody id="tbody">
-              <tr><td colspan="8" class="muted">Yükleniyor…</td></tr>
-            </tbody>
+            <tbody id="tbody"><tr><td colspan="7" class="muted">Yükleniyor…</td></tr></tbody>
           </table>
         </div>
 
@@ -774,9 +724,7 @@
     </div>
   </div>
 
-  <!-- =========================
-       ✅ DAVETİYE
-       ========================= -->
+  <!-- ===================== DAVETİYE ===================== -->
   <div class="invite-wrap" id="inviteWrap">
 
     <header class="hero" id="top">
@@ -793,7 +741,6 @@
 
         <div class="sky-mood"></div>
         <div class="vignette"></div>
-
         <div class="stars-overlay"></div>
 
         <div class="falling-stars" aria-hidden="true">
@@ -953,51 +900,46 @@
         <h2 class="section-title script">Katılım</h2>
 
         <form class="card rsvp-card" id="rsvpForm">
-          <p class="rsvp-title-mini">HANGİ ETKİNLİĞE KATILACAKSINIZ?</p>
-
-          <!-- ✅ Etkinlik seçimi -->
+          <div class="rsvp-mini">ETKİNLİK SEÇİMİ</div>
           <div class="pill-grid" id="eventPills">
             <label class="pill">
-              <input type="checkbox" name="events" value="Nişan">
+              <input type="checkbox" name="events" value="Nişan" />
               💍 Nişan
             </label>
             <label class="pill">
-              <input type="checkbox" name="events" value="Düğün">
+              <input type="checkbox" name="events" value="Düğün" />
               💒 Düğün
             </label>
           </div>
+          <div class="hint">İsterseniz ikisini de seçebilirsiniz.</div>
 
+          <div class="rsvp-mini" style="margin-top:14px;">BİLGİLER</div>
           <div class="row">
             <input name="name" required placeholder="Ad Soyad" />
             <input name="phone" placeholder="Telefon (opsiyonel)" />
           </div>
 
-          <p class="rsvp-title-mini" style="margin-top:6px;">KATILIM DURUMU</p>
-
-          <div class="seg" id="attSeg">
-            <label>
-              <input type="radio" name="attendance" value="Evet">
+          <div class="seg" id="attendanceSeg">
+            <label class="seg-opt">
+              <input type="radio" name="attendance" value="Evet" required />
               ✅ Evet, geliyorum
             </label>
-            <label>
-              <input type="radio" name="attendance" value="Hayır">
-              ❌ Maalesef gelemiyorum
+            <label class="seg-opt">
+              <input type="radio" name="attendance" value="Hayır" required />
+              ❌ Gelemiyorum
             </label>
           </div>
 
-          <p class="hint">Kişi sayısı: toplam kaç kişi geleceksiniz?</p>
-
           <div class="row">
-            <input name="guests" type="number" min="0" max="10" placeholder="Kişi sayısı (örn: 2)" />
-            <select name="dummy" aria-hidden="true">
-              <option selected disabled>✦</option>
-            </select>
+            <input name="guests" type="number" min="0" max="20" placeholder="Kişi sayısı (opsiyonel)" />
+            <input name="dummy" placeholder=" " style="opacity:0; pointer-events:none;" aria-hidden="true"/>
           </div>
 
           <textarea name="note" placeholder="Not (alerji, özel durum vs.)"></textarea>
 
           <div class="form-actions">
             <button class="btn" type="submit">WhatsApp ile Gönder</button>
+            <a class="btn" href="?admin=1">Admin Panel</a>
           </div>
 
           <div class="status" id="status"></div>
@@ -1013,239 +955,178 @@
       <source id="bgMusicSource" src="Carla Morrison - Disfruto (letra) [jwP1HRmDVII].mp3" type="audio/mpeg">
     </audio>
     <button id="musicToggle" class="btn music-fab" type="button">🔊 Müzik Açık</button>
-
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // =========================
+      // ✅ BACKEND (Google Apps Script)
+      // =========================
+      const API_URL = "https://script.google.com/macros/s/AKfycbzs1yheEbNVeX147GstRm_JYARdq6J20ggCTJuoGZe_igfCY58kRwbD355bHnbFJZo/exec";
+      const ADMIN_PASSWORD = "560055Dh.61"; // sadece admin login için (kolaylık)
 
       // =========================
-      // ✅ ADMIN ROUTE: #admin
+      // ✅ Admin mı?
       // =========================
-      const ADMIN_USER = "admin";
-      const ADMIN_PASS = "560055Dh.61";
-      const ADMIN_SESSION_KEY = "invite_admin_authed_v1";
+      const params = new URLSearchParams(window.location.search);
+      const isAdmin = params.get("admin") === "1";
 
       const adminWrap = document.getElementById("adminWrap");
       const inviteWrap = document.getElementById("inviteWrap");
 
-      function isAdminRoute(){
-        return (location.hash || "").toLowerCase() === "#admin";
-      }
-      function showAdmin(on){
-        adminWrap.classList.toggle("is-on", on);
-        inviteWrap.classList.toggle("is-off", on);
-      }
-
-      function setAdminAuthed(val){
-        if(val) sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
-        else sessionStorage.removeItem(ADMIN_SESSION_KEY);
-      }
-      function isAdminAuthed(){
-        return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1";
-      }
-
-      function escapeHtml(s){
-        return String(s ?? "")
-          .replaceAll("&","&amp;")
-          .replaceAll("<","&lt;")
-          .replaceAll(">","&gt;")
-          .replaceAll('"',"&quot;")
-          .replaceAll("'","&#039;");
+      if (isAdmin) {
+        adminWrap.classList.add("is-on");
+        inviteWrap.classList.add("is-off");
+      } else {
+        adminWrap.classList.remove("is-on");
+        inviteWrap.classList.remove("is-off");
       }
 
       // =========================
-      // ✅ RSVP STORAGE (local)
+      // ✅ Admin Panel JS
       // =========================
-      const STORE_KEY = "invite_rsvp_records_v1";
+      const $ = (id)=>document.getElementById(id);
+      let ADMIN_PASS = "";
+      let ONLY_YES = true;
+      let ALL_ROWS = [];
 
-      function loadRecords(){
-        try{
-          const raw = localStorage.getItem(STORE_KEY);
-          const arr = raw ? JSON.parse(raw) : [];
-          return Array.isArray(arr) ? arr : [];
-        }catch(_){
-          return [];
-        }
+      async function fetchJSON(url){
+        const r = await fetch(url, { cache:"no-store" });
+        return await r.json();
       }
-      function saveRecords(arr){
-        localStorage.setItem(STORE_KEY, JSON.stringify(arr));
-      }
-      function addRecord(rec){
-        const arr = loadRecords();
-        arr.unshift(rec);
-        saveRecords(arr);
-      }
-      function deleteRecord(id){
-        const arr = loadRecords().filter(r => r.id !== id);
-        saveRecords(arr);
-      }
-      function clearAllRecords(){
-        localStorage.removeItem(STORE_KEY);
+      function setAdminStatus(msg){ const el = $("adminLoginStatus"); if(el) el.textContent = msg; }
+
+      async function loadSummary(){
+        const js = await fetchJSON(
+          API_URL + "?action=summary&onlyYes=" + (ONLY_YES ? "1":"0") + "&adminPass=" + encodeURIComponent(ADMIN_PASS)
+        );
+        if(!js.ok) throw new Error(js.error || "SUMMARY_ERROR");
+        $("kpiNisan").textContent = js.summary.nisan;
+        $("kpiDugun").textContent = js.summary.dugun;
       }
 
-      function calcTotals({ onlyYes = true } = {}){
-        const rows = loadRecords();
-        let nisan = 0;
-        let dugun = 0;
-
-        for(const r of rows){
-          if(onlyYes && r.attendance !== "Evet") continue;
-
-          const count = Number(r.guests || 0); // toplam kişi sayısı varsayımı
-          if(r.events?.includes("Nişan")) nisan += count;
-          if(r.events?.includes("Düğün")) dugun += count;
-        }
-        return { nisan, dugun };
+      async function loadList(){
+        const js = await fetchJSON(API_URL + "?action=list&adminPass=" + encodeURIComponent(ADMIN_PASS));
+        if(!js.ok) throw new Error(js.error || "LIST_ERROR");
+        ALL_ROWS = js.rows || [];
+        $("totalCount").textContent = String(ALL_ROWS.length);
+        $("lastUpdate").textContent = "Güncellendi: " + new Date().toLocaleString("tr-TR");
       }
 
-      // =========================
-      // ✅ ADMIN UI
-      // =========================
-      let onlyYesTotals = true;
+      function renderAdminTable(){
+        const q = ($("q").value || "").trim().toLowerCase();
+        const ev = $("event").value;
+        const at = $("attendanceF").value;
 
-      function eventTags(events){
-        const out = [];
-        if(events?.includes("Nişan")) out.push('<span class="tag nisan">💍 Nişan</span>');
-        if(events?.includes("Düğün")) out.push('<span class="tag dugun">💒 Düğün</span>');
-        return out.join(" ");
-      }
-      function attendanceTag(val){
-        if (val === "Evet") return '<span class="tag yes">✅ Evet</span>';
-        if (val === "Hayır") return '<span class="tag no">❌ Hayır</span>';
-        return '<span class="tag">—</span>';
-      }
-      function fmtDate(iso){
-        try{ return new Date(iso).toLocaleString("tr-TR"); }
-        catch(_){ return iso || ""; }
-      }
-
-      function getFilteredRows(){
-        const q = (document.getElementById("q")?.value || "").trim().toLowerCase();
-        const event = (document.getElementById("event")?.value || "");
-        const att = (document.getElementById("attendanceF")?.value || "");
-        let rows = loadRecords();
-
-        if(q){
-          rows = rows.filter(r =>
-            (r.name || "").toLowerCase().includes(q) ||
-            (r.phone || "").toLowerCase().includes(q) ||
-            (r.note || "").toLowerCase().includes(q)
-          );
-        }
-        if(event){
-          rows = rows.filter(r => (r.events || []).includes(event));
-        }
-        if(att){
-          rows = rows.filter(r => r.attendance === att);
-        }
-        return rows;
-      }
-
-      function renderAdmin(){
-        const adminLocked = document.getElementById("adminLocked");
-        const adminContent = document.getElementById("adminContent");
-        adminLocked.style.display = isAdminAuthed() ? "none" : "block";
-        adminContent.style.display = isAdminAuthed() ? "block" : "none";
-
-        if(!isAdminAuthed()) return;
-
-        const totals = calcTotals({ onlyYes: onlyYesTotals });
-        document.getElementById("kpiNisan").textContent = totals.nisan;
-        document.getElementById("kpiDugun").textContent = totals.dugun;
-
-        const rows = getFilteredRows();
-        document.getElementById("totalCount").textContent = rows.length;
-
-        const tb = document.getElementById("tbody");
-        if(!rows.length){
-          tb.innerHTML = `<tr><td colspan="8" class="muted">Kayıt yok.</td></tr>`;
-        } else {
-          tb.innerHTML = rows.map(r => `
-            <tr>
-              <td>${fmtDate(r.created_at)}</td>
-              <td>${eventTags(r.events)}</td>
-              <td>${attendanceTag(r.attendance)}</td>
-              <td><b>${escapeHtml(r.name)}</b></td>
-              <td class="muted">${escapeHtml(r.phone || "")}</td>
-              <td><b>${Number(r.guests || 0)}</b></td>
-              <td class="muted">${escapeHtml(r.note || "")}</td>
-              <td>
-                <div class="actions">
-                  <button class="admin-btn danger" data-del="${r.id}" style="padding:8px 10px;border-radius:12px;">Sil</button>
-                </div>
-              </td>
-            </tr>
-          `).join("");
-
-          tb.querySelectorAll("[data-del]").forEach(btn=>{
-            btn.addEventListener("click", () => {
-              const id = btn.getAttribute("data-del");
-              if(!confirm("Bu kaydı silmek istiyor musun?")) return;
-              deleteRecord(id);
-              renderAdmin();
-            });
-          });
-        }
-
-        document.getElementById("lastUpdate").textContent =
-          "Son güncelleme: " + new Date().toLocaleString("tr-TR");
-      }
-
-      function wireAdmin(){
-        const loginBtn = document.getElementById("adminLoginBtn");
-        const status = document.getElementById("adminLoginStatus");
-        loginBtn?.addEventListener("click", () => {
-          const u = (document.getElementById("adminUser").value || "").trim();
-          const p = (document.getElementById("adminPass").value || "").trim();
-          if(u === ADMIN_USER && p === ADMIN_PASS){
-            setAdminAuthed(true);
-            status.textContent = "Giriş başarılı ✅";
-            renderAdmin();
-          } else {
-            status.textContent = "Hatalı kullanıcı/şifre ❌";
+        const filtered = ALL_ROWS.filter(r=>{
+          if(ev && !String(r.events).includes(ev)) return false;
+          if(at && String(r.attendance) !== at) return false;
+          if(q){
+            const hay = (r.name+" "+r.phone+" "+r.note+" "+r.events).toLowerCase();
+            if(!hay.includes(q)) return false;
           }
+          return true;
         });
 
-        document.getElementById("refresh")?.addEventListener("click", renderAdmin);
-        document.getElementById("toggleOnlyYes")?.addEventListener("click", () => {
-          onlyYesTotals = !onlyYesTotals;
-          document.getElementById("toggleOnlyYes").textContent =
-            onlyYesTotals ? "Toplam: Sadece Evet ✅" : "Toplam: Evet+Hayır (hepsi)";
-          renderAdmin();
-        });
+        const tb = $("tbody");
+        if(!filtered.length){
+          tb.innerHTML = `<tr><td colspan="7" class="muted">Kayıt yok.</td></tr>`;
+          return;
+        }
 
-        document.getElementById("clearAll")?.addEventListener("click", () => {
-          if(!confirm("TÜM kayıtları silmek istiyor musun?")) return;
-          clearAllRecords();
-          renderAdmin();
+        tb.innerHTML = filtered.map(r=>{
+          const dt = r.created_at ? new Date(r.created_at).toLocaleString("tr-TR") : "";
+          const guests = Number(r.guests||0);
+          const note = String(r.note||"").replaceAll("<","&lt;");
+
+          return `
+            <tr>
+              <td>${dt}</td>
+              <td>${r.events || ""}</td>
+              <td>${r.attendance || ""}</td>
+              <td><b>${r.name || ""}</b></td>
+              <td>${r.phone || ""}</td>
+              <td>${isFinite(guests) ? guests : 0}</td>
+              <td class="muted">${note}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      async function refreshAdmin(){
+        setAdminStatus("Yükleniyor…");
+        await loadSummary();
+        await loadList();
+        renderAdminTable();
+        setAdminStatus("Hazır ✅");
+      }
+
+      if (isAdmin) {
+        $("openInvite").addEventListener("click", ()=>{ window.location.href = window.location.pathname; });
+
+        $("toggleOnlyYes").addEventListener("click", async ()=>{
+          ONLY_YES = !ONLY_YES;
+          $("toggleOnlyYes").textContent = ONLY_YES ? "Toplam: Sadece Evet ✅" : "Toplam: Hepsi";
+          try { await loadSummary(); } catch(e){}
         });
 
         ["q","event","attendanceF"].forEach(id=>{
-          document.getElementById(id)?.addEventListener("change", renderAdmin);
+          const el = $(id);
+          el.addEventListener("input", renderAdminTable);
+          el.addEventListener("change", renderAdminTable);
         });
-        document.getElementById("q")?.addEventListener("keydown", (e)=>{
-          if(e.key === "Enter"){ e.preventDefault(); renderAdmin(); }
+
+        $("refresh").addEventListener("click", async ()=>{
+          try { await refreshAdmin(); } catch(e){ setAdminStatus("Hata: " + (e.message||e)); }
+        });
+
+        $("adminLoginBtn").addEventListener("click", async ()=>{
+          const user = ($("adminUser").value||"").trim();
+          const pass = ($("adminPass").value||"").trim();
+
+          if(user !== "admin"){
+            setAdminStatus("Kullanıcı: admin olmalı.");
+            return;
+          }
+          if(!pass){
+            setAdminStatus("Şifre gir.");
+            return;
+          }
+
+          // kolaylık: doğru şifreyi girince deniyoruz
+          ADMIN_PASS = pass;
+
+          try{
+            await refreshAdmin();
+            $("adminLocked").style.display = "none";
+            $("adminContent").style.display = "block";
+          }catch(err){
+            setAdminStatus("Şifre yanlış veya yetki yok.");
+            $("adminLocked").style.display = "block";
+            $("adminContent").style.display = "none";
+          }
+        });
+
+        // Şifreyi hızlı doldurmak istersen (isteğe bağlı): adminPass input boşsa default yaz
+        $("adminPass").addEventListener("dblclick", ()=>{
+          if(!$("adminPass").value) $("adminPass").value = ADMIN_PASSWORD;
         });
       }
 
-      function route(){
-        const admin = isAdminRoute();
-        showAdmin(admin);
-        if(admin){
-          wireAdmin();
-          renderAdmin();
-        }
-      }
-      window.addEventListener("hashchange", route);
-      route();
+      // Eğer admin sayfasındaysak davetiye JS'lerini çalıştırmaya gerek yok
+      if (isAdmin) return;
+
+      // =========================
+      // ✅ Dosya adında boşluk olduğu için URL-encode edilmiş src kullanıyoruz
+      // =========================
+      const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
 
       // =========================
       // ✅ 1) GERİ SAYIMLAR
       // =========================
       const pad = (n)=>String(n).padStart(2,"0");
-      const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
-      const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
+      const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
+      const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
 
       function setText(id, val){
         const el = document.getElementById(id);
@@ -1262,7 +1143,7 @@
         const s = t%60;
         return {d,h,m,s};
       }
-      function renderCountdowns(){
+      function render(){
         const e = calc(engagementDate);
         setText("eDays", e.d);
         setText("eHours", pad(e.h));
@@ -1275,91 +1156,89 @@
         setText("wMins", pad(w.m));
         setText("wSecs", pad(w.s));
       }
-      renderCountdowns();
+      render();
       window.__inviteTimer && clearInterval(window.__inviteTimer);
-      window.__inviteTimer = setInterval(renderCountdowns, 1000);
+      window.__inviteTimer = setInterval(render, 1000);
 
       // =========================
-      // ✅ 2) RSVP -> localStorage + WhatsApp
+      // ✅ 2) RSVP -> WhatsApp + Sheets
       // =========================
       const PHONE = "905456265491";
       const form = document.getElementById("rsvpForm");
-      const statusEl = document.getElementById("status");
+      const status = document.getElementById("status");
 
       function syncPills(){
-        document.querySelectorAll('#eventPills .pill').forEach(lbl=>{
-          const input = lbl.querySelector('input');
-          lbl.classList.toggle('is-on', !!input.checked);
+        document.querySelectorAll("#eventPills .pill").forEach(lbl=>{
+          const input = lbl.querySelector("input");
+          lbl.classList.toggle("is-on", !!input.checked);
         });
       }
-      function syncSeg(){
-        document.querySelectorAll('#attSeg label').forEach(lbl=>{
-          const input = lbl.querySelector('input');
-          lbl.classList.toggle('is-on', !!input.checked);
+      document.querySelectorAll('input[name="events"]').forEach(cb=>{
+        cb.addEventListener("change", syncPills);
+      });
+      syncPills();
+
+      function syncAttendance(){
+        document.querySelectorAll("#attendanceSeg label").forEach(lbl=>{
+          const input = lbl.querySelector("input");
+          lbl.classList.toggle("is-on", !!input.checked);
         });
       }
-      document.querySelectorAll('#eventPills input').forEach(i=> i.addEventListener('change', syncPills));
-      document.querySelectorAll('#attSeg input').forEach(i=> i.addEventListener('change', syncSeg));
-      syncPills(); syncSeg();
+      document.querySelectorAll('input[name="attendance"]').forEach(rb=>{
+        rb.addEventListener("change", syncAttendance);
+      });
+      syncAttendance();
 
-      function getSelectedEvents(){
-        return Array.from(form.querySelectorAll('[name="events"]:checked')).map(i => i.value);
-      }
-
-      function buildWhatsappMessage({events, name, phone, attendance, guests, note}){
-        const eventText = events.join(" + ");
-        return `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
-
-Etkinlik: ${eventText}
-Ad Soyad: ${name}
-Telefon: ${phone || "Belirtilmedi"}
-Katılım: ${attendance}
-Kişi Sayısı: ${guests || "Belirtilmedi"}
-Not: ${note || "Yok"}`;
-      }
-
-      form.addEventListener("submit", (e) => {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const name = form.querySelector('[name="name"]').value.trim();
         const phone = form.querySelector('[name="phone"]').value.trim();
-        const attendanceEl = form.querySelector('[name="attendance"]:checked');
+        const attendanceEl = form.querySelector('input[name="attendance"]:checked');
+        const attendance = attendanceEl ? attendanceEl.value : "";
         const guestsRaw = form.querySelector('[name="guests"]').value;
         const note = form.querySelector('[name="note"]').value.trim();
-        const selectedEvents = getSelectedEvents();
+        const guests = Number(guestsRaw || 0);
 
-        if(!name){
-          alert("Lütfen Ad Soyad alanını doldurun.");
+        const selectedEvents = [...form.querySelectorAll('input[name="events"]:checked')].map(x => x.value);
+
+        if(!name || !attendance){
+          alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
           return;
         }
         if(selectedEvents.length === 0){
-          alert("Lütfen en az bir etkinlik seçin (Nişan / Düğün).");
-          return;
-        }
-        if(!attendanceEl){
-          alert("Lütfen Katılım Durumunu seçin.");
+          alert("Lütfen Nişan veya Düğün seçin (isterseniz ikisini de seçebilirsiniz).");
           return;
         }
 
-        const attendance = attendanceEl.value;
-        const guests = Number(guestsRaw || 0);
+        // Sheets'e kaydet (arka planda)
+        try{
+          status.textContent = "Kaydediliyor…";
+          fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+              name,
+              phone,
+              attendance,
+              guests: isFinite(guests) ? guests : 0,
+              note,
+              events: selectedEvents
+            })
+          }).catch(()=>{});
+        }catch(_){}
 
-        // ✅ Kaydet
-        addRecord({
-          id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-          created_at: new Date().toISOString(),
-          events: selectedEvents,
-          name,
-          phone,
-          attendance,
-          guests,
-          note
-        });
+        // WhatsApp mesajı
+        const msg = `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
 
-        statusEl.textContent = "Kaydedildi. WhatsApp açılıyor…";
+Ad Soyad: ${name}
+Telefon: ${phone || "Belirtilmedi"}
+Etkinlik: ${selectedEvents.join(" + ")}
+Katılım: ${attendance}
+Kişi Sayısı: ${isFinite(guests) ? guests : "Belirtilmedi"}
+Not: ${note || "Yok"}`;
 
-        // ✅ WhatsApp yönlendir
-        const msg = buildWhatsappMessage({events:selectedEvents, name, phone, attendance, guests, note});
+        status.textContent = "WhatsApp açılıyor…";
         const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
         window.location.href = url;
       });
@@ -1367,7 +1246,6 @@ Not: ${note || "Yok"}`;
       // =========================
       // ✅ 3) HERO VIDEO: SEAMLESS LOOP
       // =========================
-      const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
       const stage = document.getElementById("videoStage");
       const vA = document.getElementById("heroVA");
       const vB = document.getElementById("heroVB");
@@ -1405,7 +1283,7 @@ Not: ${note || "Yok"}`;
         stage.classList.toggle("xfade", on);
       }
 
-      vA.currentTime = 0;
+      try { vA.currentTime = 0; } catch(_){}
       safePlay(vA);
 
       async function doSwap(){
@@ -1437,6 +1315,7 @@ Not: ${note || "Yok"}`;
         if(remain <= PRE_ROLL_SEC) doSwap();
       }
       setInterval(tick, TICK_MS);
+
       vA.addEventListener("loadedmetadata", () => safePlay(vA));
 
       // =========================
