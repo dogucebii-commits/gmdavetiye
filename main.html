@@ -1050,7 +1050,7 @@
 
         const tb = $("tbody");
         if(!filtered.length){
-          tb.innerHTML = `<tr><td colspan="7" class="muted">Kayıt yok.</td></tr>`;
+          tb.innerHTML = `<tr><td colspan="8" class="muted">Kayıt yok.</td></tr>`;
           return;
         }
 
@@ -1058,17 +1058,24 @@
           const dt = r.created_at ? new Date(r.created_at).toLocaleString("tr-TR") : "";
           const guests = Number(r.guests||0);
           const note = String(r.note||"").replaceAll("<","&lt;");
+return `
+  <tr>
+    <td>${dt}</td>
+    <td>${r.events || ""}</td>
+    <td>${r.attendance || ""}</td>
+    <td><b>${r.name || ""}</b></td>
+    <td>${r.phone || ""}</td>
+    <td>${isFinite(guests) ? guests : 0}</td>
+    <td class="muted">${note}</td>
+    <td style="min-width:160px;">
+      <div style="display:flex; gap:8px;">
+        <button class="admin-btn" data-act="edit" data-row="${r._row}">Düzenle</button>
+        <button class="admin-btn" data-act="del"  data-row="${r._row}">Sil</button>
+      </div>
+    </td>
+  </tr>
+`;
 
-          return `
-            <tr>
-              <td>${dt}</td>
-              <td>${r.events || ""}</td>
-              <td>${r.attendance || ""}</td>
-              <td><b>${r.name || ""}</b></td>
-              <td>${r.phone || ""}</td>
-              <td>${isFinite(guests) ? guests : 0}</td>
-              <td class="muted">${note}</td>
-            </tr>
           `;
         }).join("");
       }
@@ -1081,7 +1088,69 @@
         setAdminStatus("Hazır ✅");
       }
 
-      if (isAdmin) {
+      if (isAdmin) {// tablo butonları: düzenle / sil
+$("tbody").addEventListener("click", async (e) => {
+  const btn = e.target.closest("button[data-act]");
+  if(!btn) return;
+
+  const act = btn.dataset.act;
+  const row = Number(btn.dataset.row);
+  if(!isFinite(row) || row < 2) return;
+
+  // ilgili kaydı bul (row üzerinden)
+  const rec = ALL_ROWS.find(x => Number(x._row) === row);
+
+  if(act === "del"){
+    if(!confirm("Bu kaydı silmek istiyor musun?")) return;
+    try{
+      setAdminStatus("Siliniyor…");
+      await adminPost({ action:"delete", adminPass: ADMIN_PASS, row });
+      await refreshAdmin();
+      setAdminStatus("Silindi ✅");
+    }catch(err){
+      setAdminStatus("Silme hatası: " + (err.message || err));
+    }
+    return;
+  }
+
+  if(act === "edit"){
+    if(!rec){
+      alert("Kayıt bulunamadı. Yenile deyip tekrar deneyin.");
+      return;
+    }
+
+    // hızlı edit: prompt
+    const name = prompt("Ad Soyad:", rec.name || "");
+    if(name === null) return;
+
+    const phone = prompt("Telefon:", rec.phone || "");
+    if(phone === null) return;
+
+    const guestsStr = prompt("Kişi sayısı:", String(rec.guests ?? 0));
+    if(guestsStr === null) return;
+
+    const note = prompt("Not:", rec.note || "");
+    if(note === null) return;
+
+    // events / attendance da düzenlemek istersen buraya ekleriz
+    const patch = {
+      name: String(name).trim(),
+      phone: String(phone).trim(),
+      guests: Number(guestsStr || 0),
+      note: String(note).trim()
+    };
+
+    try{
+      setAdminStatus("Güncelleniyor…");
+      await adminPost({ action:"update", adminPass: ADMIN_PASS, row, patch });
+      await refreshAdmin();
+      setAdminStatus("Güncellendi ✅");
+    }catch(err){
+      setAdminStatus("Güncelleme hatası: " + (err.message || err));
+    }
+  }
+});
+
         $("openInvite").addEventListener("click", ()=>{ window.location.href = window.location.pathname; });
 
         ["q","event","attendanceF"].forEach(id=>{
