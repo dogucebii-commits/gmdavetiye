@@ -519,7 +519,7 @@
     .seg label.is-on{ background: rgba(39,49,38,.10); border-color: rgba(39,49,38,.26); }
     .hint{ text-align:center; color: rgba(39,49,38,.65); font-size:13px; margin: 6px 0 0; }
 
-    footer{padding: 28px 0 40px; color: var(--muted); text-align:center;}
+    footer{padding: 28px 0 40px; color: var(--muted); text-align:center}
 
     .music-fab{
       position: fixed;
@@ -602,14 +602,11 @@
       :root{ --maskSoft: 34%; --heroExtra: 150px; }
       .music-fab{ right: 10px; bottom: 10px; }
 
-      /* ✅ MOBİL DÜZELTME:
-         Aileler bölümü hero'nun altına düzgün insin (negatif margin KALKSIN) */
       #aileler{
         margin-top: 0 !important;
         padding-top: 44px !important;
       }
 
-      /* Kolonları alt alta alıyoruz (en stabil çözüm) */
       .families-grid{ flex-direction: column !important; gap: 12px; }
       .family-divider{
         width:100%;
@@ -619,11 +616,10 @@
       }
       .family-col{
         padding: 16px 12px;
-        overflow: visible !important; /* Başlık kesin kırpılmasın */
+        overflow: visible !important;
       }
       .families-card{ padding: 22px 14px; }
 
-      /* ✅ MOBİL: başlıklar net görünsün (clamp/ellipsis iptal) */
       .family-head{
         font-size: 22px !important;
         white-space: normal !important;
@@ -631,7 +627,6 @@
         text-overflow: unset !important;
         display: block !important;
         line-height: 1.2 !important;
-
         -webkit-line-clamp: unset !important;
         -webkit-box-orient: unset !important;
       }
@@ -715,13 +710,12 @@
 
         <div class="tableWrap">
           <table>
-           <thead>
-  <tr>
-    <th>Tarih</th><th>Etkinlik</th><th>Katılım</th><th>Ad</th><th>Telefon</th><th>Kişi</th><th>Not</th><th>İşlem</th>
-  </tr>
-</thead>
-<tbody id="tbody"><tr><td colspan="8" class="muted">Yükleniyor…</td></tr></tbody>
-
+            <thead>
+              <tr>
+                <th>Tarih</th><th>Etkinlik</th><th>Katılım</th><th>Ad</th><th>Telefon</th><th>Kişi</th><th>Not</th><th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"><tr><td colspan="8" class="muted">Yükleniyor…</td></tr></tbody>
           </table>
         </div>
 
@@ -738,7 +732,6 @@
 
     <header class="hero" id="top">
       <div class="hero-slideshow" aria-hidden="true">
-
         <div class="video-stage" id="videoStage">
           <video class="vA" id="heroVA" autoplay muted playsinline preload="auto">
             <source src="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4">
@@ -966,363 +959,364 @@
     <button id="musicToggle" class="btn music-fab" type="button">🔊 Müzik Açık</button>
   </div>
 
+  <!-- ===================== FIXED SCRIPT (Admin+Invite) ===================== -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // =========================
-      // ✅ BACKEND (Google Apps Script)
-      // =========================
-      const API_URL = "https://script.google.com/macros/s/AKfycbzs1yheEbNVeX147GstRm_JYARdq6J20ggCTJuoGZe_igfCY58kRwbD355bHnbFJZo/exec";
-      const ADMIN_PASSWORD_HINT = "560055Dh.61"; // sadece admin ekranında kolaylık için (opsiyonel)
+  document.addEventListener("DOMContentLoaded", () => {
+    // =========================
+    // ✅ BACKEND (Google Apps Script)
+    // =========================
+    const API_URL = "https://script.google.com/macros/s/AKfycbzs1yheEbNVeX147GstRm_JYARdq6J20ggCTJuoGZe_igfCY58kRwbD355bHnbFJZo/exec";
+    const ADMIN_PASSWORD_HINT = "560055Dh.61"; // opsiyonel
 
-      // =========================
-      // ✅ Admin mı? (aynı dosyada)
-      // =========================
-      const params = new URLSearchParams(window.location.search);
-      const isAdmin = params.get("admin") === "1";
+    // =========================
+    // ✅ Admin mı?
+    // =========================
+    const params = new URLSearchParams(window.location.search);
+    const isAdmin = params.get("admin") === "1";
 
-      const adminWrap = document.getElementById("adminWrap");
-      const inviteWrap = document.getElementById("inviteWrap");
+    const adminWrap = document.getElementById("adminWrap");
+    const inviteWrap = document.getElementById("inviteWrap");
 
-      if (isAdmin) {
-        adminWrap.classList.add("is-on");
-        inviteWrap.classList.add("is-off");
-      } else {
-        adminWrap.classList.remove("is-on");
-        inviteWrap.classList.remove("is-off");
+    if (isAdmin) {
+      adminWrap.classList.add("is-on");
+      inviteWrap.classList.add("is-off");
+    } else {
+      adminWrap.classList.remove("is-on");
+      inviteWrap.classList.remove("is-off");
+    }
+
+    // =========================
+    // ✅ Helpers
+    // =========================
+    const $ = (id)=>document.getElementById(id);
+    let ADMIN_PASS = "";
+    let ALL_ROWS = [];
+
+    async function fetchJSON(url){
+      const r = await fetch(url, { cache:"no-store" });
+      return await r.json();
+    }
+
+    async function adminPost(payloadObj){
+      const r = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payloadObj),
+        cache: "no-store",
+        keepalive: true
+      });
+      const js = await r.json();
+      if(!js.ok) throw new Error(js.error || "ADMIN_POST_ERROR");
+      return js;
+    }
+
+    function setAdminStatus(msg){
+      const el = $("adminLoginStatus");
+      if(el) el.textContent = msg;
+    }
+
+    async function loadSummary(){
+      const js = await fetchJSON(
+        API_URL + "?action=summary&onlyYes=1&adminPass=" + encodeURIComponent(ADMIN_PASS)
+      );
+      if(!js.ok) throw new Error(js.error || "SUMMARY_ERROR");
+      $("kpiNisan").textContent = js.summary.nisan;
+      $("kpiDugun").textContent = js.summary.dugun;
+    }
+
+    async function loadList(){
+      const js = await fetchJSON(API_URL + "?action=list&adminPass=" + encodeURIComponent(ADMIN_PASS));
+      if(!js.ok) throw new Error(js.error || "LIST_ERROR");
+      ALL_ROWS = js.rows || [];
+      $("totalCount").textContent = String(ALL_ROWS.length);
+      $("lastUpdate").textContent = "Güncellendi: " + new Date().toLocaleString("tr-TR");
+    }
+
+    function renderAdminTable(){
+      const q  = ($("q").value || "").trim().toLowerCase();
+      const ev = $("event").value;
+      const at = $("attendanceF").value;
+
+      const filtered = ALL_ROWS.filter(r=>{
+        if(ev && !String(r.events).includes(ev)) return false;
+        if(at && String(r.attendance) !== at) return false;
+        if(q){
+          const hay = (r.name+" "+r.phone+" "+r.note+" "+r.events).toLowerCase();
+          if(!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      const tb = $("tbody");
+      if(!filtered.length){
+        tb.innerHTML = `<tr><td colspan="8" class="muted">Kayıt yok.</td></tr>`;
+        return;
       }
 
-      // =========================
-      // ✅ Admin Panel JS
-      // =========================
-      const $ = (id)=>document.getElementById(id);
-      let ADMIN_PASS = "";
-      let ALL_ROWS = [];
+      tb.innerHTML = filtered.map(r=>{
+        const dt = r.created_at ? new Date(r.created_at).toLocaleString("tr-TR") : "";
+        const guests = Number(r.guests||0);
+        const note = String(r.note||"").replaceAll("<","&lt;");
 
-      async function fetchJSON(url){
-       async function adminPost(payloadObj){
-  const r = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payloadObj),
-    cache: "no-store",
-    keepalive: true
-  });
-  const js = await r.json();
-  if(!js.ok) throw new Error(js.error || "ADMIN_POST_ERROR");
-  return js;
-}
- const r = await fetch(url, { cache:"no-store" });
-        return await r.json();
-      }
-      function setAdminStatus(msg){ const el = $("adminLoginStatus"); if(el) el.textContent = msg; }
+        return `
+          <tr>
+            <td>${dt}</td>
+            <td>${r.events || ""}</td>
+            <td>${r.attendance || ""}</td>
+            <td><b>${r.name || ""}</b></td>
+            <td>${r.phone || ""}</td>
+            <td>${isFinite(guests) ? guests : 0}</td>
+            <td class="muted">${note}</td>
+            <td style="min-width:160px;">
+              <div style="display:flex; gap:8px;">
+                <button class="admin-btn" data-act="edit" data-row="${r._row}">Düzenle</button>
+                <button class="admin-btn" data-act="del"  data-row="${r._row}">Sil</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
 
-      async function loadSummary(){
-        const js = await fetchJSON(
-          API_URL + "?action=summary&onlyYes=1&adminPass=" + encodeURIComponent(ADMIN_PASS)
-        );
-        if(!js.ok) throw new Error(js.error || "SUMMARY_ERROR");
-        $("kpiNisan").textContent = js.summary.nisan;
-        $("kpiDugun").textContent = js.summary.dugun;
-      }
+    async function refreshAdmin(){
+      setAdminStatus("Yükleniyor…");
+      await loadSummary();
+      await loadList();
+      renderAdminTable();
+      setAdminStatus("Hazır ✅");
+    }
 
-      async function loadList(){
-        const js = await fetchJSON(API_URL + "?action=list&adminPass=" + encodeURIComponent(ADMIN_PASS));
-        if(!js.ok) throw new Error(js.error || "LIST_ERROR");
-        ALL_ROWS = js.rows || [];
-        $("totalCount").textContent = String(ALL_ROWS.length);
-        $("lastUpdate").textContent = "Güncellendi: " + new Date().toLocaleString("tr-TR");
-      }
+    // =========================
+    // ✅ ADMIN MODE
+    // =========================
+    if (isAdmin) {
+      $("tbody").addEventListener("click", async (e) => {
+        const btn = e.target.closest("button[data-act]");
+        if(!btn) return;
 
-      function renderAdminTable(){
-        const q = ($("q").value || "").trim().toLowerCase();
-        const ev = $("event").value;
-        const at = $("attendanceF").value;
+        const act = btn.dataset.act;
+        const row = Number(btn.dataset.row);
+        if(!isFinite(row) || row < 2) return;
 
-        const filtered = ALL_ROWS.filter(r=>{
-          if(ev && !String(r.events).includes(ev)) return false;
-          if(at && String(r.attendance) !== at) return false;
-          if(q){
-            const hay = (r.name+" "+r.phone+" "+r.note+" "+r.events).toLowerCase();
-            if(!hay.includes(q)) return false;
+        const rec = ALL_ROWS.find(x => Number(x._row) === row);
+
+        if(act === "del"){
+          if(!confirm("Bu kaydı silmek istiyor musun?")) return;
+          try{
+            setAdminStatus("Siliniyor…");
+            await adminPost({ action:"delete", adminPass: ADMIN_PASS, row });
+            await refreshAdmin();
+            setAdminStatus("Silindi ✅");
+          }catch(err){
+            setAdminStatus("Silme hatası: " + (err.message || err));
           }
-          return true;
-        });
-
-        const tb = $("tbody");
-        if(!filtered.length){
-          tb.innerHTML = `<tr><td colspan="8" class="muted">Kayıt yok.</td></tr>`;
           return;
         }
 
-        tb.innerHTML = filtered.map(r=>{
-          const dt = r.created_at ? new Date(r.created_at).toLocaleString("tr-TR") : "";
-          const guests = Number(r.guests||0);
-          const note = String(r.note||"").replaceAll("<","&lt;");
-return `
-  <tr>
-    <td>${dt}</td>
-    <td>${r.events || ""}</td>
-    <td>${r.attendance || ""}</td>
-    <td><b>${r.name || ""}</b></td>
-    <td>${r.phone || ""}</td>
-    <td>${isFinite(guests) ? guests : 0}</td>
-    <td class="muted">${note}</td>
-    <td style="min-width:160px;">
-      <div style="display:flex; gap:8px;">
-        <button class="admin-btn" data-act="edit" data-row="${r._row}">Düzenle</button>
-        <button class="admin-btn" data-act="del"  data-row="${r._row}">Sil</button>
-      </div>
-    </td>
-  </tr>
-`;
-
-          `;
-        }).join("");
-      }
-
-      async function refreshAdmin(){
-        setAdminStatus("Yükleniyor…");
-        await loadSummary();
-        await loadList();
-        renderAdminTable();
-        setAdminStatus("Hazır ✅");
-      }
-
-      if (isAdmin) {// tablo butonları: düzenle / sil
-$("tbody").addEventListener("click", async (e) => {
-  const btn = e.target.closest("button[data-act]");
-  if(!btn) return;
-
-  const act = btn.dataset.act;
-  const row = Number(btn.dataset.row);
-  if(!isFinite(row) || row < 2) return;
-
-  // ilgili kaydı bul (row üzerinden)
-  const rec = ALL_ROWS.find(x => Number(x._row) === row);
-
-  if(act === "del"){
-    if(!confirm("Bu kaydı silmek istiyor musun?")) return;
-    try{
-      setAdminStatus("Siliniyor…");
-      await adminPost({ action:"delete", adminPass: ADMIN_PASS, row });
-      await refreshAdmin();
-      setAdminStatus("Silindi ✅");
-    }catch(err){
-      setAdminStatus("Silme hatası: " + (err.message || err));
-    }
-    return;
-  }
-
-  if(act === "edit"){
-    if(!rec){
-      alert("Kayıt bulunamadı. Yenile deyip tekrar deneyin.");
-      return;
-    }
-
-    // hızlı edit: prompt
-    const name = prompt("Ad Soyad:", rec.name || "");
-    if(name === null) return;
-
-    const phone = prompt("Telefon:", rec.phone || "");
-    if(phone === null) return;
-
-    const guestsStr = prompt("Kişi sayısı:", String(rec.guests ?? 0));
-    if(guestsStr === null) return;
-
-    const note = prompt("Not:", rec.note || "");
-    if(note === null) return;
-
-    // events / attendance da düzenlemek istersen buraya ekleriz
-    const patch = {
-      name: String(name).trim(),
-      phone: String(phone).trim(),
-      guests: Number(guestsStr || 0),
-      note: String(note).trim()
-    };
-
-    try{
-      setAdminStatus("Güncelleniyor…");
-      await adminPost({ action:"update", adminPass: ADMIN_PASS, row, patch });
-      await refreshAdmin();
-      setAdminStatus("Güncellendi ✅");
-    }catch(err){
-      setAdminStatus("Güncelleme hatası: " + (err.message || err));
-    }
-  }
-});
-
-        $("openInvite").addEventListener("click", ()=>{ window.location.href = window.location.pathname; });
-
-        ["q","event","attendanceF"].forEach(id=>{
-          const el = $(id);
-          el.addEventListener("input", renderAdminTable);
-          el.addEventListener("change", renderAdminTable);
-        });
-
-        $("refresh").addEventListener("click", async ()=>{
-          try { await refreshAdmin(); } catch(e){ setAdminStatus("Hata: " + (e.message||e)); }
-        });
-
-        $("adminLoginBtn").addEventListener("click", async ()=>{
-          const user = ($("adminUser").value||"").trim();
-          const pass = ($("adminPass").value||"").trim();
-
-          if(user !== "admin"){
-            setAdminStatus("Kullanıcı: admin olmalı.");
-            return;
-          }
-          if(!pass){
-            setAdminStatus("Şifre gir.");
+        if(act === "edit"){
+          if(!rec){
+            alert("Kayıt bulunamadı. Yenile deyip tekrar deneyin.");
             return;
           }
 
-          ADMIN_PASS = pass;
+          const name = prompt("Ad Soyad:", rec.name || "");
+          if(name === null) return;
+
+          const phone = prompt("Telefon:", rec.phone || "");
+          if(phone === null) return;
+
+          const guestsStr = prompt("Kişi sayısı:", String(rec.guests ?? 0));
+          if(guestsStr === null) return;
+
+          const note = prompt("Not:", rec.note || "");
+          if(note === null) return;
+
+          const patch = {
+            name: String(name).trim(),
+            phone: String(phone).trim(),
+            guests: Number(guestsStr || 0),
+            note: String(note).trim()
+          };
 
           try{
+            setAdminStatus("Güncelleniyor…");
+            await adminPost({ action:"update", adminPass: ADMIN_PASS, row, patch });
             await refreshAdmin();
-            $("adminLocked").style.display = "none";
-            $("adminContent").style.display = "block";
+            setAdminStatus("Güncellendi ✅");
           }catch(err){
-            setAdminStatus("Şifre yanlış veya erişim yok. (Apps Script ADMIN_PASSWORD / Deploy ayarlarını kontrol et)");
-            $("adminLocked").style.display = "block";
-            $("adminContent").style.display = "none";
+            setAdminStatus("Güncelleme hatası: " + (err.message || err));
           }
-        });
-
-        // pratik: input'a çift tıklarsan şifreyi otomatik doldurur
-        $("adminPass").addEventListener("dblclick", ()=>{
-          if(!$("adminPass").value) $("adminPass").value = ADMIN_PASSWORD_HINT;
-        });
-
-        return; // admin sayfasındayken davetiye JS'lerini çalıştırma
-      }
-
-      // =========================
-      // ✅ Dosya adında boşluk olduğu için URL-encode edilmiş src kullanıyoruz
-      // =========================
-      const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
-
-      // =========================
-      // ✅ 1) GERİ SAYIMLAR
-      // =========================
-      const pad = (n)=>String(n).padStart(2,"0");
-      const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
-      const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
-
-      function setText(id, val){
-        const el = document.getElementById(id);
-        if(el) el.textContent = val;
-      }
-      function calc(target){
-        const now = new Date();
-        let diff = target.getTime() - now.getTime();
-        if(diff < 0) diff = 0;
-        const t = Math.floor(diff/1000);
-        const d = Math.floor(t/86400);
-        const h = Math.floor((t%86400)/3600);
-        const m = Math.floor((t%3600)/60);
-        const s = t%60;
-        return {d,h,m,s};
-      }
-      function render(){
-        const e = calc(engagementDate);
-        setText("eDays", e.d);
-        setText("eHours", pad(e.h));
-        setText("eMins", pad(e.m));
-        setText("eSecs", pad(e.s));
-
-        const w = calc(weddingDate);
-        setText("wDays", w.d);
-        setText("wHours", pad(w.h));
-        setText("wMins", pad(w.m));
-        setText("wSecs", pad(w.s));
-      }
-      render();
-      window.__inviteTimer && clearInterval(window.__inviteTimer);
-      window.__inviteTimer = setInterval(render, 1000);
-
-      // =========================
-      // ✅ 2) RSVP -> WhatsApp + Sheets (CORS/Preflight fix)
-      // =========================
-      const PHONE = "905456265491";
-      const form = document.getElementById("rsvpForm");
-      const status = document.getElementById("status");
-
-      function syncPills(){
-        document.querySelectorAll("#eventPills .pill").forEach(lbl=>{
-          const input = lbl.querySelector("input");
-          lbl.classList.toggle("is-on", !!input.checked);
-        });
-      }
-      document.querySelectorAll('input[name="events"]').forEach(cb=>{
-        cb.addEventListener("change", syncPills);
+        }
       });
-      syncPills();
 
-      function syncAttendance(){
-        document.querySelectorAll("#attendanceSeg label").forEach(lbl=>{
-          const input = lbl.querySelector("input");
-          lbl.classList.toggle("is-on", !!input.checked);
-        });
-      }
-      document.querySelectorAll('input[name="attendance"]').forEach(rb=>{
-        rb.addEventListener("change", syncAttendance);
+      $("openInvite").addEventListener("click", ()=>{ window.location.href = window.location.pathname; });
+
+      ["q","event","attendanceF"].forEach(id=>{
+        const el = $(id);
+        el.addEventListener("input", renderAdminTable);
+        el.addEventListener("change", renderAdminTable);
       });
-      syncAttendance();
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+      $("refresh").addEventListener("click", async ()=>{
+        try { await refreshAdmin(); }
+        catch(e){ setAdminStatus("Hata: " + (e.message||e)); }
+      });
 
-        const name = form.querySelector('[name="name"]').value.trim();
-        const phone = form.querySelector('[name="phone"]').value.trim();
-        const attendanceEl = form.querySelector('input[name="attendance"]:checked');
-        const attendance = attendanceEl ? attendanceEl.value : "";
-        const guestsRaw = form.querySelector('[name="guests"]').value;
-        const note = form.querySelector('[name="note"]').value.trim();
+      $("adminLoginBtn").addEventListener("click", async ()=>{
+        const user = ($("adminUser").value||"").trim();
+        const pass = ($("adminPass").value||"").trim();
 
-        let guests = Number(guestsRaw || 0);
-        if(!isFinite(guests) || guests < 0) guests = 0;
-
-        const selectedEvents = [...form.querySelectorAll('input[name="events"]:checked')].map(x => x.value);
-
-        if(!name || !attendance){
-          alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
+        if(user !== "admin"){
+          setAdminStatus("Kullanıcı: admin olmalı.");
           return;
         }
-        if(selectedEvents.length === 0){
-          alert("Lütfen Nişan veya Düğün seçin (isterseniz ikisini de seçebilirsiniz).");
+        if(!pass){
+          setAdminStatus("Şifre gir.");
           return;
         }
 
-        status.textContent = "Kaydediliyor…";
+        ADMIN_PASS = pass;
 
-        const payload = JSON.stringify({
-          name,
-          phone,
-          attendance,
-          guests,
-          note,
-          events: selectedEvents
-        });
-
-        let sent = false;
         try{
-          if (navigator.sendBeacon) {
-            const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
-            sent = navigator.sendBeacon(API_URL, blob);
-          }
-        }catch(_){}
-
-        if(!sent){
-          fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: payload,
-            keepalive: true
-          }).catch(()=>{});
+          await refreshAdmin();
+          $("adminLocked").style.display = "none";
+          $("adminContent").style.display = "block";
+        }catch(err){
+          setAdminStatus("Şifre yanlış veya erişim yok. (Apps Script ADMIN_PASSWORD / Deploy ayarlarını kontrol et)");
+          $("adminLocked").style.display = "block";
+          $("adminContent").style.display = "none";
         }
+      });
 
-        const msg = `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
+      $("adminPass").addEventListener("dblclick", ()=>{
+        if(!$("adminPass").value) $("adminPass").value = ADMIN_PASSWORD_HINT;
+      });
+
+      return; // admin sayfasındayken davetiye JS'lerini çalıştırma
+    }
+
+    // =========================
+    // ✅ INVITE MODE
+    // =========================
+    const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
+
+    // ✅ 1) GERİ SAYIMLAR
+    const pad = (n)=>String(n).padStart(2,"0");
+    const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
+    const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
+
+    function setText(id, val){
+      const el = document.getElementById(id);
+      if(el) el.textContent = val;
+    }
+    function calc(target){
+      const now = new Date();
+      let diff = target.getTime() - now.getTime();
+      if(diff < 0) diff = 0;
+      const t = Math.floor(diff/1000);
+      const d = Math.floor(t/86400);
+      const h = Math.floor((t%86400)/3600);
+      const m = Math.floor((t%3600)/60);
+      const s = t%60;
+      return {d,h,m,s};
+    }
+    function render(){
+      const e = calc(engagementDate);
+      setText("eDays", e.d);
+      setText("eHours", pad(e.h));
+      setText("eMins", pad(e.m));
+      setText("eSecs", pad(e.s));
+
+      const w = calc(weddingDate);
+      setText("wDays", w.d);
+      setText("wHours", pad(w.h));
+      setText("wMins", pad(w.m));
+      setText("wSecs", pad(w.s));
+    }
+    render();
+    window.__inviteTimer && clearInterval(window.__inviteTimer);
+    window.__inviteTimer = setInterval(render, 1000);
+
+    // ✅ 2) RSVP -> WhatsApp + Sheets
+    const PHONE = "905456265491";
+    const form = document.getElementById("rsvpForm");
+    const status = document.getElementById("status");
+
+    function syncPills(){
+      document.querySelectorAll("#eventPills .pill").forEach(lbl=>{
+        const input = lbl.querySelector("input");
+        lbl.classList.toggle("is-on", !!input.checked);
+      });
+    }
+    document.querySelectorAll('input[name="events"]').forEach(cb=>{
+      cb.addEventListener("change", syncPills);
+    });
+    syncPills();
+
+    function syncAttendance(){
+      document.querySelectorAll("#attendanceSeg label").forEach(lbl=>{
+        const input = lbl.querySelector("input");
+        lbl.classList.toggle("is-on", !!input.checked);
+      });
+    }
+    document.querySelectorAll('input[name="attendance"]').forEach(rb=>{
+      rb.addEventListener("change", syncAttendance);
+    });
+    syncAttendance();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = form.querySelector('[name="name"]').value.trim();
+      const phone = form.querySelector('[name="phone"]').value.trim();
+      const attendanceEl = form.querySelector('input[name="attendance"]:checked');
+      const attendance = attendanceEl ? attendanceEl.value : "";
+      const guestsRaw = form.querySelector('[name="guests"]').value;
+      const note = form.querySelector('[name="note"]').value.trim();
+
+      let guests = Number(guestsRaw || 0);
+      if(!isFinite(guests) || guests < 0) guests = 0;
+
+      const selectedEvents = [...form.querySelectorAll('input[name="events"]:checked')].map(x => x.value);
+
+      if(!name || !attendance){
+        alert("Lütfen Ad Soyad ve Katılım Durumunu doldurun.");
+        return;
+      }
+      if(selectedEvents.length === 0){
+        alert("Lütfen Nişan veya Düğün seçin (isterseniz ikisini de seçebilirsiniz).");
+        return;
+      }
+
+      status.textContent = "Kaydediliyor…";
+
+      const payload = JSON.stringify({
+        name,
+        phone,
+        attendance,
+        guests,
+        note,
+        events: selectedEvents
+      });
+
+      let sent = false;
+      try{
+        if (navigator.sendBeacon) {
+          const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+          sent = navigator.sendBeacon(API_URL, blob);
+        }
+      }catch(_){}
+
+      if(!sent){
+        fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: payload,
+          keepalive: true
+        }).catch(()=>{});
+      }
+
+      const msg = `DÜĞÜN DAVETİYESİ KATILIM BİLDİRİMİ
 
 Ad Soyad: ${name}
 Telefon: ${phone || "Belirtilmedi"}
@@ -1331,157 +1325,149 @@ Katılım: ${attendance}
 Kişi Sayısı: ${isFinite(guests) ? guests : "Belirtilmedi"}
 Not: ${note || "Yok"}`;
 
-        status.textContent = "WhatsApp açılıyor…";
-        const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
-        window.location.href = url;
-      });
-
-      // =========================
-      // ✅ 3) HERO VIDEO: SEAMLESS LOOP
-      // =========================
-      const stage = document.getElementById("videoStage");
-      const vA = document.getElementById("heroVA");
-      const vB = document.getElementById("heroVB");
-
-      const CROSSFADE_MS = 1200;
-      const PRE_ROLL_SEC = 1.4;
-      const TICK_MS = 70;
-
-      function setVideoSource(videoEl, src){
-        const source = videoEl.querySelector("source");
-        source.src = src;
-        videoEl.load();
-      }
-      setVideoSource(vA, VIDEO_SRC);
-      setVideoSource(vB, VIDEO_SRC);
-
-      [vA, vB].forEach(v => {
-        v.muted = true;
-        v.playsInline = true;
-        v.preload = "auto";
-        v.loop = false;
-      });
-
-      let showingB = false;
-      let busy = false;
-
-      async function safePlay(v){
-        try { await v.play(); } catch(_) {}
-      }
-
-      function active(){ return showingB ? vB : vA; }
-      function standby(){ return showingB ? vA : vB; }
-
-      function setXfade(on){
-        stage.classList.toggle("xfade", on);
-      }
-
-      try { vA.currentTime = 0; } catch(_){}
-      safePlay(vA);
-
-      async function doSwap(){
-        if(busy) return;
-        busy = true;
-
-        const a = active();
-        const s = standby();
-
-        try { s.currentTime = 0; } catch(_){}
-        await safePlay(s);
-
-        setXfade(true);
-        showingB = !showingB;
-        stage.classList.toggle("isB", showingB);
-
-        setTimeout(() => {
-          try { a.pause(); } catch(_) {}
-          setXfade(false);
-          busy = false;
-        }, CROSSFADE_MS + 60);
-      }
-
-      function tick(){
-        if(busy) return;
-        const a = active();
-        if(!isFinite(a.duration) || a.duration <= 0) return;
-        const remain = a.duration - a.currentTime;
-        if(remain <= PRE_ROLL_SEC) doSwap();
-      }
-      setInterval(tick, TICK_MS);
-
-      vA.addEventListener("loadedmetadata", () => safePlay(vA));
-
-      // =========================
-      // ✅ 4) MÜZİK
-      // =========================
-      const music = document.getElementById("bgMusic");
-      const toggle = document.getElementById("musicToggle");
-      music.volume = 0.35;
-
-      function setBtn(on){
-        toggle.textContent = on ? "🔊 Müzik Açık" : "🔇 Müzik Kapalı";
-      }
-      async function playMusic(){
-        try{ await music.play(); setBtn(true); }
-        catch(_){ setBtn(false); }
-      }
-      function stopMusic(){ music.pause(); setBtn(false); }
-
-      playMusic();
-      toggle.addEventListener("click", async () => {
-        if(music.paused) await playMusic();
-        else stopMusic();
-      });
-
-      // =========================
-      // ✅ 5) SAATE GÖRE MOOD
-      // =========================
-      function applyTimeMood(){
-        const h = new Date().getHours();
-        let night = 0.28, moon = 0.22, stars = 0.70;
-
-        if(h >= 21 || h <= 5){
-          night = 0.55; moon = 0.55; stars = 0.90;
-        } else if(h >= 18 && h <= 20){
-          night = 0.42; moon = 0.45; stars = 0.85;
-        } else if(h >= 6 && h <= 9){
-          night = 0.30; moon = 0.25; stars = 0.75;
-        } else {
-          night = 0.26; moon = 0.20; stars = 0.72;
-        }
-
-        document.documentElement.style.setProperty("--nightOpacity", String(night));
-        document.documentElement.style.setProperty("--moonGlow", String(moon));
-        document.documentElement.style.setProperty("--starOpacity", String(stars));
-      }
-      applyTimeMood();
-      setInterval(applyTimeMood, 120000);
-
-      // =========================
-      // ✅ 6) Aşağı indikçe yıldızlar yavaşlasın
-      // =========================
-      const slowTargets = ["#countdown-dugun", "#dugun-konum", "#rsvp"]
-        .map(sel => document.querySelector(sel))
-        .filter(Boolean);
-
-      let slowOn = false;
-      function setStarSpeed(isSlow){
-        document.documentElement.style.setProperty("--starSpeed", isSlow ? "1.6" : "1");
-      }
-
-      if("IntersectionObserver" in window && slowTargets.length){
-        const io = new IntersectionObserver((entries)=>{
-          const any = entries.some(e => e.isIntersecting);
-          if(any !== slowOn){
-            slowOn = any;
-            setStarSpeed(slowOn);
-          }
-        }, { threshold: 0.12 });
-        slowTargets.forEach(el => io.observe(el));
-      } else {
-        setStarSpeed(false);
-      }
+      status.textContent = "WhatsApp açılıyor…";
+      const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+      window.location.href = url;
     });
+
+    // ✅ 3) HERO VIDEO: SEAMLESS LOOP
+    const stage = document.getElementById("videoStage");
+    const vA = document.getElementById("heroVA");
+    const vB = document.getElementById("heroVB");
+
+    const CROSSFADE_MS = 1200;
+    const PRE_ROLL_SEC = 1.4;
+    const TICK_MS = 70;
+
+    function setVideoSource(videoEl, src){
+      const source = videoEl.querySelector("source");
+      source.src = src;
+      videoEl.load();
+    }
+    setVideoSource(vA, VIDEO_SRC);
+    setVideoSource(vB, VIDEO_SRC);
+
+    [vA, vB].forEach(v => {
+      v.muted = true;
+      v.playsInline = true;
+      v.preload = "auto";
+      v.loop = false;
+    });
+
+    let showingB = false;
+    let busy = false;
+
+    async function safePlay(v){
+      try { await v.play(); } catch(_) {}
+    }
+
+    function active(){ return showingB ? vB : vA; }
+    function standby(){ return showingB ? vA : vB; }
+
+    function setXfade(on){
+      stage.classList.toggle("xfade", on);
+    }
+
+    try { vA.currentTime = 0; } catch(_){}
+    safePlay(vA);
+
+    async function doSwap(){
+      if(busy) return;
+      busy = true;
+
+      const a = active();
+      const s = standby();
+
+      try { s.currentTime = 0; } catch(_){}
+      await safePlay(s);
+
+      setXfade(true);
+      showingB = !showingB;
+      stage.classList.toggle("isB", showingB);
+
+      setTimeout(() => {
+        try { a.pause(); } catch(_) {}
+        setXfade(false);
+        busy = false;
+      }, CROSSFADE_MS + 60);
+    }
+
+    function tick(){
+      if(busy) return;
+      const a = active();
+      if(!isFinite(a.duration) || a.duration <= 0) return;
+      const remain = a.duration - a.currentTime;
+      if(remain <= PRE_ROLL_SEC) doSwap();
+    }
+    setInterval(tick, TICK_MS);
+    vA.addEventListener("loadedmetadata", () => safePlay(vA));
+
+    // ✅ 4) MÜZİK
+    const music = document.getElementById("bgMusic");
+    const toggle = document.getElementById("musicToggle");
+    music.volume = 0.35;
+
+    function setBtn(on){
+      toggle.textContent = on ? "🔊 Müzik Açık" : "🔇 Müzik Kapalı";
+    }
+    async function playMusic(){
+      try{ await music.play(); setBtn(true); }
+      catch(_){ setBtn(false); }
+    }
+    function stopMusic(){ music.pause(); setBtn(false); }
+
+    playMusic();
+    toggle.addEventListener("click", async () => {
+      if(music.paused) await playMusic();
+      else stopMusic();
+    });
+
+    // ✅ 5) SAATE GÖRE MOOD
+    function applyTimeMood(){
+      const h = new Date().getHours();
+      let night = 0.28, moon = 0.22, stars = 0.70;
+
+      if(h >= 21 || h <= 5){
+        night = 0.55; moon = 0.55; stars = 0.90;
+      } else if(h >= 18 && h <= 20){
+        night = 0.42; moon = 0.45; stars = 0.85;
+      } else if(h >= 6 && h <= 9){
+        night = 0.30; moon = 0.25; stars = 0.75;
+      } else {
+        night = 0.26; moon = 0.20; stars = 0.72;
+      }
+
+      document.documentElement.style.setProperty("--nightOpacity", String(night));
+      document.documentElement.style.setProperty("--moonGlow", String(moon));
+      document.documentElement.style.setProperty("--starOpacity", String(stars));
+    }
+    applyTimeMood();
+    setInterval(applyTimeMood, 120000);
+
+    // ✅ 6) Aşağı indikçe yıldızlar yavaşlasın
+    const slowTargets = ["#countdown-dugun", "#dugun-konum", "#rsvp"]
+      .map(sel => document.querySelector(sel))
+      .filter(Boolean);
+
+    let slowOn = false;
+    function setStarSpeed(isSlow){
+      document.documentElement.style.setProperty("--starSpeed", isSlow ? "1.6" : "1");
+    }
+
+    if("IntersectionObserver" in window && slowTargets.length){
+      const io = new IntersectionObserver((entries)=>{
+        const any = entries.some(e => e.isIntersecting);
+        if(any !== slowOn){
+          slowOn = any;
+          setStarSpeed(slowOn);
+        }
+      }, { threshold: 0.12 });
+      slowTargets.forEach(el => io.observe(el));
+    } else {
+      setStarSpeed(false);
+    }
+  });
   </script>
+
 </body>
 </html>
