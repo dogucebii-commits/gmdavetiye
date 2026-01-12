@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Video adı boşluk içerdiği için URL-ENCODE -->
   <link rel="preload" as="video" href="WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4" type="video/mp4" fetchpriority="high">
 
   <style>
@@ -49,7 +48,6 @@
     .script{font-family:"Great Vibes", cursive;}
     .serif{font-family:"Playfair Display", serif;}
 
-    /* ====== HERO ====== */
     .hero{
       min-height: 88vh;
       position: relative;
@@ -71,7 +69,6 @@
       overflow:hidden;
       transform: translateZ(0);
 
-      /* Keskin alt çizgi yok */
       -webkit-mask-image: linear-gradient(to bottom,
         rgba(0,0,0,1) 0%,
         rgba(0,0,0,1) calc(100% - var(--maskSoft)),
@@ -263,7 +260,6 @@
     .divider{display:flex; align-items:center; justify-content:center; gap:10px; margin: 22px 0 18px; color: rgba(255,255,255,.92);}
     .divider:before,.divider:after{content:""; height:1px; width:84px; background: rgba(255,255,255,.55);}
 
-    /* ====== SECTIONS ====== */
     section{padding: 44px 0}
     .section-title{font-size: 44px; margin: 0 0 10px; font-weight: 400; color: #2f3a2e;}
     .section-sub{margin:0; color: var(--muted); font-size: 17px; line-height: 1.6;}
@@ -283,7 +279,6 @@
       padding: 26px 18px;
     }
 
-    /* ====== AİLELER ====== */
     #aileler{
       position: relative;
       margin-top: calc(-1 * (var(--heroExtra) + 30px));
@@ -320,7 +315,6 @@
       overflow:hidden;
     }
 
-    /* Masaüstünde tek satır, taşarsa ellipsis */
     .family-head{
       text-align:center;
       font-size: 24px;
@@ -410,7 +404,6 @@
       50%{ transform: translate3d(10px,-6px,0); opacity:.8; }
     }
 
-    /* ====== KONUM KARTLARI ====== */
     .big-icon{
       width: 76px; height: 76px; border-radius: 999px;
       background: rgba(91,96,78,.18);
@@ -424,7 +417,6 @@
     .map{border-radius: 16px; overflow:hidden; border: 1px solid var(--line); height: 220px;}
     .map iframe{width:100%; height:100%; border:0}
 
-    /* ====== FORM ====== */
     form{display:grid; gap:12px; margin-top:16px; max-width:720px; margin-left:auto; margin-right:auto;}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
     input, textarea, select{
@@ -450,7 +442,6 @@
     }
     .btn:hover{background: rgba(91,96,78,.10); transform: translateY(-1px);}
 
-    /* RSVP daha şık */
     .rsvp-card{
       padding: 22px 18px;
       background:
@@ -530,7 +521,6 @@
       backdrop-filter: blur(6px);
     }
 
-    /* ====== ADMIN ====== */
     .admin-wrap{
       max-width: 1100px;
       margin: 0 auto;
@@ -653,7 +643,7 @@
 
 <body>
 
-  <!-- ===================== ADMIN (aynı dosyada) ===================== -->
+  <!-- ===================== ADMIN ===================== -->
   <div class="admin-wrap" id="adminWrap">
     <div class="admin-card">
       <h1 class="admin-title">RSVP Admin</h1>
@@ -666,7 +656,7 @@
           <div class="rsvp-mini">ADMIN GİRİŞ</div>
           <input id="adminUser" placeholder="Kullanıcı" value="admin" />
           <input id="adminPass" placeholder="Şifre" type="password" />
-          <button class="admin-btn" id="adminLoginBtn">Giriş Yap</button>
+          <button class="admin-btn" id="adminLoginBtn" type="button">Giriş Yap</button>
           <div class="small" id="adminLoginStatus"></div>
           <div class="small muted" style="text-align:center;">
             Admin’e girmek için link: <b>?admin=1</b>
@@ -701,8 +691,8 @@
               </div>
 
               <div class="frow" style="grid-template-columns: 1fr 1fr;">
-                <button class="admin-btn" id="refresh">Yenile</button>
-                <button class="admin-btn" id="openInvite">Davetiye Sayfasına Dön</button>
+                <button class="admin-btn" id="refresh" type="button">Yenile</button>
+                <button class="admin-btn" id="openInvite" type="button">Davetiye Sayfasına Dön</button>
               </div>
             </div>
           </div>
@@ -962,15 +952,9 @@
   <!-- ===================== FIXED SCRIPT (Admin+Invite) ===================== -->
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // =========================
-    // ✅ BACKEND (Google Apps Script)
-    // =========================
     const API_URL = "https://script.google.com/macros/s/AKfycbzs1yheEbNVeX147GstRm_JYARdq6J20ggCTJuoGZe_igfCY58kRwbD355bHnbFJZo/exec";
-    const ADMIN_PASSWORD_HINT = "560055Dh.61"; // opsiyonel
+    const ADMIN_PASSWORD_HINT = "560055Dh.61";
 
-    // =========================
-    // ✅ Admin mı?
-    // =========================
     const params = new URLSearchParams(window.location.search);
     const isAdmin = params.get("admin") === "1";
 
@@ -985,9 +969,6 @@
       inviteWrap.classList.remove("is-off");
     }
 
-    // =========================
-    // ✅ Helpers
-    // =========================
     const $ = (id)=>document.getElementById(id);
     let ADMIN_PASS = "";
     let ALL_ROWS = [];
@@ -1032,6 +1013,12 @@
       $("lastUpdate").textContent = "Güncellendi: " + new Date().toLocaleString("tr-TR");
     }
 
+    function getSheetRow(r){
+      // ✅ kritik fix: API bazı deploylarda _row değil row döndürebilir
+      const v = (r && (r._row ?? r.row));
+      return (v === 0 || v) ? v : "";
+    }
+
     function renderAdminTable(){
       const q  = ($("q").value || "").trim().toLowerCase();
       const ev = $("event").value;
@@ -1057,6 +1044,7 @@
         const dt = r.created_at ? new Date(r.created_at).toLocaleString("tr-TR") : "";
         const guests = Number(r.guests||0);
         const note = String(r.note||"").replaceAll("<","&lt;");
+        const sheetRow = getSheetRow(r);
 
         return `
           <tr>
@@ -1069,8 +1057,8 @@
             <td class="muted">${note}</td>
             <td style="min-width:160px;">
               <div style="display:flex; gap:8px;">
-                <button class="admin-btn" data-act="edit" data-row="${r._row}">Düzenle</button>
-                <button class="admin-btn" data-act="del"  data-row="${r._row}">Sil</button>
+                <button type="button" class="admin-btn" data-act="edit" data-row="${sheetRow}">Düzenle</button>
+                <button type="button" class="admin-btn" data-act="del"  data-row="${sheetRow}">Sil</button>
               </div>
             </td>
           </tr>
@@ -1086,9 +1074,6 @@
       setAdminStatus("Hazır ✅");
     }
 
-    // =========================
-    // ✅ ADMIN MODE
-    // =========================
     if (isAdmin) {
       $("tbody").addEventListener("click", async (e) => {
         const btn = e.target.closest("button[data-act]");
@@ -1096,9 +1081,13 @@
 
         const act = btn.dataset.act;
         const row = Number(btn.dataset.row);
-        if(!isFinite(row) || row < 2) return;
 
-        const rec = ALL_ROWS.find(x => Number(x._row) === row);
+        if(!isFinite(row) || row < 2) {
+          alert("Row bilgisi gelmedi. Apps Script GET çıktısında _row veya row olmalı.");
+          return;
+        }
+
+        const rec = ALL_ROWS.find(x => Number((x._row ?? x.row)) === row);
 
         if(act === "del"){
           if(!confirm("Bu kaydı silmek istiyor musun?")) return;
@@ -1192,7 +1181,7 @@
         if(!$("adminPass").value) $("adminPass").value = ADMIN_PASSWORD_HINT;
       });
 
-      return; // admin sayfasındayken davetiye JS'lerini çalıştırma
+      return;
     }
 
     // =========================
@@ -1200,10 +1189,9 @@
     // =========================
     const VIDEO_SRC = "WhatsApp%20Video%202026-01-11%20at%2015.35.36.mp4";
 
-    // ✅ 1) GERİ SAYIMLAR
     const pad = (n)=>String(n).padStart(2,"0");
-    const engagementDate = new Date(2026, 2, 25, 19, 0, 0); // 25 Mart 2026 19:00
-    const weddingDate    = new Date(2026, 5, 24, 20, 0, 0); // 24 Haziran 2026 20:00
+    const engagementDate = new Date(2026, 2, 25, 19, 0, 0);
+    const weddingDate    = new Date(2026, 5, 24, 20, 0, 0);
 
     function setText(id, val){
       const el = document.getElementById(id);
@@ -1237,7 +1225,6 @@
     window.__inviteTimer && clearInterval(window.__inviteTimer);
     window.__inviteTimer = setInterval(render, 1000);
 
-    // ✅ 2) RSVP -> WhatsApp + Sheets
     const PHONE = "905456265491";
     const form = document.getElementById("rsvpForm");
     const status = document.getElementById("status");
@@ -1330,7 +1317,6 @@ Not: ${note || "Yok"}`;
       window.location.href = url;
     });
 
-    // ✅ 3) HERO VIDEO: SEAMLESS LOOP
     const stage = document.getElementById("videoStage");
     const vA = document.getElementById("heroVA");
     const vB = document.getElementById("heroVB");
@@ -1402,7 +1388,6 @@ Not: ${note || "Yok"}`;
     setInterval(tick, TICK_MS);
     vA.addEventListener("loadedmetadata", () => safePlay(vA));
 
-    // ✅ 4) MÜZİK
     const music = document.getElementById("bgMusic");
     const toggle = document.getElementById("musicToggle");
     music.volume = 0.35;
@@ -1422,7 +1407,6 @@ Not: ${note || "Yok"}`;
       else stopMusic();
     });
 
-    // ✅ 5) SAATE GÖRE MOOD
     function applyTimeMood(){
       const h = new Date().getHours();
       let night = 0.28, moon = 0.22, stars = 0.70;
@@ -1444,7 +1428,6 @@ Not: ${note || "Yok"}`;
     applyTimeMood();
     setInterval(applyTimeMood, 120000);
 
-    // ✅ 6) Aşağı indikçe yıldızlar yavaşlasın
     const slowTargets = ["#countdown-dugun", "#dugun-konum", "#rsvp"]
       .map(sel => document.querySelector(sel))
       .filter(Boolean);
