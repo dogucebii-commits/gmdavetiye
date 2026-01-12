@@ -933,7 +933,8 @@
           </div>
 
           <div class="row">
-            <input name="guests" type="number" min="0" max="20" placeholder="Kişi sayısı (opsiyonel)" />
+            <!-- ✅ DEĞİŞTİ: kişi sayısı artık ZORUNLU + min 1 -->
+            <input name="guests" type="number" required min="1" max="20" placeholder="Kişi sayısı" />
             <input name="dummy" placeholder=" " style="opacity:0; pointer-events:none;" aria-hidden="true"/>
           </div>
 
@@ -1276,11 +1277,12 @@
         const phone = form.querySelector('[name="phone"]').value.trim();
         const attendanceEl = form.querySelector('input[name="attendance"]:checked');
         const attendance = attendanceEl ? attendanceEl.value : "";
+
+        // ✅ DEĞİŞTİ: kişi sayısı artık zorunlu, 1+ olmalı
         const guestsRaw = form.querySelector('[name="guests"]').value;
         const note = form.querySelector('[name="note"]').value.trim();
 
-        let guests = Number(guestsRaw || 0);
-        if(!isFinite(guests) || guests < 0) guests = 0;
+        let guests = Number(guestsRaw);
 
         const selectedEvents = [...form.querySelectorAll('input[name="events"]:checked')].map(x => x.value);
 
@@ -1290,6 +1292,11 @@
         }
         if(selectedEvents.length === 0){
           alert("Lütfen Nişan veya Düğün seçin (isterseniz ikisini de seçebilirsiniz).");
+          return;
+        }
+
+        if(!isFinite(guests) || guests < 1){
+          alert("Lütfen kişi sayısını seçin (en az 1).");
           return;
         }
 
@@ -1327,7 +1334,7 @@ Ad Soyad: ${name}
 Telefon: ${phone || "Belirtilmedi"}
 Etkinlik: ${selectedEvents.join(" + ")}
 Katılım: ${attendance}
-Kişi Sayısı: ${isFinite(guests) ? guests : "Belirtilmedi"}
+Kişi Sayısı: ${guests}
 Not: ${note || "Yok"}`;
 
         status.textContent = "WhatsApp açılıyor…";
